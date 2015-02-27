@@ -1,2 +1,2 @@
 # boost.dispatch
-Tag dispatching abstarction library for C++ - To be proposed as a Boost library
+Tag dispatching abstraction library for C++ - To be proposed as a Boost library
