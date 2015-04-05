@@ -6,6 +6,7 @@
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##==================================================================================================
 include(compilers)
+include(add_target_parent)
 
 ##==================================================================================================
 ## Process a list of source files to generate corresponding coverage target
@@ -21,10 +22,25 @@ function(make_coverage root)
 
       add_executable(${test} ${file})
 
-      set_property(TARGET ${test} PROPERTY COMPILE_FLAGS  ${CMAKE_CXX_FLAGS_COVERAGE}       )
-      set_property(TARGET ${test} PROPERTY LINK_FLAGS     ${CMAKE_EXE_LINKER_FLAGS_COVERAGE})
+      set_property( TARGET ${test}
+                    PROPERTY COMPILE_FLAGS  ${CMAKE_CXX_FLAGS_COVERAGE}
+                  )
 
-      add_test(${test} ${test})
+      set_property( TARGET ${test}
+                    PROPERTY LINK_FLAGS ${CMAKE_EXE_LINKER_FLAGS_COVERAGE}
+                  )
+
+      set_property( TARGET ${test}
+                    PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/test"
+                  )
+
+      add_target_parent(${test})
+
+      add_test( NAME ${test}
+                WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test"
+                COMMAND $<TARGET_FILE:${test}>
+              )
+
       add_dependencies(coverage ${test})
 
     endforeach()

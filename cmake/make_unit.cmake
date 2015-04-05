@@ -6,6 +6,7 @@
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##==================================================================================================
 include(compilers)
+include(add_target_parent)
 
 ##===================================================================================================
 ## Process a list of source files to generate corresponding test target
@@ -18,7 +19,16 @@ function(make_unit root)
     set(test "${root}.${base}")
 
     add_executable(${test} ${file})
-    add_test(${test} ${test})
+    set_property( TARGET ${test}
+                  PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/test"
+                )
+
+    add_test( NAME ${test}
+              WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test"
+              COMMAND $<TARGET_FILE:${test}>
+            )
+
+    add_target_parent(${test})
 
     add_dependencies(unit ${test})
 

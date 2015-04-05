@@ -40,9 +40,18 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E copy
 include(parse_revision)
 
 ##===================================================================================================
+## Add dependency to NSTest
+##===================================================================================================
+include(register_dependency)
+register_dependency( NSTest https://github.com/NumScale/nstest.git )
+
+##===================================================================================================
 ## Add include directories
 ##===================================================================================================
-include_directories(${PROJECT_SOURCE_DIR}/include ${Boost_INCLUDE_DIRS})
+include_directories ( ${PROJECT_SOURCE_DIR}/include
+                      ${Boost_INCLUDE_DIRS}
+                      ${dep_path}/include
+                    )
 
 ##===================================================================================================
 ## Setup Documentation
@@ -53,8 +62,8 @@ add_subdirectory(doc)
 ## Setup Unit & Coverage Test
 ##===================================================================================================
 enable_testing()
-#include(coverage)
-#setup_target_for_coverage(nstest)
+include(coverage)
+setup_target_for_coverage(boost.dispatch)
 
-#add_custom_target(unit)
-#add_subdirectory(test)
+add_custom_target(unit)
+add_subdirectory(test)
