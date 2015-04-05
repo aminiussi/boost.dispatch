@@ -14,7 +14,7 @@ if git diff --cached | grep -E '^\+.*'$'\t' > /dev/null
 then
 cat<<END;
 error: tabulations were found in staged changes, which is against
-Boost.SIMD coding standards.
+Boost.Dispatch coding standards.
 
 If you *really* know what you are doing, you can force this commit
 with 'git commit --no-verify'
@@ -34,7 +34,7 @@ if git diff --cached | grep -E '^\+.* +$' > /dev/null
 then
 cat<<END;
 error: spaces at end of lines were found in staged changes, which is against
-Boost.SIMD coding standards.
+Boost.Dispatch coding standards.
 
 If you *really* know what you are doing, you can force this commit
 with 'git commit --no-verify'
@@ -54,7 +54,7 @@ if git diff --cached | grep -E '^\+.*'$'\r' > /dev/null
 then
 cat<<END;
 error: carriage returns were found in staged changes, which is against
-Boost.SIMD coding standards.
+Boost.Dispatch coding standards.
 
 If you *really* know what you are doing, you can force this commit
 with 'git commit --no-verify'
@@ -77,7 +77,7 @@ if [ "$no_newline" != "" ]
 then
 cat<<END;
 error: no newline at end of file, which is against
-Boost.SIMD coding standards.
+Boost.Dispatch coding standards.
 
 If you *really* know what you are doing, you can force this commit
 with 'git commit --no-verify'
@@ -95,7 +95,7 @@ if git diff --cached | grep -E $'^\+.*[^\x01-\xBF\xC2-\xF4]' > /dev/null
 then
 cat<<END;
 error: non-UTF-8 characters were found in staged changes, which is against
-Boost.SIMD coding standards.
+Boost.Dispatch coding standards.
 
 If you *really* know what you are doing, you can force this commit
 with 'git commit --no-verify'
@@ -118,7 +118,7 @@ if [ "$no_utf8" != "" ]
 then
 cat<<END;
 error: UTF-8 BOM found in a file, which is against
-Boost.SIMD coding standards.
+Boost.Dispatch coding standards.
 
 If you *really* know what you are doing, you can force this commit
 with 'git commit --no-verify'
