@@ -26,7 +26,7 @@ RECURSIVE               = YES
 
 #EXCLUDE                = @Boost.Dispatch_SOURCE_DIR@/???
 
-EXAMPLE_PATH            = @Boost.Dispatch_SOURCE_DIR@/examples
+EXAMPLE_PATH            = @Boost.Dispatch_SOURCE_DIR@/example
 #EXAMPLE_PATH           += @Boost.Dispatch_SOURCE_DIR@/test/unit
 EXAMPLE_PATH           += @Boost.Dispatch_SOURCE_DIR@/doc/
 EXAMPLE_RECURSIVE       = YES
