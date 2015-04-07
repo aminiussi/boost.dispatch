@@ -41,6 +41,11 @@ function(make_coverage root)
                 COMMAND $<TARGET_FILE:${test}>
               )
 
+      set_target_properties ( ${test} PROPERTIES
+                              EXCLUDE_FROM_DEFAULT_BUILD TRUE
+                              EXCLUDE_FROM_ALL TRUE
+                            )
+
       add_dependencies(coverage ${test})
 
     endforeach()

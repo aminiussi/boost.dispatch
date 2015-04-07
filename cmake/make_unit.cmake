@@ -28,6 +28,11 @@ function(make_unit root)
               COMMAND $<TARGET_FILE:${test}>
             )
 
+    set_target_properties ( ${test} PROPERTIES
+                            EXCLUDE_FROM_DEFAULT_BUILD TRUE
+                            EXCLUDE_FROM_ALL TRUE
+                          )
+
     add_target_parent(${test})
 
     add_dependencies(unit ${test})
