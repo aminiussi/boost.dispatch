@@ -8,26 +8,9 @@ Main Page {#mainpage}
 ----------------------------------------------------------------------------------------------------
 Boost.Dispatch is a Boost candidate library that aims at providing an idiomatic way to use tag
 dispatching in a way functions can be extended or specialized, with each specialization being able
-to be generic with the minimal amount of work required. With transparent tag dispatching, it
+to be generic with the minimal amount of work required. With tag dispatching, it
 becomes then possible to select the best specialization for the arguments provided, avoiding
 the limitations inherent to unconstrained template function overloads.
-
-@section main-howto How to use this documentation
-
-----------------------------------------------------------------------------------------------------
-The structure of the reference (available in the menu to the left) goes as
-follow:
-
-  - @ref group-concept\n
-    Concepts defined and used throughout Boost.Dispatch.
-
-  - @ref group-meta\n
-    Those functions, classes and macros are components related to the meta-programming required
-    to make Boost.Dispatch works.
-
-  - @ref group-details\n
-    Documentation for implementation details of the library. This documentation is useful
-    for people wanting to work on the library internals and provide patches.
 
 @section main-rationale Rationale of Boost.Dispatch
 
@@ -85,6 +68,30 @@ Notice how the second specialization applies to any integral type, including
 unsigned ones. However, since there is also a specialization for unsigned types,
 the latter gets preferred, since `unsigned_` is a refinement of `integer_`
 in the built-in hierarchies.
+
+@section main-components Main Boost.Dispatch Components
+
+----------------------------------------------------------------------------------------------------
+
+xxx
+
+@section main-howto How to use this documentation
+
+----------------------------------------------------------------------------------------------------
+The structure of the reference (available in the menu to the left) goes as
+follow:
+
+  - @ref group-concept\n
+    Concepts defined and used throughout Boost.Dispatch.
+
+  - @ref group-meta\n
+    Those functions, classes and macros are components related to the meta-programming required
+    to make Boost.Dispatch works.
+
+  - @ref group-details\n
+    Documentation for implementation details of the library. This documentation is useful
+    for people wanting to work on the library internals and provide patches.
+
 
 ----------------------------------------------------------------------------------------------------
 
