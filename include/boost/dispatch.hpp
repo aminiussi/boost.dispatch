@@ -35,8 +35,16 @@ namespace boost { namespace dispatch
   namespace detail
   {
     /*!
-      @defgroup group-details Implementation details
+      @defgroup group-detail Implementation details
       Implementation details related components
+    **/
+  }
+
+  namespace ext
+  {
+    /*!
+      @defgroup group-extension Extension points
+      Extension points for library components
     **/
   }
 

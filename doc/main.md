@@ -88,7 +88,11 @@ follow:
     Those functions, classes and macros are components related to the meta-programming required
     to make Boost.Dispatch works.
 
-  - @ref group-details\n
+  - @ref group-extension\n
+    Documentation for extenson points for library's components. This documentation is useful
+    for people wanting to extended Boost.Dispatch to work with their own types.
+
+  - @ref group-detail\n
     Documentation for implementation details of the library. This documentation is useful
     for people wanting to work on the library internals and provide patches.
 
