@@ -14,6 +14,8 @@
 #ifndef BOOST_DISPATCH_DETAILS_TYPE_TRAITS_HPP_INCLUDED
 #define BOOST_DISPATCH_DETAILS_TYPE_TRAITS_HPP_INCLUDED
 
+#include <boost/config.hpp>
+
 // Provide replacement for non-conformant compilers
 #if defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS)
 #include <boost/type_traits.hpp>
