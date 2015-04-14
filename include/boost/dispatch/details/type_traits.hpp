@@ -17,7 +17,7 @@
 #include <boost/config.hpp>
 
 // Provide replacement for non-conformant compilers
-#if defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS)
+#if defined(_LIBCPP_VERSION) || defined(__IBMCPP__)
 #include <boost/type_traits.hpp>
 
 namespace std
