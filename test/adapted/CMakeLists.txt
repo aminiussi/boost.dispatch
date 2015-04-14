@@ -6,5 +6,15 @@
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##===================================================================================================
 
-add_subdirectory(adapted)
-add_subdirectory(meta)
+include(make_unit)
+include(make_coverage)
+
+add_definitions(-DBOOST_ENABLE_ASSERT_HANDLER)
+
+set ( SOURCES
+      boost_array.cpp
+      std_array.cpp
+    )
+
+make_unit( "boost.dispatch.adapted" ${SOURCES})
+make_coverage("boost.dispatch.adapted" ${SOURCES})
