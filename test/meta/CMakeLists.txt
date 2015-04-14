@@ -14,6 +14,7 @@ add_definitions(-DBOOST_ENABLE_ASSERT_HANDLER)
 set ( SOURCES
       model_of.cpp
       transfer_qualifiers.cpp
+      value_of.cpp
     )
 
 make_unit( "boost.dispatch.meta" ${SOURCES})
