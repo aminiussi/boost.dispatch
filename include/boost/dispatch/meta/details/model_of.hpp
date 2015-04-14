@@ -16,19 +16,19 @@
 
 namespace boost { namespace dispatch { namespace ext
 {
-    /*!
-      @ingroup group-extension
-      @brief SFINAE-enabled extension point for meta::model_of
+  /*!
+    @ingroup group-extension
+    @brief SFINAE-enabled extension point for meta::model_of
 
-      This extension point allows customization of the meta::model_of @metafunction
-      by letting user defined SFINAE-enabled context in which they can specialize
-      meta::model_of for family of types
+    This extension point allows customization of the meta::model_of @metafunction
+    by letting user defined SFINAE-enabled context in which they can specialize
+    meta::model_of for family of types
 
-      @par Usage:
+    @par Usage:
 
-      @tparam T       Type to build a Model @metafunction from
-      @tparam Enable  SFINAE condition to be specified
-    **/
+    @tparam T       Type to build a Model @metafunction from
+    @tparam Enable  SFINAE condition to be specified
+  **/
   template<typename T, typename Enable = void>
   struct model_of
   {

@@ -20,9 +20,35 @@
 namespace boost { namespace dispatch { namespace meta
 {
   /*!
+    @ingroup group-meta
+    @brief Underlying type evaluation
+
+    Evaluates, for any given type @c T, the underlying type of @c T.
+
+    @par Models:
+
+    @metafunction
+
+    @par Semantic:
+
+    For any type @c T,
+
+    @code
+    using result_t = meta::value_of<T>::type;
+    @endcode
+
+    is defined so that
+
+    @code
+    std::is_same<T, mpl::apply<meta::model_of<T>::type,result_t>::type>::type
+    @endcode
+
+    evaluates to @true_ .
+
+    @tparam T Type to analyze
    **/
-  template<class T> struct  value_of          : ext::value_of<T> {};
-  template<class T> struct  value_of<T&>      : ext::value_of_cv<T&>  {};
+  template<class T> struct  value_of          : ext::value_of<T>          {};
+  template<class T> struct  value_of<T&>      : ext::value_of_cv<T&>      {};
   template<class T> struct  value_of<T const> : ext::value_of_cv<T const> {};
 
 #ifndef BOOST_NO_RESTRICT_REFERENCES

@@ -62,7 +62,7 @@ SHOW_FILES              = YES
 SHOW_NAMESPACES         = YES
 LAYOUT_FILE             = @Boost.Dispatch_SOURCE_DIR@/doc/layout.xml
 
-CLASS_DIAGRAMS          = YES
+CLASS_DIAGRAMS          = NO
 HAVE_DOT                = NO
 
 HIDE_UNDOC_RELATIONS    = NO
