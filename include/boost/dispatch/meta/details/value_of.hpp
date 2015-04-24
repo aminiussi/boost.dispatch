@@ -27,7 +27,7 @@ namespace boost { namespace dispatch
       @ingroup group-extension
       @brief SFINAE-enabled extension point for meta::value_of
 
-      This extension point allows customization of the meta::model_of @metafunction
+      This extension point allows customization of the meta::value_of @metafunction
       by letting user defined SFINAE-enabled context in which they can specialize
       meta::value_of for family of types
 
@@ -42,6 +42,19 @@ namespace boost { namespace dispatch
       typedef T type;
     };
 
+    /*!
+      @ingroup group-extension
+      @brief SFINAE-enabled extension point for meta::value_of with qualifiers
+
+      This extension point allows customization of the meta::value_of @metafunction
+      by letting user defined SFINAE-enabled context in which they can specialize
+      meta::value_of for family of types with cv-qualifiers
+
+      @par Usage:
+
+      @tparam T       Type to build a Model @metafunction from
+      @tparam Enable  SFINAE condition to be specified
+    **/
     template<class T, class Enable = void>
     struct value_of_cv;
 
