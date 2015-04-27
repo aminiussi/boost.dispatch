@@ -15,6 +15,7 @@
 #define BOOST_DISPATCH_ADAPTED_BOOST_ARRAY_HPP_INCLUDED
 
 #include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
 #include <boost/array.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -25,6 +26,11 @@ namespace boost { namespace dispatch { namespace meta
     {
       template<typename X> struct apply { using type = boost::array<X,N>; };
     };
+  };
+
+  template<typename T, std::size_t N> struct value_of<boost::array<T,N>>
+  {
+    using type = T;
   };
 } } }
 

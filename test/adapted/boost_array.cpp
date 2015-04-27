@@ -49,3 +49,46 @@ NSTEST_CASE( "model_of of boost::array<T,N> is boost::array<_,N>")
                 , (boost::array<int,3>)
                 );
 }
+
+NSTEST_CASE( "value_of of boost::array<T,N> is T")
+{
+  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<float,3>>::type)
+                , float
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<float,3> const>::type)
+                , float const
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<float,3>&>::type)
+                , float&
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<float,3> const&>::type)
+                , float const&
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<float,3>&&>::type)
+                , float&&
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<boost::array<int,3>,5>>::type)
+                , (boost::array<int,3>)
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<boost::array<int,3>,5>&>::type)
+                , (boost::array<int,3>&)
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<boost::array<int,3>,5> const>::type)
+                , (boost::array<int,3> const)
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<boost::array<int,3>,5> const&>::type)
+                , (boost::array<int,3> const&)
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<boost::array<int,3>,5>&&>::type)
+                , (boost::array<int,3>&&)
+                );
+}
