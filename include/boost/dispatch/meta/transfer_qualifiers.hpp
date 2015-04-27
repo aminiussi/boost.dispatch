@@ -14,7 +14,7 @@
 #ifndef BOOST_DISPATCH_META_TRANSFER_QUALIFIERS_HPP_INCLUDED
 #define BOOST_DISPATCH_META_TRANSFER_QUALIFIERS_HPP_INCLUDED
 
-#include <boost/dispatch/details/type_traits.hpp>
+#include <type_traits>
 
 namespace boost { namespace dispatch
 {
