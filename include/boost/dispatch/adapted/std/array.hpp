@@ -14,12 +14,13 @@
 #ifndef BOOST_DISPATCH_ADAPTED_STD_ARRAY_HPP_INCLUDED
 #define BOOST_DISPATCH_ADAPTED_STD_ARRAY_HPP_INCLUDED
 
-#include <boost/dispatch/meta/model_of.hpp>
-#include <boost/dispatch/meta/value_of.hpp>
 #include <array>
 
 namespace boost { namespace dispatch { namespace meta
 {
+  template<typename T> struct model_of;
+  template<typename T> struct value_of;
+
   template<typename T, std::size_t N> struct model_of<std::array<T,N>>
   {
     struct type
