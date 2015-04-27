@@ -49,6 +49,7 @@ namespace boost { namespace dispatch { namespace meta
    **/
   template<class T> struct  value_of          : ext::value_of<T>          {};
   template<class T> struct  value_of<T&>      : ext::value_of_cv<T&>      {};
+  template<class T> struct  value_of<T&&>     : ext::value_of_cv<T&&>     {};
   template<class T> struct  value_of<T const> : ext::value_of_cv<T const> {};
 
 #ifndef BOOST_NO_RESTRICT_REFERENCES
