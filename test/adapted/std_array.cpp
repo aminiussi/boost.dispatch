@@ -7,6 +7,7 @@
 */
 //==================================================================================================
 #include <boost/dispatch/adapted/std/array.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
 #include <array>
 
 #include <nstest/unit.hpp>
@@ -90,5 +91,48 @@ NSTEST_CASE( "value_of of std::array<T,N> is T")
 
   NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<std::array<std::array<int,3>,5>&&>::type)
                 , (std::array<int,3>&&)
+                );
+}
+
+NSTEST_CASE( "primitive_of of std::array<T,N> is T")
+{
+  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<std::array<float,3>>::type)
+                , float
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<std::array<float,3>&>::type)
+                , float&
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<std::array<float,3>&&>::type)
+                , float&&
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<std::array<float,3> const>::type)
+                , float const
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<std::array<float,3> const&>::type)
+                , float const&
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<std::array<std::array<float,5>,3>>::type)
+                , float
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<std::array<std::array<float,5>,3>&>::type)
+                , float&
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<std::array<std::array<float,5>,3>&&>::type)
+                , float&&
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<std::array<std::array<float,5>,3> const>::type)
+                , float const
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<std::array<std::array<float,5>,3> const&>::type)
+                , float const&
                 );
 }
