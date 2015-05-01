@@ -34,19 +34,29 @@ namespace boost { namespace dispatch { namespace meta
     For any type @c T,
 
     @code
-    using result_t = meta::value_of<T>::type;
+    using type = meta::value_of<T>::type;
     @endcode
 
     is defined so that
 
     @code
-    std::is_same<T, mpl::apply<meta::model_of<T>::type,result_t>::type>::type
+    std::is_same<T, mpl::apply<meta::model_of<T>::type,type>::type>::type
     @endcode
 
     evaluates to @true_ .
 
+    @par Extension Point:
+
+    meta::value_of can be specialized for user-defined types by either:
+
+      - Directly overloading the meta::value_of class for a given type
+      - Specialize (eventually through SFINAE) the ext::value_of and ext::value_of_cv classes
+
+    Specialization for meta::value_of are provided for most of standard and
+    Boost types. See the @ref group-adapted page.
+
     @tparam T Type to analyze
-   **/
+  **/
   template<class T> struct  value_of          : ext::value_of<T>          {};
   template<class T> struct  value_of<T&>      : ext::value_of_cv<T&>      {};
   template<class T> struct  value_of<T&&>     : ext::value_of_cv<T&&>     {};
@@ -55,6 +65,8 @@ namespace boost { namespace dispatch { namespace meta
 #ifndef BOOST_NO_RESTRICT_REFERENCES
   template<class T> struct  value_of<T& BOOST_RESTRICT> : ext::value_of_cv<T&> {};
 #endif
+
+
 } } }
 
 # endif

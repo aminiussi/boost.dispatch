@@ -1,6 +1,7 @@
 //==================================================================================================
 /*!
   @file
+  @ingroup group-adapted
 
   Adapt boost::array to be hierarchizable
 

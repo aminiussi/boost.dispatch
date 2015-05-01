@@ -89,8 +89,11 @@ follow:
     to make Boost.Dispatch works.
 
   - @ref group-extension\n
-    Documentation for extenson points for library's components. This documentation is useful
+    Documentation for extension points for library's components. This documentation is useful
     for people wanting to extended Boost.Dispatch to work with their own types.
+
+  - @ref group-adapted\n
+    Documentation for the predefined adaptation of external types to be usable with the library.
 
   - @ref group-detail\n
     Documentation for implementation details of the library. This documentation is useful

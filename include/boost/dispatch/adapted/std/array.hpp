@@ -1,6 +1,7 @@
 //==================================================================================================
 /*!
   @file
+  @ingroup group-adapted
 
   Adapt std::array to be hierarchizable
 

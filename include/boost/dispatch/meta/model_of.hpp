@@ -14,8 +14,8 @@
 #ifndef BOOST_DISPATCH_META_MODEL_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_META_MODEL_OF_HPP_INCLUDED
 
-#include <boost/mpl/apply.hpp>
 #include <boost/dispatch/meta/details/model_of.hpp>
+#include <boost/mpl/apply.hpp>
 
 namespace boost { namespace dispatch
 {
@@ -34,7 +34,19 @@ namespace boost { namespace dispatch
 
       @par Semantic:
 
-      @par Usage:
+      For any type @c T,
+
+      @code
+      using type = boost::dispatch::meta::model_of<T>::type;
+      @endcode
+
+      defines a @mpllambda so that:
+
+      @code
+      std::is_same<boost::mpl::apply<type,meta::value_of<T>::type>::type, T>::value
+      @endcode
+
+      evaluates to @c true.
 
       @par Extension Point:
 
@@ -43,7 +55,10 @@ namespace boost { namespace dispatch
         - Directly overloading the meta::model_of class for a given type
         - Specialize (eventually through SFINAE) the ext::model_of class
 
-      @tparam T Type to build a Model @metafunction from
+      Specialization for meta::model_of are provided for most of standard and
+      Boost types. See the @ref group-adapted page.
+
+      @tparam T Type to turn into a generator @metafunction
     **/
     template<typename T> struct model_of            : ext::model_of<T>  {};
     template<typename T> struct model_of<T&>        : model_of<T>       {};
