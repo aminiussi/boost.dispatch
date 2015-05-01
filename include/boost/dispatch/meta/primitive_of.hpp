@@ -34,21 +34,33 @@ namespace boost { namespace dispatch{  namespace meta
     For a given type T,
 
     @code
-    using type = primitive_of<T>::type;
+    using type = boost::dispatch::meta::primitive_of<T>::type;
     @endcode
 
     is defined so that :
 
     @code
-    is_same<type, value_of<type>::type>::value
+    std::is_same<type, boost::dispatch::meta::value_of<type>::type>::value
     @endcode
 
     evaluates to @c true.
+
+    Put in another way, meta::primitive_of is a recursive application of meta::value_of so
+    that every nested type are traversed to find the most underlying type of @c T.
+
+    @see value_of
+    @see model_of
   **/
   template<typename T>
   struct primitive_of : detail::primitive_of<typename value_of<T>::type, T>
   {};
 
+  /*!
+    @ingroup group-meta
+    @brief C++14 style short-cut for meta::primitive_of
+  **/
+  template<typename T>
+  using primitive_of_t = typename meta::primitive_of<T>::type;
 } } }
 
 #endif
