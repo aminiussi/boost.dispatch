@@ -16,6 +16,7 @@ ALIASES += metafunction="<a href=\"http://www.boost.org/doc/libs/release/libs/mp
 ALIASES += true_="@c std::integral_constant<bool,true>"
 ALIASES += false_="@c std::integral_constant<bool,false>"
 ALIASES += mplint="<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/integral-constant.html\">Integral Constant</a>"
+ALIASES += mpllambda="<a href=\"http://www.boost.org/doc/libs/releae/libs/mpl/doc/refmanual/lambda-expression.html\">Lambda Expression</a>"
 
 # Resources
 OUTPUT_DIRECTORY        =
