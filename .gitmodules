@@ -2,3 +2,6 @@
 	path = doc/html
 	url = https://github.com/NumScale/boost.dispatch.git
 	branch = gh-pages
+[submodule "_deps/nstest"]
+	path = _deps/nstest
+	url = https://github.com/NumScale/nstest.git

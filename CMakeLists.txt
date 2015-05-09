@@ -40,17 +40,11 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E copy
 include(parse_revision)
 
 ##===================================================================================================
-## Add dependency to NSTest
-##===================================================================================================
-include(register_dependency)
-register_dependency( NSTest https://github.com/NumScale/nstest.git )
-
-##===================================================================================================
 ## Add include directories
 ##===================================================================================================
 include_directories ( ${PROJECT_SOURCE_DIR}/include
                       ${Boost_INCLUDE_DIRS}
-                      ${dep_path}/include
+                      ${PROJECT_SOURCE_DIR}/_deps/nstest/include
                     )
 
 ##===================================================================================================
