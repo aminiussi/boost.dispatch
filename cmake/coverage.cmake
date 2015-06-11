@@ -83,7 +83,7 @@ FUNCTION(SETUP_TARGET_FOR_COVERAGE root)
 
         ## Capturing lcov counters and generating report
         COMMAND ${LCOV_PATH} --directory . --capture --output-file coverage.info
-        COMMAND ${LCOV_PATH} --remove coverage.info 'tests/*' '/usr/*' ${boost_filter} '*/_deps/*' --output-file coverage.info.cleaned
+        COMMAND ${LCOV_PATH} --remove coverage.info 'tests/*' '/usr/*' ${boost_filter} '*/deps/*' --output-file coverage.info.cleaned
         COMMAND ${GENHTML_PATH} --demangle --no-branch-coverage -o coverage coverage.info.cleaned
 
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
