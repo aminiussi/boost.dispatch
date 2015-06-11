@@ -57,15 +57,21 @@ namespace boost { namespace dispatch { namespace meta
 
     @tparam T Type to analyze
   **/
-  template<class T> struct  value_of          : ext::value_of<T>          {};
-  template<class T> struct  value_of<T&>      : ext::value_of_cv<T&>      {};
-  template<class T> struct  value_of<T&&>     : ext::value_of_cv<T&&>     {};
-  template<class T> struct  value_of<T const> : ext::value_of_cv<T const> {};
+  template<typename T> struct  value_of          : ext::value_of<T>          {};
+  template<typename T> struct  value_of<T&>      : ext::value_of_cv<T&>      {};
+  template<typename T> struct  value_of<T&&>     : ext::value_of_cv<T&&>     {};
+  template<typename T> struct  value_of<T const> : ext::value_of_cv<T const> {};
 
 #ifndef BOOST_NO_RESTRICT_REFERENCES
-  template<class T> struct  value_of<T& BOOST_RESTRICT> : ext::value_of_cv<T&> {};
+  template<typename T> struct  value_of<T& BOOST_RESTRICT> : ext::value_of_cv<T&> {};
 #endif
 
+  /*!
+    @ingroup group-meta
+    @brief C++14 style short-cut for meta::value_of
+  **/
+  template<typename T>
+  using value_of_t = typename meta::value_of<T>::type;
 
 } } }
 
