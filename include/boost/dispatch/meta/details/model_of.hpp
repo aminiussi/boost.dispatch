@@ -32,7 +32,7 @@ namespace boost { namespace dispatch { namespace ext
   template<typename T, typename Enable = void>
   struct model_of
   {
-    struct type { template<typename X> struct apply { using type = X; }; };
+    template<typename X> using type = X;
   };
 } } }
 

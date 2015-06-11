@@ -16,44 +16,47 @@
 
 #include <boost/dispatch/meta/details/primitive_of.hpp>
 
-namespace boost { namespace dispatch{  namespace meta
+namespace boost { namespace dispatch
 {
-  /*!
-    @ingroup group-meta
-    @brief Primitive type computation
+  namespace meta
+  {
+    /*!
+      @ingroup group-meta
+      @brief Primitive type computation
 
-    For any given type @c T, returns the primitive type, i.e the most underlying type of @c T.
+      For any given type @c T, returns the primitive type, i.e the most underlying type of @c T.
 
-    @tparam Type to extract a primitive from.
+      @tparam Type to extract a primitive from.
 
-    @par Models:
+      @par Models:
 
-    @metafunction
+      @metafunction
 
-    @par Semantic:
-    For a given type T,
+      @par Semantic:
+      For a given type T,
 
-    @code
-    using type = boost::dispatch::meta::primitive_of<T>::type;
-    @endcode
+      @code
+      using type = boost::dispatch::meta::primitive_of<T>::type;
+      @endcode
 
-    is defined so that :
+      is defined so that :
 
-    @code
-    std::is_same<type, boost::dispatch::meta::value_of<type>::type>::value
-    @endcode
+      @code
+      std::is_same<type, boost::dispatch::value_of_t<type>>::value
+      @endcode
 
-    evaluates to @c true.
+      evaluates to @c true.
 
-    Put in another way, meta::primitive_of is a recursive application of meta::value_of so
-    that every nested type are traversed to find the most underlying type of @c T.
+      Put in another way, meta::primitive_of is a recursive application of meta::value_of so
+      that every nested type are traversed to find the most underlying type of @c T.
 
-    @see value_of
-    @see model_of
-  **/
-  template<typename T>
-  struct primitive_of : detail::primitive_of<typename value_of<T>::type, T>
-  {};
+      @see value_of
+      @see model_of
+    **/
+    template<typename T>
+    struct primitive_of : detail::primitive_of<typename value_of<T>::type, T>
+    {};
+  }
 
   /*!
     @ingroup group-meta
@@ -61,6 +64,6 @@ namespace boost { namespace dispatch{  namespace meta
   **/
   template<typename T>
   using primitive_of_t = typename meta::primitive_of<T>::type;
-} } }
+} }
 
 #endif

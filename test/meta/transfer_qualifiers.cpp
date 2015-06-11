@@ -13,115 +13,45 @@
 
 NSTEST_CASE( "Check if nothing get transfered")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int, float>::type)
-                , int
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int&, float>::type)
-                , int&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int&&, float>::type)
-                , int&&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int const, float>::type)
-                , int const
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int const&, float>::type)
-                , int const&
-                );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int, float>)        , int       );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int&, float>)       , int&      );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int&&, float>)      , int&&     );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int const, float>)  , int const );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int const&, float>) , int const&);
 }
 
 NSTEST_CASE( "Check if 'const' get transfered")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int, float const>::type)
-                , int const
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int&, float const>::type)
-                , int&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int&&, float const>::type)
-                , int&&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int const, float const>::type)
-                , int const
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int const&, float const>::type)
-                , int const&
-                );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int, float const>)        , int const   );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int&, float const>)       , int&        );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int&&, float const>)      , int&&       );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int const, float const>)  , int const   );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int const&, float const>) , int const&  );
 }
 
 NSTEST_CASE( "Check if 'const&' get transfered")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int, float const&>::type)
-                , int const&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int&, float const&>::type)
-                , int&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int&&, float const&>::type)
-                , int&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int const, float const&>::type)
-                , int const&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int const&, float const&>::type)
-                , int const&
-                );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int, float const&>)       , int const&  );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int&, float const&>)      , int&        );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int&&, float const&>)     , int&        );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int const, float const&>) , int const&  );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int const&, float const&>), int const&  );
 }
 
 NSTEST_CASE( "Check if '&' get transfered")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int, float&>::type)
-                , int&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int&, float&>::type)
-                , int&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int&&, float&>::type)
-                , int&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int const, float&>::type)
-                , int const&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int const&, float&>::type)
-                , int const&
-                );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int, float&>)       , int&      );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int&, float&>)      , int&      );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int&&, float&>)     , int&      );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int const, float&>) , int const&);
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int const&, float&>), int const&);
 }
 
 NSTEST_CASE( "Check if '&&' get transfered")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int, float &&>::type)
-                , int &&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int&, float &&>::type)
-                , int&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int&&, float &&>::type)
-                , int&&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int const, float &&>::type)
-                , int const&&
-                );
-
-  NSTEST_TYPE_IS( (boost::dispatch::meta::transfer_qualifiers<int const&, float &&>::type)
-                , int const&
-                );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int, float &&>)       , int &&      );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int&, float &&>)      , int&        );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int&&, float &&>)     , int&&       );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int const, float &&>) , int const&& );
+  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers_t<int const&, float &&>), int const&  );
 }

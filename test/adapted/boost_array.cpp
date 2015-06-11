@@ -10,6 +10,7 @@
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/array.hpp>
 
 #include <nstest/unit.hpp>
@@ -17,124 +18,118 @@
 
 NSTEST_CASE( "model_of of boost::array<T,N> is boost::array<_,N>")
 {
-  NSTEST_TYPE_IS( (boost::mpl::apply< boost::dispatch::meta::model_of<boost::array<float,3>>::type
-                                    , int
-                                    >::type
-                  )
+  using base = boost::array<boost::array<boost::array<float,7>,5>,3>;
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::factory_of<base>::type<int*>)
+                , (boost::array<boost::array<boost::array<int*,7>,5>,3>)
+                );
+}
+
+NSTEST_CASE( "model_of of boost::array<T,N> is boost::array<_,N>")
+{
+  NSTEST_TYPE_IS( (boost::dispatch::meta::model_of<boost::array<float,3>>::type<int>)
                 , (boost::array<int,3>)
                 );
 
-  NSTEST_TYPE_IS( (boost::mpl::apply< boost::dispatch::meta::model_of<boost::array<float,3>&>::type
-                                    , int
-                                    >::type
-                  )
+  NSTEST_TYPE_IS( (boost::dispatch::meta::model_of<boost::array<float,3>&>::type<int>)
                 , (boost::array<int,3>)
                 );
 
-  NSTEST_TYPE_IS( (boost::mpl::apply< boost::dispatch::meta::model_of<boost::array<float,3>&&>::type
-                                    , int
-                                    >::type
-                  )
+  NSTEST_TYPE_IS( (boost::dispatch::meta::model_of<boost::array<float,3>&&>::type<int>)
                 , (boost::array<int,3>)
                 );
 
-  NSTEST_TYPE_IS( (boost::mpl::apply< boost::dispatch::meta::model_of<boost::array<float,3> const>::type
-                                    , int
-                                    >::type
-                  )
+  NSTEST_TYPE_IS( (boost::dispatch::meta::model_of<boost::array<float,3> const>::type<int>)
                 , (boost::array<int,3>)
                 );
 
-  NSTEST_TYPE_IS( (boost::mpl::apply< boost::dispatch::meta::model_of<boost::array<float,3> const& >::type
-                                    , int
-                                    >::type
-                  )
+  NSTEST_TYPE_IS( (boost::dispatch::meta::model_of<boost::array<float,3> const&>::type<int>)
                 , (boost::array<int,3>)
                 );
 }
 
 NSTEST_CASE( "value_of of boost::array<T,N> is T")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<float,3>>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::value_of_t<boost::array<float,3>>)
                 , float
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<float,3> const>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::value_of_t<boost::array<float,3> const>)
                 , float const
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<float,3>&>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::value_of_t<boost::array<float,3>&>)
                 , float&
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<float,3> const&>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::value_of_t<boost::array<float,3> const&>)
                 , float const&
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<float,3>&&>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::value_of_t<boost::array<float,3>&&>)
                 , float&&
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<boost::array<int,3>,5>>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::value_of_t<boost::array<boost::array<int,3>,5>>)
                 , (boost::array<int,3>)
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<boost::array<int,3>,5>&>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::value_of_t<boost::array<boost::array<int,3>,5>&>)
                 , (boost::array<int,3>&)
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<boost::array<int,3>,5> const>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::value_of_t<boost::array<boost::array<int,3>,5> const>)
                 , (boost::array<int,3> const)
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<boost::array<int,3>,5> const&>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::value_of_t<boost::array<boost::array<int,3>,5> const&>)
                 , (boost::array<int,3> const&)
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::value_of<boost::array<boost::array<int,3>,5>&&>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::value_of_t<boost::array<boost::array<int,3>,5>&&>)
                 , (boost::array<int,3>&&)
                 );
 }
 
 NSTEST_CASE( "primitive_of of boost::array<T,N> is T")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<boost::array<float,3>>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::primitive_of_t<boost::array<float,3>>)
                 , float
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<boost::array<float,3>&>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::primitive_of_t<boost::array<float,3>&>)
                 , float&
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<boost::array<float,3>&&>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::primitive_of_t<boost::array<float,3>&&>)
                 , float&&
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<boost::array<float,3> const>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::primitive_of_t<boost::array<float,3> const>)
                 , float const
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<boost::array<float,3> const&>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::primitive_of_t<boost::array<float,3> const&>)
                 , float const&
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<boost::array<boost::array<float,5>,3>>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::primitive_of_t<boost::array<boost::array<float,5>,3>>)
                 , float
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<boost::array<boost::array<float,5>,3>&>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::primitive_of_t<boost::array<boost::array<float,5>,3>&>)
                 , float&
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<boost::array<boost::array<float,5>,3>&&>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::primitive_of_t<boost::array<boost::array<float,5>,3>&&>)
                 , float&&
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<boost::array<boost::array<float,5>,3> const>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::primitive_of_t<boost::array<boost::array<float,5>,3> const>)
                 , float const
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::meta::primitive_of<boost::array<boost::array<float,5>,3> const&>::type)
+  NSTEST_TYPE_IS( (boost::dispatch::primitive_of_t<boost::array<boost::array<float,5>,3> const&>)
                 , float const&
                 );
 }

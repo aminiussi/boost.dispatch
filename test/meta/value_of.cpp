@@ -13,23 +13,9 @@
 
 NSTEST_CASE( "value_of of basic types is type itself")
 {
-  NSTEST_TYPE_IS( boost::dispatch::meta::value_of<float>::type
-                , float
-                );
-
-  NSTEST_TYPE_IS( boost::dispatch::meta::value_of<float&>::type
-                , float&
-                );
-
-  NSTEST_TYPE_IS( boost::dispatch::meta::value_of<float&&>::type
-                , float&&
-                );
-
-  NSTEST_TYPE_IS( boost::dispatch::meta::value_of<float const>::type
-                , float const
-                );
-
-  NSTEST_TYPE_IS( boost::dispatch::meta::value_of<float const&>::type
-                , float const&
-                );
+  NSTEST_TYPE_IS( boost::dispatch::value_of_t<float>        , float       );
+  NSTEST_TYPE_IS( boost::dispatch::value_of_t<float&>       , float&      );
+  NSTEST_TYPE_IS( boost::dispatch::value_of_t<float&&>      , float&&     );
+  NSTEST_TYPE_IS( boost::dispatch::value_of_t<float const>  , float const );
+  NSTEST_TYPE_IS( boost::dispatch::value_of_t<float const&> , float const&);
 }

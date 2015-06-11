@@ -13,38 +13,9 @@
 
 NSTEST_CASE( "model_of of basic types is meta-identity")
 {
-  NSTEST_TYPE_IS( (boost::mpl::apply< boost::dispatch::meta::model_of<float>::type
-                                    , int
-                                    >::type
-                  )
-                , int
-                );
-
-  NSTEST_TYPE_IS( (boost::mpl::apply< boost::dispatch::meta::model_of<float&>::type
-                                    , int
-                                    >::type
-                  )
-                , int
-                );
-
-  NSTEST_TYPE_IS( (boost::mpl::apply< boost::dispatch::meta::model_of<float&&>::type
-                                    , int
-                                    >::type
-                  )
-                , int
-                );
-
-  NSTEST_TYPE_IS( (boost::mpl::apply< boost::dispatch::meta::model_of<float const>::type
-                                    , int
-                                    >::type
-                  )
-                , int
-                );
-
-  NSTEST_TYPE_IS( (boost::mpl::apply< boost::dispatch::meta::model_of<float const&>::type
-                                    , int
-                                    >::type
-                  )
-                , int
-                );
+  NSTEST_TYPE_IS( boost::dispatch::meta::model_of<float>::type<int>       , int );
+  NSTEST_TYPE_IS( boost::dispatch::meta::model_of<float&>::type<int>      , int );
+  NSTEST_TYPE_IS( boost::dispatch::meta::model_of<float&&>::type<int>     , int );
+  NSTEST_TYPE_IS( boost::dispatch::meta::model_of<float const>::type<int> , int );
+  NSTEST_TYPE_IS( boost::dispatch::meta::model_of<float const&>::type<int>, int );
 }

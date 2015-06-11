@@ -17,54 +17,57 @@
 #include <boost/dispatch/config.hpp>
 #include <boost/dispatch/meta/details/value_of.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace dispatch
 {
-  /*!
-    @ingroup group-meta
-    @brief Underlying type evaluation
+  namespace meta
+  {
+    /*!
+      @ingroup group-meta
+      @brief Underlying type evaluation
 
-    Evaluates, for any given type @c T, the underlying type of @c T.
+      Evaluates, for any given type @c T, the underlying type of @c T.
 
-    @par Models:
+      @par Models:
 
-    @metafunction
+      @metafunction
 
-    @par Semantic:
+      @par Semantic:
 
-    For any type @c T,
+      For any type @c T,
 
-    @code
-    using type = meta::value_of<T>::type;
-    @endcode
+      @code
+      using U = meta::value_of<T>::type;
+      @endcode
 
-    is defined so that
+      is defined so that
 
-    @code
-    std::is_same<T, mpl::apply<meta::model_of<T>::type,type>::type>::type
-    @endcode
+      @code
+      std::is_same<T, meta::model_of<T>::type<U>>::type
+      @endcode
 
-    evaluates to @true_ .
+      evaluates to @true_ .
 
-    @par Extension Point:
+      @par Extension Point:
 
-    meta::value_of can be specialized for user-defined types by either:
+      meta::value_of can be specialized for user-defined types by either:
 
-      - Directly overloading the meta::value_of class for a given type
-      - Specialize (eventually through SFINAE) the ext::value_of and ext::value_of_cv classes
+        - Directly overloading the meta::value_of class for a given type
+        - Specialize (eventually through SFINAE) the ext::value_of and ext::value_of_cv classes
 
-    Specialization for meta::value_of are provided for most of standard and
-    Boost types. See the @ref group-adapted page.
+      Specialization for meta::value_of are provided for most of standard and
+      Boost types. See the @ref group-adapted page.
 
-    @tparam T Type to analyze
-  **/
-  template<typename T> struct  value_of          : ext::value_of<T>          {};
-  template<typename T> struct  value_of<T&>      : ext::value_of_cv<T&>      {};
-  template<typename T> struct  value_of<T&&>     : ext::value_of_cv<T&&>     {};
-  template<typename T> struct  value_of<T const> : ext::value_of_cv<T const> {};
+      @tparam T Type to analyze
+    **/
+    template<typename T> struct  value_of          : ext::value_of<T>          {};
+    template<typename T> struct  value_of<T&>      : ext::value_of_cv<T&>      {};
+    template<typename T> struct  value_of<T&&>     : ext::value_of_cv<T&&>     {};
+    template<typename T> struct  value_of<T const> : ext::value_of_cv<T const> {};
 
 #ifndef BOOST_NO_RESTRICT_REFERENCES
-  template<typename T> struct  value_of<T& BOOST_RESTRICT> : ext::value_of_cv<T&> {};
+    template<typename T> struct  value_of<T& BOOST_RESTRICT> : ext::value_of_cv<T&> {};
 #endif
+  }
 
   /*!
     @ingroup group-meta
@@ -72,7 +75,6 @@ namespace boost { namespace dispatch { namespace meta
   **/
   template<typename T>
   using value_of_t = typename meta::value_of<T>::type;
-
-} } }
+} }
 
 # endif

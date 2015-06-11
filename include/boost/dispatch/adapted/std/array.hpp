@@ -24,10 +24,7 @@ namespace boost { namespace dispatch { namespace meta
 
   template<typename T, std::size_t N> struct model_of<std::array<T,N>>
   {
-    struct type
-    {
-      template<typename X> struct apply { using type = std::array<X,N>; };
-    };
+    template<typename X> using type = std::array<X,N>;
   };
 
   template<typename T, std::size_t N> struct value_of<std::array<T,N>>

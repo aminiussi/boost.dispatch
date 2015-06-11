@@ -37,13 +37,13 @@ namespace boost { namespace dispatch
       For any type @c T,
 
       @code
-      using type = boost::dispatch::meta::model_of<T>::type;
+      meta::model_of<T>::type;
       @endcode
 
-      defines a @mpllambda so that:
+      defines a template alias so that:
 
       @code
-      std::is_same<boost::mpl::apply<type,meta::value_of<T>::type>::type, T>::value
+      std::is_same<meta::model_of<T>::type<meta::value_of_t<T>>, T>::value
       @endcode
 
       evaluates to @c true.
@@ -65,13 +65,6 @@ namespace boost { namespace dispatch
     template<typename T> struct model_of<T&&>       : model_of<T>       {};
     template<typename T> struct model_of<T const>   : model_of<T>       {};
   }
-
-  /*!
-    @ingroup group-meta
-    @brief C++14 style short-cut for meta::model_of
-  **/
-  template<typename T>
-  using model_of_t = typename meta::model_of<T>::type;
 } }
 
 #endif
