@@ -15,7 +15,7 @@
 #define BOOST_DISPATCH_META_VALUE_OF_HPP_INCLUDED
 
 #include <boost/dispatch/config.hpp>
-#include <boost/dispatch/meta/details/value_of.hpp>
+#include <boost/dispatch/meta/detail/value_of.hpp>
 
 namespace boost { namespace dispatch
 {

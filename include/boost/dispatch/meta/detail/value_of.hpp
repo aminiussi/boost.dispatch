@@ -11,8 +11,8 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_DISPATCH_META_DETAILS_VALUE_OF_HPP_INCLUDED
-#define BOOST_DISPATCH_META_DETAILS_VALUE_OF_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_DETAIL_VALUE_OF_HPP_INCLUDED
+#define BOOST_DISPATCH_META_DETAIL_VALUE_OF_HPP_INCLUDED
 
 #include <type_traits>
 

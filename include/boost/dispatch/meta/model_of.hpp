@@ -14,7 +14,7 @@
 #ifndef BOOST_DISPATCH_META_MODEL_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_META_MODEL_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/details/model_of.hpp>
+#include <boost/dispatch/meta/detail/model_of.hpp>
 #include <boost/mpl/apply.hpp>
 
 namespace boost { namespace dispatch
