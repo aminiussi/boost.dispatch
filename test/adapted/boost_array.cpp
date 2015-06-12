@@ -16,7 +16,7 @@
 #include <nstest/unit.hpp>
 #include <nstest/unit/tests/types.hpp>
 
-NSTEST_CASE( "model_of of boost::array<T,N> is boost::array<_,N>")
+NSTEST_CASE( "factory_of over boost::array<T,N>")
 {
   using base = boost::array<boost::array<boost::array<float,7>,5>,3>;
 

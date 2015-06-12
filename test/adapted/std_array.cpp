@@ -10,10 +10,20 @@
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/factory_of.hpp>
 #include <array>
 
 #include <nstest/unit.hpp>
 #include <nstest/unit/tests/types.hpp>
+
+NSTEST_CASE( "factory_of over std::array<T,N>")
+{
+  using base = std::array<std::array<std::array<float,7>,5>,3>;
+
+  NSTEST_TYPE_IS( (boost::dispatch::meta::factory_of<base>::type<int*>)
+                , (std::array<std::array<std::array<int*,7>,5>,3>)
+                );
+}
 
 NSTEST_CASE( "model_of of std::array<T,N> is std::array<_,N>")
 {

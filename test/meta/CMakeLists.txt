@@ -12,6 +12,7 @@ include(make_coverage)
 add_definitions(-DBOOST_ENABLE_ASSERT_HANDLER)
 
 set ( SOURCES
+      factory_of.cpp
       model_of.cpp
       primitive_of.cpp
       transfer_qualifiers.cpp
