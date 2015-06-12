@@ -55,7 +55,7 @@ execute_process(
 
 add_custom_target(web.update
     COMMAND ${GIT_EXECUTABLE} add .
-    COMMAND ${GIT_EXECUTABLE} commit -m "Update to ${NSTEST_GIT_SHORT_SHA}"
+    COMMAND ${GIT_EXECUTABLE} commit -m "Update to ${BOOST_DISPATCH_GIT_SHORT_SHA}"
     WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/html
     COMMENT "Updating the html branch with freshly built documentation"
     DEPENDS web.copy
