@@ -11,10 +11,10 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_DISPATCH_META_PRIMITIVE_OF_HPP_INCLUDED
-#define BOOST_DISPATCH_META_PRIMITIVE_OF_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_INTROSPECTION_PRIMITIVE_OF_HPP_INCLUDED
+#define BOOST_DISPATCH_META_INTROSPECTION_PRIMITIVE_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/detail/primitive_of.hpp>
+#include <boost/dispatch/meta/introspection/detail/primitive_of.hpp>
 
 namespace boost { namespace dispatch
 {

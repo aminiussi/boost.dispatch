@@ -11,12 +11,12 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_DISPATCH_META_DETAIL_FACTORY_OF_HPP_INCLUDED
-#define BOOST_DISPATCH_META_DETAIL_FACTORY_OF_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_INTROSPECTION_DETAIL_FACTORY_OF_HPP_INCLUDED
+#define BOOST_DISPATCH_META_INTROSPECTION_DETAIL_FACTORY_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/model_of.hpp>
-#include <boost/dispatch/meta/value_of.hpp>
-#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/dispatch/meta/introspection/model_of.hpp>
+#include <boost/dispatch/meta/introspection/value_of.hpp>
+#include <boost/dispatch/meta/introspection/primitive_of.hpp>
 
 namespace boost { namespace dispatch { namespace detail
 {

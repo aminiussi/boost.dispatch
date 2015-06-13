@@ -7,10 +7,7 @@
 */
 //==================================================================================================
 #include <boost/dispatch/adapted/boost/array.hpp>
-#include <boost/dispatch/meta/primitive_of.hpp>
-#include <boost/dispatch/meta/model_of.hpp>
-#include <boost/dispatch/meta/value_of.hpp>
-#include <boost/dispatch/meta/factory_of.hpp>
+#include <boost/dispatch/meta/introspection.hpp>
 #include <boost/array.hpp>
 
 #include <nstest/unit.hpp>

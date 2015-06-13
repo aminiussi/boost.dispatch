@@ -6,7 +6,7 @@
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 */
 //==================================================================================================
-#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/introspection/value_of.hpp>
 
 #include <nstest/unit.hpp>
 #include <nstest/unit/tests/types.hpp>
