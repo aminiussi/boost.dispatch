@@ -15,6 +15,7 @@
 #define BOOST_DISPATCH_HPP_INCLUDED
 
 #include <boost/dispatch/config.hpp>
+#include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
