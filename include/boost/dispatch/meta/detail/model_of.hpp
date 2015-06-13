@@ -34,6 +34,13 @@ namespace boost { namespace dispatch { namespace ext
   {
     template<typename X> using type = X;
   };
+
+  // Specialize for all Template<Type> like class
+  template<template<class> class Template, typename Type>
+  struct model_of<Template<Type>>
+  {
+    template<typename X> using type = Template<X>;
+  };
 } } }
 
 #endif
