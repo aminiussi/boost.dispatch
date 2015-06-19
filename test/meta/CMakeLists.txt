@@ -13,6 +13,7 @@ add_definitions(-DBOOST_ENABLE_ASSERT_HANDLER)
 
 set ( SOURCES
       factory_of.cpp
+      make_floating.cpp
       model_of.cpp
       primitive_of.cpp
       transfer_qualifiers.cpp
