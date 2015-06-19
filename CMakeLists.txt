@@ -55,9 +55,12 @@ add_subdirectory(doc)
 ##===================================================================================================
 ## Setup Unit & Coverage Test
 ##===================================================================================================
-enable_testing()
-include(coverage)
-setup_target_for_coverage(boost.dispatch)
-
+add_custom_target(tests)
 add_custom_target(unit)
+
+include(coverage)
+enable_testing()
+enable_coverage(boost.dispatch)
+add_dependencies(tests unit)
+
 add_subdirectory(test)
