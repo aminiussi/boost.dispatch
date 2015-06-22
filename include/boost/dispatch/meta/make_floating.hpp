@@ -14,7 +14,7 @@
 #ifndef BOOST_DISPATCH_META_MAKE_FLOATING_HPP_INCLUDED
 #define BOOST_DISPATCH_META_MAKE_FLOATING_HPP_INCLUDED
 
-#include <boost/dispatch/detail/brigand/identity.hpp>
+#include <boost/dispatch/detail/brigand/functions/identity.hpp>
 #include <cstddef>
 
 namespace boost { namespace dispatch
