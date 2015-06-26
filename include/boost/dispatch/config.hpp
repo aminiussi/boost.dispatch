@@ -11,8 +11,8 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_CONFIG_HPP_INCLUDED
-#define BOOST_CONFIG_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_CONFIG_HPP_INCLUDED
+#define BOOST_DISPATCH_CONFIG_HPP_INCLUDED
 
 #include <boost/config.hpp>
 
