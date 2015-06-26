@@ -28,14 +28,6 @@ namespace boost { namespace dispatch
     **/
   }
 
-  namespace meta
-  {
-    /*!
-      @defgroup group-meta Meta-programming Utilities
-      Meta-programming related components
-    **/
-  }
-
   namespace detail
   {
     /*!
@@ -52,10 +44,10 @@ namespace boost { namespace dispatch
     **/
   }
 
-    /*!
-      @defgroup group-adapted External adapters
-      Adaptation header for external libraries
-    **/
+  /*!
+    @defgroup group-adapted External adapters
+    Adaptation header for external libraries
+  **/
 } }
 
 #endif

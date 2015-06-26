@@ -22,18 +22,18 @@ namespace boost { namespace dispatch { namespace detail
 {
   template<typename T, typename U> struct factory_of
   {
-    using v_t = boost::dispatch::value_of_t<T>;
+    using v_t = boost::dispatch::value_of<T>;
 
     template<typename X>
-    using f_t = typename detail::factory_of<v_t,U>::template type<X>;
+    using f_t = typename detail::factory_of<v_t,U>::template make<X>;
 
     template<typename X>
-    using type = typename dispatch::meta::model_of<T>::template type<f_t<X>>;
+    using make = typename boost::dispatch::model_of<T>::template make<f_t<X>>;
   };
 
   template<typename T> struct factory_of<T, T>
   {
-    template<typename X> using type = X;
+    template<typename X> using make = X;
   };
 } } }
 

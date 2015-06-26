@@ -18,11 +18,11 @@ namespace boost { namespace dispatch { namespace ext
 {
   /*!
     @ingroup group-extension
-    @brief SFINAE-enabled extension point for meta::model_of
+    @brief SFINAE-enabled extension point for model_of
 
-    This extension point allows customization of the meta::model_of @metafunction
+    This extension point allows customization of the model_of @metafunction
     by letting user defined SFINAE-enabled context in which they can specialize
-    meta::model_of for family of types
+    model_of for family of types
 
     @par Usage:
 
@@ -32,14 +32,14 @@ namespace boost { namespace dispatch { namespace ext
   template<typename T, typename Enable = void>
   struct model_of
   {
-    template<typename X> using type = X;
+    template<typename X> using make = X;
   };
 
   // Specialize for all Template<Type> like class
   template<template<class> class Template, typename Type>
   struct model_of<Template<Type>>
   {
-    template<typename X> using type = Template<X>;
+    template<typename X> using make = Template<X>;
   };
 } } }
 

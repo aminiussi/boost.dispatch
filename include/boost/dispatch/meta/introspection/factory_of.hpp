@@ -16,14 +16,14 @@
 
 #include <boost/dispatch/meta/introspection/detail/factory_of.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace dispatch
 {
   /*!
     @ingroup group-meta
 
     @brief Recursive meta-model generator
 
-    For any type @c T, returns a @mpllambda able to reconstruct @c T using a different primitive
+    For any type @c T, returns a template alias able to reconstruct @c T using a different primitive
     type.
 
     @tparam T     Type to build a type-factory of
@@ -38,34 +38,32 @@ namespace boost { namespace dispatch { namespace meta
     For any type @c T:
 
     @code
-    using type = boost::dispatch::meta::factory_of<T>::type;
+    boost::dispatch::factory_of<T>::make;
     @endcode
 
     return a template alias so that, for any type @c U:
 
     @code
-    using X = type<U>;
+    using X = make<U>;
     @endcode
 
     generates a type @c X so that:
 
     @code
-    std::is_same<boost::dispatch::primitive_of_t<X>, U>::value
+    std::is_same<boost::dispatch::primitive_of<X>, U>::value
     @endcode
 
-    and for which the boost::dispatch::meta::model_of template aliases are equivalent.
+    and for which the boost::dispatch::model_of template aliases are equivalent.
 
-    Put in another way, boost::dispatch::meta::factory_of is a recursive application of
-    boost::dispatch::meta::model_of so that every nested type are traversed during reconstruction.
+    Put in another way, boost::dispatch::factory_of is a recursive application of
+    boost::dispatch::model_of so that every nested type are traversed during reconstruction.
 
     @see primitive_of
     @see model_of
   **/
-  template< typename T
-          , typename Limit = typename meta::primitive_of<T>::type
-          >
+  template<typename T, typename Limit = primitive_of<T>>
   struct factory_of : detail::factory_of<T, Limit>
   {};
-} } }
+} }
 
 #endif

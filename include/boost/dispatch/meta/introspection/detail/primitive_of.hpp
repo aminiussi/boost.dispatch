@@ -20,7 +20,7 @@ namespace boost { namespace dispatch { namespace detail
 {
   template<class T, class Origin> struct primitive_of
   {
-    using type = typename detail::primitive_of<typename meta::value_of<T>::type, T>::type;
+    using type = typename detail::primitive_of<boost::dispatch::value_of<T>, T>::type;
   };
 
   template<class T> struct primitive_of<T, T>

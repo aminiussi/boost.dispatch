@@ -16,21 +16,23 @@
 #define BOOST_DISPATCH_ADAPTED_BOOST_ARRAY_HPP_INCLUDED
 
 #include <boost/array.hpp>
+#include <boost/dispatch/meta/introspection/value_of.hpp>
+#include <boost/dispatch/meta/introspection/model_of.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace dispatch
 {
-  template<typename T> struct model_of;
-  template<typename T> struct value_of;
-
-  template<typename T, std::size_t N> struct model_of<boost::array<T,N>>
+  namespace ext
   {
-    template<typename X> using type = boost::array<X,N>;
-  };
+    template<typename T, std::size_t N> struct model_of<boost::array<T,N>>
+    {
+      template<typename X> using make = boost::array<X,N>;
+    };
 
-  template<typename T, std::size_t N> struct value_of<boost::array<T,N>>
-  {
-    using type = T;
-  };
-} } }
+    template<typename T, std::size_t N> struct value_of<boost::array<T,N>>
+    {
+      using type = T;
+    };
+  }
+} }
 
 #endif

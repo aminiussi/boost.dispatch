@@ -13,9 +13,9 @@
 
 NSTEST_CASE( "primitive_of of basic types is type itself")
 {
-  NSTEST_TYPE_IS( boost::dispatch::primitive_of_t<float>        , float         );
-  NSTEST_TYPE_IS( boost::dispatch::primitive_of_t<float&>       , float&        );
-  NSTEST_TYPE_IS( boost::dispatch::primitive_of_t<float&&>      , float&&       );
-  NSTEST_TYPE_IS( boost::dispatch::primitive_of_t<float const>  , float const   );
-  NSTEST_TYPE_IS( boost::dispatch::primitive_of_t<float const&> , float const&  );
+  NSTEST_TYPE_IS( boost::dispatch::primitive_of<float>        , float         );
+  NSTEST_TYPE_IS( boost::dispatch::primitive_of<float&>       , float&        );
+  NSTEST_TYPE_IS( boost::dispatch::primitive_of<float&&>      , float&&       );
+  NSTEST_TYPE_IS( boost::dispatch::primitive_of<float const>  , float const   );
+  NSTEST_TYPE_IS( boost::dispatch::primitive_of<float const&> , float const&  );
 }

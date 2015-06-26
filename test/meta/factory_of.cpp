@@ -13,9 +13,9 @@
 
 NSTEST_CASE( "factory_of of basic types is meta-identity")
 {
-  NSTEST_TYPE_IS( boost::dispatch::meta::factory_of<float>::type<int>       , int );
-  NSTEST_TYPE_IS( boost::dispatch::meta::factory_of<float&>::type<int>      , int );
-  NSTEST_TYPE_IS( boost::dispatch::meta::factory_of<float&&>::type<int>     , int );
-  NSTEST_TYPE_IS( boost::dispatch::meta::factory_of<float const>::type<int> , int );
-  NSTEST_TYPE_IS( boost::dispatch::meta::factory_of<float const&>::type<int>, int );
+  NSTEST_TYPE_IS( boost::dispatch::factory_of<float>::make<int>       , int );
+  NSTEST_TYPE_IS( boost::dispatch::factory_of<float&>::make<int>      , int );
+  NSTEST_TYPE_IS( boost::dispatch::factory_of<float&&>::make<int>     , int );
+  NSTEST_TYPE_IS( boost::dispatch::factory_of<float const>::make<int> , int );
+  NSTEST_TYPE_IS( boost::dispatch::factory_of<float const&>::make<int>, int );
 }
