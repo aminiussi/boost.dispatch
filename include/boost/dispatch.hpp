@@ -45,6 +45,11 @@ namespace boost { namespace dispatch
   }
 
   /*!
+    @defgroup group-meta Meta-programming Utilities
+    Meta-programming related components
+  **/
+
+  /*!
     @defgroup group-adapted External adapters
     Adaptation header for external libraries
   **/
