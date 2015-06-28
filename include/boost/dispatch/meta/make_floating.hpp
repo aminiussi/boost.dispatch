@@ -2,7 +2,7 @@
 /*!
   @file
 
-  Defines the meta::make_floating meta-function
+  Defines the make_floating meta-function
 
   @copyright 2015 NumScale SAS
 
@@ -15,30 +15,22 @@
 #define BOOST_DISPATCH_META_MAKE_FLOATING_HPP_INCLUDED
 
 #include <boost/dispatch/detail/brigand/functions/identity.hpp>
+#include <boost/dispatch/detail/brigand/types/no_such_type.hpp>
 #include <cstddef>
 
 namespace boost { namespace dispatch
 {
-  namespace meta
+  namespace detail
   {
-    /*!
-      @ingroup group-meta
-      @brief Generate a floating point type of a given size
-
-      For any given Size corresponding to a valid floating point type, return said type optionally
-      transformed by a user-defined unary meta-function.
-
-      @tparam Size      Size in bytes of the requested type
-      @tparam Transform Optional unary meta-function to apply to the generated type
-    **/
     template< std::size_t Size
             , template<class> class Transform = brigand::identity
             >
     struct  make_floating
     {
       static_assert ( Size == sizeof(float) || Size == sizeof(double)
-                    , "boost::dispatch::meta:make_floating: can't generate type of given Size"
+                    , "boost::dispatch::make_floating: can't generate type of given Size"
                     );
+      using type = brigand::no_such_type_;
     };
 
     template<template<class> class Transform>
@@ -56,10 +48,16 @@ namespace boost { namespace dispatch
 
   /*!
     @ingroup group-meta
-    @brief C++14 style short-cut for meta::make_floating
+    @brief Generate a floating point type of a given size
+
+    For any given Size corresponding to a valid floating point type, return said type optionally
+    transformed by an user-defined unary meta-function.
+
+    @tparam Size      Size in bytes of the requested type
+    @tparam Transform Optional unary meta-function to apply to the generated type
   **/
   template<std::size_t Size, template<class> class Transform = brigand::identity>
-  using make_floating_t = typename meta::make_floating<Size,Transform>::type;
+  using make_floating = typename detail::make_floating<Size,Transform>::type;
 } }
 
 #endif

@@ -13,14 +13,14 @@
 
 NSTEST_CASE( "Generate raw floating point types")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::make_floating_t<8>) , double );
-  NSTEST_TYPE_IS( (boost::dispatch::make_floating_t<4>) , float  );
+  NSTEST_TYPE_IS( (boost::dispatch::make_floating<8>) , double );
+  NSTEST_TYPE_IS( (boost::dispatch::make_floating<4>) , float  );
 }
 
 template<typename T> using ptr_t  =T*;
 
 NSTEST_CASE( "Generate transformed floating point types")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::make_floating_t<8,ptr_t>) , double* );
-  NSTEST_TYPE_IS( (boost::dispatch::make_floating_t<4,ptr_t>) , float*  );
+  NSTEST_TYPE_IS( (boost::dispatch::make_floating<8,ptr_t>) , double* );
+  NSTEST_TYPE_IS( (boost::dispatch::make_floating<4,ptr_t>) , float*  );
 }
