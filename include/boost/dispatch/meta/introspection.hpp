@@ -14,6 +14,7 @@
 #ifndef BOOST_DISPATCH_META_INTROSPECTION_HPP_INCLUDED
 #define BOOST_DISPATCH_META_INTROSPECTION_HPP_INCLUDED
 
+#include <boost/dispatch/meta/introspection/sign_of.hpp>
 #include <boost/dispatch/meta/introspection/model_of.hpp>
 #include <boost/dispatch/meta/introspection/value_of.hpp>
 #include <boost/dispatch/meta/introspection/factory_of.hpp>
