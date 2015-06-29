@@ -6,7 +6,7 @@
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 */
 //==================================================================================================
-#include <boost/dispatch/meta/transfer_qualifiers.hpp>
+#include <boost/dispatch/meta/generation/transfer_qualifiers.hpp>
 
 #include <nstest/unit.hpp>
 #include <nstest/unit/tests/types.hpp>
