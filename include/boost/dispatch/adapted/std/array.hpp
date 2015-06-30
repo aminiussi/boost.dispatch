@@ -25,7 +25,7 @@ namespace boost { namespace dispatch
   {
     template<typename T, std::size_t N> struct model_of<std::array<T,N>>
     {
-      template<typename X> using make = std::array<X,N>;
+      template<typename X> using apply = std::array<X,N>;
     };
 
     template<typename T, std::size_t N> struct value_of<std::array<T,N>>

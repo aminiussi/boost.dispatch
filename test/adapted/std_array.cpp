@@ -17,30 +17,30 @@ NSTEST_CASE( "factory_of over std::array<T,N>")
 {
   using base = std::array<std::array<std::array<float,7>,5>,3>;
 
-  NSTEST_TYPE_IS( (boost::dispatch::factory_of<base>::make<int*>)
+  NSTEST_TYPE_IS( (boost::dispatch::factory_of<base>::apply<int*>)
                 , (std::array<std::array<std::array<int*,7>,5>,3>)
                 );
 }
 
 NSTEST_CASE( "model_of of std::array<T,N> is std::array<_,N>")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::model_of<std::array<float,3>>::make<int>)
+  NSTEST_TYPE_IS( (boost::dispatch::model_of<std::array<float,3>>::apply<int>)
                 , (std::array<int,3>)
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::model_of<std::array<float,3>&>::make<int>)
+  NSTEST_TYPE_IS( (boost::dispatch::model_of<std::array<float,3>&>::apply<int>)
                 , (std::array<int,3>)
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::model_of<std::array<float,3>&&>::make<int>)
+  NSTEST_TYPE_IS( (boost::dispatch::model_of<std::array<float,3>&&>::apply<int>)
                 , (std::array<int,3>)
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::model_of<std::array<float,3> const>::make<int>)
+  NSTEST_TYPE_IS( (boost::dispatch::model_of<std::array<float,3> const>::apply<int>)
                 , (std::array<int,3>)
                 );
 
-  NSTEST_TYPE_IS( (boost::dispatch::model_of<std::array<float,3> const&>::make<int>)
+  NSTEST_TYPE_IS( (boost::dispatch::model_of<std::array<float,3> const&>::apply<int>)
                 , (std::array<int,3>)
                 );
 }

@@ -34,13 +34,13 @@ namespace boost { namespace dispatch
     For any type @c T,
 
     @code
-    model_of<T>::make;
+    model_of<T>::apply;
     @endcode
 
     defines a template alias so that:
 
     @code
-    std::is_same<model_of<T>::make<value_of<T>>, T>::value
+    std::is_same<model_of<T>::apply<value_of<T>>, T>::value
     @endcode
 
     evaluates to @c true.

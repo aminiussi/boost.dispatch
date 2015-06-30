@@ -38,13 +38,13 @@ namespace boost { namespace dispatch
     For any type @c T:
 
     @code
-    boost::dispatch::factory_of<T>::make;
+    boost::dispatch::factory_of<T>::apply;
     @endcode
 
     return a template alias so that, for any type @c U:
 
     @code
-    using X = make<U>;
+    using X = apply<U>;
     @endcode
 
     generates a type @c X so that:
