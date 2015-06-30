@@ -12,6 +12,7 @@ include(make_coverage)
 add_definitions(-DBOOST_ENABLE_ASSERT_HANDLER)
 
 set ( SOURCES
+      as_integer.cpp
       factory_of.cpp
       make_floating.cpp
       make_integer.cpp
