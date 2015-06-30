@@ -18,27 +18,8 @@
 
 namespace boost { namespace dispatch
 {
-  namespace meta
+  namespace detail
   {
-    /*!
-      @ingroup group-meta
-      @brief Transfer qualifiers between types
-
-      Modify a type so it bears the same cref-qualifier than another type while following the
-      reference collapsing rules (<a href="http://isocpp.org/blog/2012/11/universal-references-in-c11-scott-meyers">
-      as described in this article</a>) which state that:
-
-      - An rvalue reference to an rvalue reference becomes (“collapses into”) an rvalue reference.
-      - All other references to references (i.e., all combinations involving an lvalue reference)
-        collapse into an lvalue reference.
-
-      @par Model:
-
-      @metafunction
-
-      @tparam T Type to modify
-      @tparam U Type which modifier needs to be transfered
-    **/
     template<typename T, typename U>
     struct transfer_qualifiers
     {
@@ -62,10 +43,21 @@ namespace boost { namespace dispatch
 
   /*!
     @ingroup group-meta
-    @brief C++14 style short-cut for meta::transfer_qualifiers
+    @brief Transfer qualifiers between types
+
+    Modify a type so it bears the same cref-qualifier than another type while following the
+    reference collapsing rules (<a href="http://isocpp.org/blog/2012/11/universal-references-in-c11-scott-meyers">
+    as described in this article</a>) which state that:
+
+    - An rvalue reference to an rvalue reference becomes (“collapses into”) an rvalue reference.
+    - All other references to references (i.e., all combinations involving an lvalue reference)
+      collapse into an lvalue reference.
+
+    @tparam T Type to modify
+    @tparam U Type which modifier needs to be transfered
   **/
   template<typename T, typename U>
-  using transfer_qualifiers_t = typename meta::transfer_qualifiers<T,U>::type;
+  using transfer_qualifiers = typename detail::transfer_qualifiers<T,U>::type;
 } }
 
 #endif
