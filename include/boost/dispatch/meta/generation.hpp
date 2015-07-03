@@ -15,6 +15,7 @@
 #define BOOST_DISPATCH_META_GENERATION_HPP_INCLUDED
 
 #include <boost/dispatch/meta/generation/as_integer.hpp>
+#include <boost/dispatch/meta/generation/as_floating.hpp>
 #include <boost/dispatch/meta/generation/make_integer.hpp>
 #include <boost/dispatch/meta/generation/make_floating.hpp>
 #include <boost/dispatch/meta/generation/transfer_qualifiers.hpp>
