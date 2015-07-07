@@ -12,6 +12,7 @@ include(make_coverage)
 add_definitions(-DBOOST_ENABLE_ASSERT_HANDLER)
 
 set ( SOURCES
+      apply_sign.cpp
       as_floating.cpp
       as_integer.cpp
       as_signed.cpp
