@@ -15,6 +15,7 @@ set ( SOURCES
       as_floating.cpp
       as_integer.cpp
       factory_of.cpp
+      is_natural.cpp
       make_floating.cpp
       make_integer.cpp
       model_of.cpp

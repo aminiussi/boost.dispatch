@@ -17,6 +17,7 @@
 #include <boost/dispatch/meta/introspection/sign_of.hpp>
 #include <boost/dispatch/meta/introspection/model_of.hpp>
 #include <boost/dispatch/meta/introspection/value_of.hpp>
+#include <boost/dispatch/meta/introspection/is_natural.hpp>
 #include <boost/dispatch/meta/introspection/factory_of.hpp>
 #include <boost/dispatch/meta/introspection/primitive_of.hpp>
 
