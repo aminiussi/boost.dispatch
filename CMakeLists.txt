@@ -45,6 +45,7 @@ include(parse_revision)
 include_directories ( ${PROJECT_SOURCE_DIR}/include
                       ${Boost_INCLUDE_DIRS}
                       ${PROJECT_SOURCE_DIR}/deps/include
+                      ${PROJECT_SOURCE_DIR}/include/boost/dispatch/detail
                     )
 
 ##===================================================================================================
