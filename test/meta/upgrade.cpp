@@ -16,8 +16,7 @@
 #include <nstest/unit/tests/types.hpp>
 
 NSTEST_CASE_TPL ( "Upgradable integral types turn into their next-of-kind"
-                , (bool)(char)(short)(int)(long)
-                  (unsigned char)(unsigned short)(unsigned int)(unsigned long)
+                , (bool)
                   (std::uint8_t)(std::uint16_t)(std::uint32_t)
                   (std::int8_t)(std::int16_t)(std::int32_t)
                 )
@@ -41,7 +40,7 @@ NSTEST_CASE_TPL ( "Upgradable integral types turn into their next-of-kind"
 }
 
 NSTEST_CASE_TPL ( "Top integral types stay put"
-                , (long long)(unsigned long long)(std::int64_t)(std::uint64_t)
+                , (std::int64_t)(std::uint64_t)
                 )
 {
   using          result_type = boost::dispatch::upgrade<T>;
