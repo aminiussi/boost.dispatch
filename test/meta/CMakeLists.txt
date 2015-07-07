@@ -14,6 +14,7 @@ add_definitions(-DBOOST_ENABLE_ASSERT_HANDLER)
 set ( SOURCES
       as_floating.cpp
       as_integer.cpp
+      as_unsigned.cpp
       factory_of.cpp
       is_natural.cpp
       make_floating.cpp
