@@ -15,6 +15,7 @@
 #define BOOST_DISPATCH_META_GENERATION_HPP_INCLUDED
 
 #include <boost/dispatch/meta/generation/upgrade.hpp>
+#include <boost/dispatch/meta/generation/downgrade.hpp>
 #include <boost/dispatch/meta/generation/as_signed.hpp>
 #include <boost/dispatch/meta/generation/apply_sign.hpp>
 #include <boost/dispatch/meta/generation/as_integer.hpp>

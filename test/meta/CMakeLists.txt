@@ -18,6 +18,7 @@ set ( SOURCES
       as_signed.cpp
       as_unsigned.cpp
       behave_as.cpp
+      downgrade.cpp
       factory_of.cpp
       is_natural.cpp
       make_floating.cpp
