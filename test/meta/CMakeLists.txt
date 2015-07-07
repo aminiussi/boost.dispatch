@@ -26,6 +26,7 @@ set ( SOURCES
       primitive_of.cpp
       sign_of.cpp
       transfer_qualifiers.cpp
+      upgrade.cpp
       value_of.cpp
     )
 
