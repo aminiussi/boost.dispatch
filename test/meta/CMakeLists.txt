@@ -25,6 +25,7 @@ set ( SOURCES
       make_integer.cpp
       model_of.cpp
       primitive_of.cpp
+      scalar_of.cpp
       sign_of.cpp
       transfer_qualifiers.cpp
       upgrade.cpp
