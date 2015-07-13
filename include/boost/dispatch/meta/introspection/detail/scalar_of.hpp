@@ -2,7 +2,7 @@
 /*!
   @file
 
-  Defines the meta::scalar_of meta-function
+  Defines the meta::scalar_of meta-function extension point
 
   @copyright 2015 NumScale SAS
 
@@ -19,6 +19,7 @@
 
 namespace boost { namespace dispatch
 {
+#if !defined(DOXYGEN_ONLY)
   namespace detail
   {
     template<typename T, typename U = boost::dispatch::value_of<T>>
@@ -30,6 +31,7 @@ namespace boost { namespace dispatch
       using type = T;
     };
   }
+#endif
 
   namespace ext
   {
