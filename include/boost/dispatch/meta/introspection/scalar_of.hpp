@@ -11,8 +11,8 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_DISPATCH_META_INTROSPECTION_SCALAR__OF_HPP_INCLUDED
-#define BOOST_DISPATCH_META_INTROSPECTION_SCALAR__OF_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_INTROSPECTION_SCALAR_OF_HPP_INCLUDED
+#define BOOST_DISPATCH_META_INTROSPECTION_SCALAR_OF_HPP_INCLUDED
 
 #include <boost/dispatch/meta/introspection/detail/scalar_of.hpp>
 
