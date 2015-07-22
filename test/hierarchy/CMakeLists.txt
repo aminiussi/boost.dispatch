@@ -6,6 +6,12 @@
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##===================================================================================================
 
-add_subdirectory(adapted)
-add_subdirectory(hierarchy)
-add_subdirectory(meta)
+include(make_unit)
+include(make_coverage)
+
+set ( SOURCES
+      parent.cpp
+    )
+
+make_unit( "boost.dispatch.hierarchy" ${SOURCES})
+make_coverage("boost.dispatch.hierarchy" ${SOURCES})

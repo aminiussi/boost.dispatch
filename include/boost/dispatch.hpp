@@ -15,6 +15,7 @@
 #define BOOST_DISPATCH_HPP_INCLUDED
 
 #include <boost/dispatch/config.hpp>
+#include <boost/dispatch/hierarchy.hpp>
 #include <boost/dispatch/meta/introspection.hpp>
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
 
@@ -47,6 +48,11 @@ namespace boost { namespace dispatch
   /*!
     @defgroup group-meta Meta-programming Utilities
     Meta-programming related components
+  **/
+
+  /*!
+    @defgroup group-hierarchy Predefined Hierarchies
+    Type hierarchies provided by the library
   **/
 
   /*!
