@@ -14,7 +14,7 @@
 #ifndef BOOST_DISPATCH_META_HIERARCHY_SCALAR_HPP_INCLUDED
 #define BOOST_DISPATCH_META_HIERARCHY_SCALAR_HPP_INCLUDED
 
-//#include <boost/dispatch/hierarchy/unspecified.hpp>
+#include <boost/dispatch/hierarchy/unspecified.hpp>
 
 namespace boost { namespace dispatch
 {
@@ -33,14 +33,12 @@ namespace boost { namespace dispatch
     using parent = scalar_<typename Hierarchy::parent>;
   };
 
-/*
-  // When hitting unspecified_, we strip the scalar informations and use the basic property beneath
+  // When hitting unspecified_, behaves as a generic_ type
   template<typename Type>
-  struct scalar_< unspecified_<Type> > : property_of<Type>
+  struct scalar_< unspecified_<Type> > : unspecified_<Type>
   {
-    using parent = property_of<T>;
+    using parent = unspecified_<Type>;
   };
-*/
 } }
 
 #endif
