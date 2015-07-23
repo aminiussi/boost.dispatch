@@ -20,7 +20,7 @@
 
 #if defined(DOXYGEN_ONLY)
 /*!
-  @ingroup group-unit
+  @ingroup group-common
   @brief Test application entry-point customization
 
   In some scenario, one may need to run tests from a function not called main.
@@ -32,8 +32,8 @@
 
 int NSTEST_CUSTOM_DRIVER_FUNCTION(int argc, const char** argv)
 {
-  ::nstest::env $env(argc,argv,std::cout);
-  return ::nstest::run( $env, ::nstest::suite(), {0,0} );
+  ::nstest::unit::env $env(argc,argv,std::cout);
+  return ::nstest::run( $env, ::nstest::unit::suite(), 0, 0 );
 }
 
 #endif

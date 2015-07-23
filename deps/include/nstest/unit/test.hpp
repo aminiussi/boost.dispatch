@@ -18,7 +18,7 @@
 #include <functional>
 #include <nstest/unit/env.hpp>
 
-namespace nstest
+namespace nstest { namespace unit
 {
   /*!
     @brief Test case wrapper class
@@ -63,6 +63,6 @@ namespace nstest
     static test_suite tests;
     return tests;
   }
-}
+} }
 
 #endif

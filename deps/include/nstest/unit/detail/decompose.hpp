@@ -59,7 +59,7 @@ namespace nstest { namespace detail
     type is used to provide a member pointer access overload able to catch arbitrary binary
     expression and forward them to the display system.
 
-    @note This code is sa direct adaptation of the similar technique used by Martin Moene in LEST
+    @note This code is a direct adaptation of the similar technique used by Martin Moene in LEST
   **/
   struct decomposer
   {

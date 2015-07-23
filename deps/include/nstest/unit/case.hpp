@@ -47,12 +47,13 @@
   @param DESCRIPTION String literal describing the purpose of the test case
 **/
 #define NSTEST_CASE(DESCRIPTION)                                                                    \
-void NTEST_FUNCTION( ::nstest::env& );                                                              \
+void NTEST_FUNCTION( ::nstest::unit::env& );                                                        \
 namespace                                                                                           \
 {                                                                                                   \
-  ::nstest::detail::registrar NTEST_REGISTRATION{ ::nstest::test(DESCRIPTION, NTEST_FUNCTION) };    \
+  ::nstest::detail::registrar                                                                       \
+  NTEST_REGISTRATION{::nstest::unit::test(DESCRIPTION, NTEST_FUNCTION)};                            \
 }                                                                                                   \
-void NTEST_FUNCTION( ::nstest::env& $ )                                                             \
+void NTEST_FUNCTION( ::nstest::unit::env& $ )                                                       \
 /**/
 
 #define NTEST_RTYPE(z, n, t)                                                                        \
@@ -60,7 +61,8 @@ void NTEST_FUNCTION( ::nstest::env& $ )                                         
   using T = BOOST_PP_SEQ_ELEM(n,t);                                                                 \
   $.stream() << std::endl;                                                                          \
   $.stream() <<  "With T = [" << ::nstest::white_(NSTEST_STRING(BOOST_PP_SEQ_ELEM(n,t)))            \
-                        << "]" << std::endl;                                                        \
+                        << "] ";                                                                    \
+  if(!$.is_compact()) $.stream() << std::endl;                                                      \
   NTEST_FUNCTION<T>($);                                                                             \
 }                                                                                                   \
 /**/
@@ -84,20 +86,20 @@ void NTEST_FUNCTION( ::nstest::env& $ )                                         
   @param TYPES        Boost.Preprocessor sequence of types
 **/
 #define NSTEST_CASE_TPL(DESCRIPTION, TYPES)                                                         \
-template<typename T> void NTEST_FUNCTION( nstest::env& );                                           \
+template<typename T> void NTEST_FUNCTION( nstest::unit::env& );                                     \
 namespace                                                                                           \
 {                                                                                                   \
   nstest::detail::registrar                                                                         \
-  NTEST_REGISTRATION{ nstest::test                                                                  \
+  NTEST_REGISTRATION{ nstest::unit::test                                                            \
                       ( DESCRIPTION                                                                 \
-                      , [](::nstest::env& $) -> void                                                \
+                      , [](::nstest::unit::env& $) -> void                                          \
                         {                                                                           \
                           BOOST_PP_REPEAT(BOOST_PP_SEQ_SIZE(TYPES),NTEST_RTYPE,TYPES)               \
                         }                                                                           \
                       )                                                                             \
                     };                                                                              \
 }                                                                                                   \
-template<typename T> void NTEST_FUNCTION( nstest::env& $ )                                          \
+template<typename T> void NTEST_FUNCTION( nstest::unit::env& $ )                                    \
 /**/
 
 #endif

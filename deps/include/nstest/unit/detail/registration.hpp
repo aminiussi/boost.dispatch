@@ -14,7 +14,7 @@ namespace nstest { namespace detail
 {
   struct registrar
   {
-    registrar( test const& test_case ) { suite().push_back( test_case ); }
+    registrar( ::nstest::unit::test const& test_case ) { unit::suite().push_back( test_case ); }
   };
 } }
 

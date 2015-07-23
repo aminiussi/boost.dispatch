@@ -15,6 +15,7 @@
 #define NSTEST_UNIT_TESTS_PRECISION_HPP_INCLUDED
 
 #include <nstest/unit/detail/ulp.hpp>
+#include <nstest/unit/detail/relative.hpp>
 #include <nstest/unit/detail/decompose.hpp>
 #include <nstest/unit/tests/basic.hpp>
 
@@ -23,7 +24,7 @@
 
   @brief Check for equality within ULP distance
 
-  Evaluates @c A and @c B and checks if their respective value(s) are withing @c X each ULPs of
+  Evaluates @c A and @c B and checks if their respective value(s) are withing @c X ULPs of
   each other. This test is performed by calling the default @c nstest::ulpdist function or any
   ADL-accessible overload on each values from @c A and @c B.
 
@@ -46,6 +47,40 @@ do                                                                              
   else                                                                                              \
     NSTEST_FAIL ( "Expecting: " << ::nstest::white_(NSTEST_STRING(A) " == " NSTEST_STRING(B))       \
                                 << " within " << ::nstest::white_(X) << " ULPs "                    \
+                                << "but found:\n" << ::nstest::white_(r.rhs)                        \
+                );                                                                                  \
+} while( ::nstest::is_false() )                                                                     \
+/**/
+
+
+/*!
+  @ingroup group-unit
+
+  @brief Check for equality within a relative distance
+
+  Evaluates @c A and @c B and checks if their respective value(s) are within a relative tolerance
+  of @c X percent of each other. This test is performed by calling the default @c nstest::reldist
+  function or any ADL-accessible overload on each values from @c A and @c B.
+
+  @par Example:
+
+  @snippet test/unit/relative.cpp relative
+
+  @param A First expression to compare
+  @param B Second expression to compare
+  @param X Relative tolerance
+**/
+#define NSTEST_RELATIVE_EQUAL(A,B,X)                                                                \
+do                                                                                                  \
+{                                                                                                   \
+  auto r = NSTEST_DECOMPOSE((A) == ::nstest::relative(B,X));                                        \
+  if( r )                                                                                           \
+    NSTEST_PASS ( "Expecting: " << ::nstest::white_(NSTEST_STRING(A) " == " NSTEST_STRING(B))       \
+                                << " within " << ::nstest::white_(X) << " %."                       \
+                );                                                                                  \
+  else                                                                                              \
+    NSTEST_FAIL ( "Expecting: " << ::nstest::white_(NSTEST_STRING(A) " == " NSTEST_STRING(B))       \
+                                << " within " << ::nstest::white_(X) << " % "                       \
                                 << "but found:\n" << ::nstest::white_(r.rhs)                        \
                 );                                                                                  \
 } while( ::nstest::is_false() )                                                                     \

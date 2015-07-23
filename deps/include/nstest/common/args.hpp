@@ -29,7 +29,10 @@ namespace nstest
       args_map()
       {
         // List of environment variable to map onto options
-        std::pair<std::string,std::string> envvars[] = { {"NSTEST_COLOR", "color"} };
+        std::pair<std::string,std::string>
+        envvars[] = { {"NSTEST_COLOR"   , "color"}
+                    , {"NSTEST_COMPACT" , "compact"}
+                    };
 
         // fill map with environment variable
         for(auto const& id : envvars)

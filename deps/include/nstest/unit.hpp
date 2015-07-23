@@ -18,7 +18,7 @@
 #include <nstest/unit/env.hpp>
 #include <nstest/unit/case.hpp>
 #include <nstest/unit/test.hpp>
-#include <nstest/unit/driver.hpp>
+#include <nstest/common/driver.hpp>
 
 #if !defined(NSTEST_USE_CUSTOM_DRIVER)
 #include <nstest/unit/main.hpp>

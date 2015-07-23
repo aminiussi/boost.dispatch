@@ -34,7 +34,14 @@
 do                                                                                                  \
 {                                                                                                   \
   $.as_success();                                                                                   \
-  $.pass() << MESSAGE << " in: " << ::nstest::at(__FILE__,__LINE__) << std::endl;                   \
+  if(!$.is_compact())                                                                               \
+  {                                                                                                 \
+    $.pass() << MESSAGE << " in: " << ::nstest::at(__FILE__,__LINE__) << std::endl;                 \
+  }                                                                                                 \
+  else                                                                                              \
+  {                                                                                                 \
+    $.stream() << ::nstest::green_("+");                                                            \
+  }                                                                                                 \
 } while( ::nstest::is_false() )                                                                     \
 /**/
 
@@ -54,7 +61,14 @@ do                                                                              
 do                                                                                                  \
 {                                                                                                   \
   $.as_failure();                                                                                   \
-  $.fail() << MESSAGE << " in: " << ::nstest::at(__FILE__,__LINE__) << std::endl;                   \
+  if(!$.is_compact())                                                                               \
+  {                                                                                                 \
+    $.fail() << MESSAGE << " in: " << ::nstest::at(__FILE__,__LINE__) << std::endl;                 \
+  }                                                                                                 \
+  else                                                                                              \
+  {                                                                                                 \
+    $.stream() << ::nstest::red_("-");                                                              \
+  }                                                                                                 \
 } while( ::nstest::is_false() )                                                                     \
 /**/
 
@@ -77,7 +91,7 @@ do                                                                              
   else                                                                                              \
   {                                                                                                 \
     NSTEST_FAIL( "Expecting: " << ::nstest::white_(NSTEST_STRING(EXPR)) );                          \
-    NSTEST_DUMP( r );                                                                               \
+    if(!$.is_compact()) NSTEST_DUMP( r );                                                           \
   }                                                                                                 \
 } while( ::nstest::is_false() )                                                                     \
 /**/
@@ -101,7 +115,7 @@ do                                                                              
   else                                                                                              \
   {                                                                                                 \
     NSTEST_FAIL( "Not expecting: " << ::nstest::white_(NSTEST_STRING(EXPR)) );                      \
-    NSTEST_DUMP( r );                                                                               \
+    if(!$.is_compact()) NSTEST_DUMP( r );                                                           \
   }                                                                                                 \
 } while( ::nstest::is_false() )                                                                     \
 /**/
