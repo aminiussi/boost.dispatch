@@ -2,7 +2,7 @@
 /*!
   @file
 
-  Defines the meta::enable_if_type SFINAE helper
+  Defines the enable_if_type SFINAE helper
 
   @copyright 2015 NumScale SAS
 
@@ -14,7 +14,7 @@
 #ifndef BOOST_DISPATCH_META_ENABLE_IF_TYPE_HPP_INCLUDED
 #define BOOST_DISPATCH_META_ENABLE_IF_TYPE_HPP_INCLUDED
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost
 {
   /*!
     @brief SFINAE context for type existence validation
@@ -26,6 +26,6 @@ namespace boost { namespace dispatch { namespace meta
     @tparam R Type to return if @c T is defined.
   **/
   template<typename T, typename R=void> struct enable_if_type { using type =  R; };
-} } }
+}
 
 #endif
