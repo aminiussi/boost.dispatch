@@ -43,6 +43,15 @@ NSTEST_CASE( "Parenthood of bool hierarchy" )
   NSTEST_TYPE_IS( unspecified_<bool>::parent , type_<bool>        );
 }
 
+NSTEST_CASE( "Parenthood of scalar_ hierarchy" )
+{
+  using namespace boost::dispatch;
+
+  NSTEST_TYPE_IS( scalar_<bool_<bool>>::parent        , scalar_<bool_<bool>::parent>        );
+  NSTEST_TYPE_IS( scalar_<fundamental_<bool>>::parent , scalar_<fundamental_<bool>::parent> );
+  NSTEST_TYPE_IS( scalar_<unspecified_<bool>>::parent , unspecified_<bool>                  );
+}
+
 NSTEST_CASE( "Parenthood of IEEE types hierarchy" )
 {
   using namespace boost::dispatch;
