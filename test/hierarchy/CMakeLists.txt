@@ -10,6 +10,7 @@ include(make_unit)
 include(make_coverage)
 
 set ( SOURCES
+      hierarchy_of.cpp
       parent.cpp
       property_of.cpp
     )
