@@ -11,6 +11,7 @@ include(make_coverage)
 
 set ( SOURCES
       parent.cpp
+      property_of.cpp
     )
 
 make_unit( "boost.dispatch.hierarchy" ${SOURCES})
