@@ -6,22 +6,10 @@
 =================================================================================================**/
 #pragma once
 
-#include <brigand/algorithms/apply.hpp>
+#include <brigand/types/bool.hpp>
 
-namespace std
+namespace brigand { namespace detail
 {
-  template<class...>
-  class tuple;
-}
-
-namespace brigand
-{
-  template <typename... T>
-  struct tuple_wrapper
-  {
-      using type = typename std::tuple<T...>;
-  };
-
-  template <typename L>
-  using as_tuple = apply<L, tuple_wrapper>;
-}
+  // Default find-like predicate
+  template<typename T> using non_null = bool_< T::value != 0 >;
+} }
