@@ -11,6 +11,7 @@ include(make_coverage)
 
 set ( SOURCES
       hierarchy_of.cpp
+      models.cpp
       parent.cpp
       property_of.cpp
     )
