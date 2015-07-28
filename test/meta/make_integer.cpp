@@ -8,8 +8,7 @@
 //==================================================================================================
 #include <boost/dispatch/meta/generation/make_integer.hpp>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE( "Generate raw integer types")
 {

@@ -8,8 +8,7 @@
 //==================================================================================================
 #include <boost/dispatch/meta/introspection/value_of.hpp>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE( "value_of of basic types is type itself")
 {

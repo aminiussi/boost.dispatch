@@ -12,8 +12,7 @@
 #include <boost/dispatch/hierarchy_of.hpp>
 #include <array>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE( "factory_of over std::array<T,N>")
 {

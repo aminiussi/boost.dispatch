@@ -11,9 +11,7 @@
 #include <type_traits>
 #include <cstdint>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/basic.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE_TPL ( "Downgradable integral types turn into their prev-of-kind"
                 , (std::uint16_t)(std::uint32_t)(std::uint64_t)

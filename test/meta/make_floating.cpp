@@ -8,8 +8,7 @@
 //==================================================================================================
 #include <boost/dispatch/meta/generation/make_floating.hpp>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE( "Generate raw floating point types")
 {

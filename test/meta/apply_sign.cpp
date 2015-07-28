@@ -11,8 +11,7 @@
 #include <boost/dispatch/meta/generation/as_signed.hpp>
 #include <cstdint>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE_TPL ( "Applying signed gives signed types"
                 , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)

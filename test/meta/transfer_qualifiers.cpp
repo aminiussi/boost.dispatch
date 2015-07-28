@@ -8,8 +8,7 @@
 //==================================================================================================
 #include <boost/dispatch/meta/generation/transfer_qualifiers.hpp>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE( "Check if nothing get transfered")
 {

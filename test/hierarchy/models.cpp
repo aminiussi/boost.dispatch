@@ -13,8 +13,7 @@
 #include <boost/dispatch/hierarchy/base.hpp>
 #include <boost/dispatch/models.hpp>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 template<typename T> using sv = boost::dispatch::scalar_<boost::dispatch::void_<T>>;
 template<typename T> using sb = boost::dispatch::scalar_<boost::dispatch::bool_<T>>;

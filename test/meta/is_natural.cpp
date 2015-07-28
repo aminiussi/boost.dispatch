@@ -10,8 +10,7 @@
 #include <cstdint>
 #include <cstddef>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/basic.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE_TPL ( "integral types are natural"
                 , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)(std::size_t)

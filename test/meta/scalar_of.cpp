@@ -9,8 +9,7 @@
 #include <boost/dispatch/meta/introspection/scalar_of.hpp>
 #include <cstdint>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE( "scalar_of of basic types is the type itself" )
 {

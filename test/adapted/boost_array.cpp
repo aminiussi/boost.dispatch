@@ -10,8 +10,7 @@
 #include <boost/dispatch/meta/introspection.hpp>
 #include <boost/array.hpp>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE( "factory_of over boost::array<T,N>")
 {

@@ -9,8 +9,7 @@
 #include <boost/dispatch/meta/generation/as_signed.hpp>
 #include <cstdint>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE_TPL ( "Generate signed from signed types"
                 , (float)(double)(bool)(std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)

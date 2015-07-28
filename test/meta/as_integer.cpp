@@ -9,8 +9,7 @@
 #include <boost/dispatch/meta/generation/as_integer.hpp>
 #include <boost/dispatch/meta/generation/make_integer.hpp>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE_TPL ( "Generate integer from integral types"
                 , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)

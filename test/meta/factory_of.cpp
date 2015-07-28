@@ -8,8 +8,7 @@
 //==================================================================================================
 #include <boost/dispatch/meta/introspection/factory_of.hpp>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE( "factory_of of basic types is meta-identity")
 {

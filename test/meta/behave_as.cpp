@@ -10,8 +10,7 @@
 #include <boost/dispatch/detail/brigand.hpp>
 #include <type_traits>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 template<typename T> using is_fp = typename std::is_floating_point<T>::type;
 

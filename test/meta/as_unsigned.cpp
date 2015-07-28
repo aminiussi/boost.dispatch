@@ -9,8 +9,7 @@
 #include <boost/dispatch/meta/generation/as_unsigned.hpp>
 #include <cstdint>
 
-#include <nstest/unit.hpp>
-#include <nstest/unit/tests/types.hpp>
+#include <nstest.hpp>
 
 NSTEST_CASE_TPL ( "Generate unsigned from non-signed types"
                 , (float)(double)(bool)(std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
