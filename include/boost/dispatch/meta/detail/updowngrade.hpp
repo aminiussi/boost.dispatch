@@ -20,7 +20,7 @@
 #include <boost/dispatch/meta/generation/make_integer.hpp>
 #include <boost/dispatch/meta/generation/as_unsigned.hpp>
 #include <boost/dispatch/meta/generation/apply_sign.hpp>
-#include <boost/dispatch/detail/brigand/sequences/at.hpp>
+#include <boost/dispatch/detail/brigand.hpp>
 
 namespace boost { namespace dispatch { namespace detail
 {

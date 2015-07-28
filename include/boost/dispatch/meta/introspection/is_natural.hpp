@@ -14,8 +14,7 @@
 #ifndef BOOST_DISPATCH_META_INTROSPECTION_IS_NATURAL_HPP_INCLUDED
 #define BOOST_DISPATCH_META_INTROSPECTION_IS_NATURAL_HPP_INCLUDED
 
-#include <boost/dispatch/detail/brigand/functions/not.hpp>
-#include <boost/dispatch/detail/brigand/functions/and.hpp>
+#include <boost/dispatch/detail/brigand.hpp>
 #include <type_traits>
 
 namespace boost { namespace dispatch

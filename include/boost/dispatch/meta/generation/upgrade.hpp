@@ -15,8 +15,7 @@
 #define BOOST_DISPATCH_META_GENERATION_UPGRADE_HPP_INCLUDED
 
 #include <boost/dispatch/meta/detail/updowngrade.hpp>
-#include <boost/dispatch/detail/brigand/sequences/pair.hpp>
-#include <boost/dispatch/detail/brigand/sequences/map.hpp>
+#include <boost/dispatch/detail/brigand.hpp>
 #include <cstdint>
 
 namespace boost { namespace dispatch

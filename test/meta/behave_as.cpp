@@ -7,7 +7,7 @@
 */
 //==================================================================================================
 #include <boost/dispatch/meta/introspection/behave_as.hpp>
-#include <boost/dispatch/detail/brigand/types/bool.hpp>
+#include <boost/dispatch/detail/brigand.hpp>
 #include <type_traits>
 
 #include <nstest/unit.hpp>

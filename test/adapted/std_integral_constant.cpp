@@ -90,3 +90,29 @@ NSTEST_CASE( "primitive_of of std::array<T,N> is T")
                 , int const&
                 );
 }
+
+NSTEST_CASE( "property_of over std::integral_constant<T,N>")
+{
+  using base = std::integral_constant<char,69>;
+
+  NSTEST_TYPE_IS( (boost::dispatch::property_of<base>)
+                , (boost::dispatch::int8_<base>)
+                );
+}
+
+NSTEST_CASE( "hierarchy_of over std::integral_constant<T,N>")
+{
+  using base = std::integral_constant<char,69>;
+
+  NSTEST_TYPE_IS( (boost::dispatch::hierarchy_of<base>)
+                , (boost::dispatch::constant_<boost::dispatch::int8_<base>>)
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::constant_<boost::dispatch::int8_<base>>::parent)
+                , (boost::dispatch::constant_<boost::dispatch::ints8_<base>>)
+                );
+
+  NSTEST_TYPE_IS( (boost::dispatch::constant_<boost::dispatch::unspecified_<base>>::parent)
+                , (boost::dispatch::scalar_<boost::dispatch::int8_<base>>)
+                );
+}
