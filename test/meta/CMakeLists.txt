@@ -20,6 +20,7 @@ set ( SOURCES
       behave_as.cpp
       downgrade.cpp
       factory_of.cpp
+      is_homogeneous.cpp
       is_natural.cpp
       make_floating.cpp
       make_integer.cpp
