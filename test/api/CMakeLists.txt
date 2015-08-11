@@ -6,7 +6,14 @@
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##===================================================================================================
 
-add_subdirectory(adapted)
-add_subdirectory(api)
-add_subdirectory(hierarchy)
-add_subdirectory(meta)
+include(make_unit)
+include(make_coverage)
+
+add_definitions(-DBOOST_ENABLE_ASSERT_HANDLER)
+
+set ( SOURCES
+      as.cpp
+    )
+
+make_unit( "boost.dispatch.api" ${SOURCES})
+make_coverage("boost.dispatch.api" ${SOURCES})

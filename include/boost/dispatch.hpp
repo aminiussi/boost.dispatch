@@ -46,6 +46,11 @@ namespace boost { namespace dispatch
   }
 
   /*!
+    @defgroup group-api User API
+    User level library components
+  **/
+
+  /*!
     @defgroup group-meta Meta-programming Utilities
     Meta-programming related components
   **/
