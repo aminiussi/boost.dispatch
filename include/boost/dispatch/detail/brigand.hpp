@@ -26,6 +26,25 @@ namespace brigand
             struct no_such_type_ {};
 }
 
+
+namespace brigand
+{
+  template <typename... T> struct list;
+
+  template <typename... T>
+  struct list_wrapper_
+  {
+    using type = brigand::list<T...>;
+  };
+
+  template <typename... T>
+  using list_wrapper = typename list_wrapper_<T...>::type;
+
+  template <typename L>
+  using as_list = apply<L, list_wrapper>;
+}
+
+
 namespace std
 {
   template<class, class>
@@ -41,8 +60,7 @@ namespace brigand
                   , "as_pair requires a type list of exactly two types"
                   );
 
-    // type need to be defined or the error becomes a hard, non-static assert error
-    using type = no_such_type_;
+        using type = no_such_type_;
   };
 
   template <typename T, typename U>
@@ -87,7 +105,7 @@ namespace brigand
 {
 
     template <typename... T>
-    using variant_wrapper  = typename boost::variant<T...>;
+    using variant_wrapper = typename boost::variant<T...>;
 
     template <typename L>
     using as_variant = apply<L, variant_wrapper>;
@@ -676,7 +694,7 @@ namespace detail
     is_set(U);
 
     static decltype(is_set_impl<list<Ints...>, R...>::is_set(type_<L>()))
-    is_set();
+    is_set(...);
   };
 }
 
@@ -1270,12 +1288,307 @@ namespace brigand
   template <class L>
   using pop_front = typename pop_front_impl<L>::type;
 }
+
+namespace brigand
+{
+    template<class T, T Start, T Stop>
+    using range = make_sequence<std::integral_constant<T, Start>, Stop - Start>;
+
+    template<class T, T Start, T Stop>
+    using reverse_range = make_sequence<std::integral_constant<T, Start>, Start - Stop, prev>;
+}
+
+#include <type_traits>
+
+
+namespace brigand
+{
+namespace detail
+{
+    template<template<class...> class Tpl, class... T>
+    struct bind_impl
+    {
+        using type = Tpl<T...>;
+    };
+}
+
+    template<template<class...> class Tpl, class... First>
+    struct bind
+    {
+        template<class... Us>
+        using type = typename detail::bind_impl<Tpl, First..., Us...>::type;
+    };
+
+    template<template<class...> class Tpl, class... First>
+    struct unary_bind
+    {
+        template<class T>
+        using type = Tpl<First..., T>;
+    };
+
+    template<template<class...> class Tpl, class... First>
+    struct binary_bind
+    {
+        template<class T, class U>
+        using type = Tpl<First..., T, U>;
+    };
+}
+
+
 #include <type_traits>
 
 namespace brigand
 {
 namespace detail
 {
+  template<class L>
+  struct clear_impl;
+
+  template<template<class...> class L, class... Ts>
+  struct clear_impl<L<Ts...>>
+  {
+    using type = L<>;
+  };
+}
+
+  template<class L>
+  using clear = typename detail::clear_impl<L>::type;
+}
+
+
+namespace brigand
+{
+namespace detail
+{
+    template<int Index, class L1, class L2>
+    struct erase_c_impl;
+
+    template< int Index,
+            template<class...> class L1, class First, class... T,
+      template<class...> class L2, class... U >
+    struct erase_c_impl<Index, L1<First, T...>, L2<U...>>
+    {
+        using type = typename erase_c_impl<Index-1, L1<T...>, L2<U..., First>>::type;
+    };
+
+    template< template<class...> class L1, class First, class... T,
+            template<class...> class L2, class... U >
+    struct erase_c_impl<0, L1<First, T...>, L2<U...>>
+    {
+        using type = L2<U..., T...>;
+    };
+}
+
+namespace detail
+{
+
+    template <class... U>
+    struct exact_eraser;
+
+    template <>
+    struct exact_eraser<>
+    {
+        template <typename K>
+        static exact_eraser<> erase(type_<K>);
+    };
+
+    template <class U0>
+    struct exact_eraser<U0>
+    {
+        static exact_eraser<> erase(type_<U0>);
+
+        template <typename K>
+        static exact_eraser<U0> erase(type_<K>);
+    };
+
+    template <class U0, class... U>
+    struct exact_eraser<U0, U...>
+    {
+        static exact_eraser<U...> erase(type_<U0>);
+
+        template <typename K>
+        using recursive_exact_erase = decltype(exact_eraser<U...>::erase(type_<K>{}));
+
+        template <typename K>
+        static append<exact_eraser<U0>, recursive_exact_erase<K>> erase(type_<K>);
+    };
+
+        template <class U0, class U1, class... U>
+    struct exact_eraser<U0, U1, U...>
+    {
+        static exact_eraser<U1, U...> erase(type_<U0>);
+        static exact_eraser<U0, U...> erase(type_<U1>);
+
+        template <typename K>
+        using recursive_exact_erase = decltype(exact_eraser<U...>::erase(type_<K>{}));
+
+        template <typename K>
+        static append<exact_eraser<U0, U1>, recursive_exact_erase<K>> erase(type_<K>);
+    };
+
+    template <class U0, class U1, class U2, class... U>
+    struct exact_eraser<U0, U1, U2, U...>
+    {
+        static exact_eraser<U1, U2, U...> erase(type_<U0>);
+        static exact_eraser<U0, U2, U...> erase(type_<U1>);
+        static exact_eraser<U0, U1, U...> erase(type_<U2>);
+
+        template <typename K>
+        using recursive_exact_erase = decltype(exact_eraser<U...>::erase(type_<K>{}));
+
+        template <typename K>
+        static append<exact_eraser<U0, U1, U2>, recursive_exact_erase<K>> erase(type_<K>);
+    };
+
+    template <class U0, class U1, class U2, class U3, class... U>
+    struct exact_eraser<U0, U1, U2, U3, U...>
+    {
+        static exact_eraser<U1, U2, U3, U...> erase(type_<U0>);
+        static exact_eraser<U0, U2, U3, U...> erase(type_<U1>);
+        static exact_eraser<U0, U1, U3, U...> erase(type_<U2>);
+        static exact_eraser<U0, U1, U2, U...> erase(type_<U3>);
+
+        template <typename K>
+        using recursive_exact_erase = decltype(exact_eraser<U...>::erase(type_<K>{}));
+
+        template <typename K>
+        static append<exact_eraser<U0, U1, U2, U3>, recursive_exact_erase<K>> erase(type_<K>);
+    };
+
+    template <class U0, class U1, class U2, class U3, class U4, class... U>
+    struct exact_eraser<U0, U1, U2, U3, U4, U...>
+    {
+        static exact_eraser<U1, U2, U3, U4, U...> erase(type_<U0>);
+        static exact_eraser<U0, U2, U3, U4, U...> erase(type_<U1>);
+        static exact_eraser<U0, U1, U3, U4, U...> erase(type_<U2>);
+        static exact_eraser<U0, U1, U2, U4, U...> erase(type_<U3>);
+        static exact_eraser<U0, U1, U2, U3, U...> erase(type_<U4>);
+
+        template <typename K>
+        using recursive_exact_erase = decltype(exact_eraser<U...>::erase(type_<K>{}));
+
+        template <typename K>
+        static append<exact_eraser<U0, U1, U2, U3, U4>, recursive_exact_erase<K>> erase(type_<K>);
+    };
+
+}
+
+ template< class L, int Index >
+  using erase_c = typename detail::erase_c_impl<Index, L, clear<L>>::type;
+
+namespace detail
+{
+    template< class L, class Index >
+    struct erase_impl
+    {
+        using type = erase_c<L, Index::value>;
+    };
+
+    template< class L1, template<class> class Pred, class L2 >
+    struct erase_if_impl;
+
+    template< class L1, template<class> class Pred, class L2, bool >
+    struct erase_if_shortcut;
+
+    template< template<class...> class L1, class T, class... Ts,
+            template<class> class Pred,
+            template<class...> class L2, class... Us >
+    struct erase_if_shortcut<L1<T, Ts...>, Pred, L2<Us...>, true>
+    {
+        using type = L2<Us..., Ts...>;
+    };
+
+    template< template<class...> class L1, class T, class... Ts,
+            template<class> class Pred,
+            template<class...> class L2, class... Us >
+    struct erase_if_shortcut<L1<T, Ts...>, Pred, L2<Us...>, false>
+    : erase_if_impl<L1<Ts...>, Pred, L2<Us..., T>>
+    {};
+
+    template< template<class...> class L1, class T, class... Ts,
+            template<class> class Pred, class L2 >
+    struct erase_if_impl<L1<T, Ts...>, Pred, L2>
+    : erase_if_shortcut<L1<T, Ts...>, Pred, L2, bool(Pred<T>::value)>
+    {};
+
+    template< template<class...> class L1,
+            template<class> class Pred,
+            class L2 >
+    struct erase_if_impl<L1<>, Pred, L2>
+    {
+        using type = L2;
+    };
+
+    template <typename T>
+    struct has_erase_method
+    {
+        struct dummy {};
+
+        template <typename C, typename P>
+        static auto test(P * p) -> decltype(C::erase(type_<P>{}), std::true_type());
+
+        template <typename, typename>
+        static std::false_type test(...);
+
+        static const bool value = std::is_same<std::true_type, decltype(test<T, dummy>(nullptr))>::value;
+    };
+
+
+    template<class L, class I, bool>
+    struct erase_dispatch
+    {
+        using type = typename erase_impl<L, I>::type;
+    };
+
+    template<class C, class K>
+    struct erase_dispatch<C, K, true>
+    {
+        using type = decltype(C::erase(type_<K>{}));
+    };
+}
+
+    template<class L, class K>
+    using erase = typename detail::erase_dispatch<L, K, detail::has_erase_method<L>::value>::type;
+}
+
+
+namespace brigand
+{
+namespace detail
+{
+    template <class C, class T>
+    struct insert_impl
+    {
+        using type = decltype(C::insert(type_<T>{}));
+    };
+}
+
+    template<class L, class T>
+    using insert = typename detail::insert_impl<L, T>::type;
+}
+
+
+namespace brigand
+{
+namespace detail
+{
+    template <class L, class K>
+    struct contains_impl
+    {
+        using type = decltype(L::contains(type_<K>{}));
+    };
+}
+    template <class L, class K>
+    using contains = typename detail::contains_impl<L, K>::type;
+}
+
+namespace brigand
+{
+namespace detail
+{
+
+
+
     template<class... Ts>
     struct make_set;
 
@@ -1287,6 +1600,36 @@ namespace detail
 
         template <typename U>
         static false_ contains(U);
+
+    private:
+                template <class K>
+        struct contains_predicate_impl
+        {
+            using type = decltype(set_impl<T...>::contains(K{}));
+        };
+
+        template <typename K>
+        using contains_predicate = typename contains_predicate_impl<K>::type;
+
+    public:
+        template <typename U>
+        static contains_predicate<type_<U>> has_key(type_<U>);
+
+    public:
+        template <class K>
+        static apply<decltype(exact_eraser<T...>::erase(type_<K>{})), detail::set_impl> erase(type_<K>);
+
+    private:
+        template<class K>
+        static set_impl<T..., K> insert_impl(false_);
+
+        template<class K>
+        static set_impl insert_impl(true_);
+
+    public:
+        template<class K>
+        static decltype(set_impl<T...>::insert_impl<K>(contains_predicate<type_<K>>())) insert(type_<K>);
+
     };
 
             template<class... Ts>
@@ -1294,12 +1637,12 @@ namespace detail
     {
       using type = set_impl<Ts...>;
     };
+
 }
+
     template<class... Ts>
     using set = typename detail::make_set<Ts...>::type;
 
-    template <typename M, typename K>
-    using contains = decltype(M::contains(type_<K>{}));
 }
 
 #endif
