@@ -16,6 +16,7 @@ set ( SOURCES
       parent.cpp
       std_array.cpp
       std_integral_constant.cpp
+      std_tuple.cpp
     )
 
 make_unit( "boost.dispatch.adapted" ${SOURCES})
