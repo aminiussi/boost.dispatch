@@ -7,9 +7,11 @@
 */
 //==================================================================================================
 #include <boost/dispatch/hierarchy.hpp>
+#include <boost/dispatch/adapted/std/array.hpp>
 #include <boost/dispatch/meta/introspection/sign_of.hpp>
 #include <cstdint>
 #include <cstddef>
+#include <array>
 
 #include <nstest.hpp>
 
@@ -92,3 +94,25 @@ NSTEST_CASE_TPL ( "Parenthood of integral types hierarchy"
   NSTEST_TYPE_IS(  typename fundamental_<T>::parent , unspecified_<T> );
   NSTEST_TYPE_IS(  typename unspecified_<T>::parent , type_<T>        );
 }
+
+/*NSTEST_CASE ( "Parenthood of array types hierarchy" )
+{
+  using namespace boost::dispatch;
+
+  using T = char;
+  using A = std::array<T,3>;
+  using B = std::array<A,3>;
+  using N = std::integral_constant<std::size_t,3>;
+
+  NSTEST_TYPE_IS( ( typename array_<integral_<A,8,signed>, N>::parent)
+                , (array_ < ints_<A,8>, N>)
+                );
+
+  NSTEST_TYPE_IS( ( typename array_<unspecified_<A>, N>::parent)
+                , (bag_<property_of<A>,N>)
+                );
+
+  NSTEST_TYPE_IS( ( typename hierarchy_of<B>::parent::parent::parent::parent::parent::parent::parent::parent::parent::parent)
+                , (array_<bag_<property_of<B>,N>,N>)
+                );
+}*/
