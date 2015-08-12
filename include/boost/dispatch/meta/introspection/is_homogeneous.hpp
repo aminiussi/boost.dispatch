@@ -14,14 +14,11 @@
 #ifndef BOOST_DISPATCH_META_INTROSPECTION_IS_HOMOGENEOUS_HPP_INCLUDED
 #define BOOST_DISPATCH_META_INTROSPECTION_IS_HOMOGENEOUS_HPP_INCLUDED
 
+#include <boost/fusion/include/is_sequence.hpp>
 #include <boost/fusion/include/as_vector.hpp>
 #include <boost/dispatch/detail/brigand.hpp>
 #include <type_traits>
-
-namespace std
-{
-  template<typename... T> struct tuple;
-}
+#include <tuple>
 
 namespace boost { namespace dispatch
 {
@@ -29,6 +26,10 @@ namespace boost { namespace dispatch
   {
     template<typename Sequence> struct is_homogeneous_
     {
+      static_assert ( boost::fusion::traits::is_sequence<Sequence>::value
+                    , "Sequence does not model FusionSequence"
+                    );
+
       // Turn the type into an actual Fusion Sequence
       using fixed = typename boost::fusion::result_of::as_vector<Sequence>::type;
 
