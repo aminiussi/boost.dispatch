@@ -18,7 +18,7 @@
 #include <boost/array.hpp>
 #include <boost/dispatch/meta/introspection/value_of.hpp>
 #include <boost/dispatch/meta/introspection/model_of.hpp>
-#include <boost/dispatch/hierarchy/array.hpp>
+#include <boost/dispatch/adapted/hierarchy/array.hpp>
 #include <boost/dispatch/hierarchy_of.hpp>
 
 namespace boost { namespace dispatch
