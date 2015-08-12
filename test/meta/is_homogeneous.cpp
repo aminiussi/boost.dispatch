@@ -10,6 +10,7 @@
 #include <boost/fusion/include/adapt_struct.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <nstest.hpp>
+#include <tuple>
 
 namespace bar
 {
@@ -29,14 +30,20 @@ namespace bar
 BOOST_FUSION_ADAPT_STRUCT(bar::foo,i,j,k);
 BOOST_FUSION_ADAPT_STRUCT(bar::foo2,i,j,k);
 
+NSTEST_CASE( "check for homogeneity on adapted FusionSequence" )
+{
+  NSTEST_EXPECT_NOT( boost::dispatch::is_homogeneous<bar::foo>::value );
+  NSTEST_EXPECT( boost::dispatch::is_homogeneous<bar::foo2>::value );
+}
+
 NSTEST_CASE( "check for homogeneity for actual FusionSequence" )
 {
   NSTEST_EXPECT_NOT((boost::dispatch::is_homogeneous<boost::fusion::vector<char,void*,int>>::value));
   NSTEST_EXPECT((boost::dispatch::is_homogeneous<boost::fusion::vector<int,int,int>>::value));
 }
 
-NSTEST_CASE( "check for homogeneity on adapted FusionSequence" )
+NSTEST_CASE( "check for homogeneity on std::tuple" )
 {
-  NSTEST_EXPECT_NOT( boost::dispatch::is_homogeneous<bar::foo>::value );
-  NSTEST_EXPECT( boost::dispatch::is_homogeneous<bar::foo2>::value );
+  NSTEST_EXPECT_NOT((boost::dispatch::is_homogeneous<std::tuple<char,void*,int>>::value));
+  NSTEST_EXPECT((boost::dispatch::is_homogeneous<std::tuple<int,int,int>>::value));
 }
