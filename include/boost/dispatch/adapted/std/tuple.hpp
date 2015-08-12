@@ -16,32 +16,41 @@
 #define BOOST_DISPATCH_ADAPTED_STD_TUPLE_HPP_INCLUDED
 
 #include <tuple>
+#include <boost/fusion/include/std_tuple.hpp>
+#include <boost/dispatch/detail/hierarchy_of.hpp>
 #include <boost/dispatch/adapted/hierarchy/tuple.hpp>
 #include <boost/dispatch/meta/introspection/is_homogeneous.hpp>
-#include <boost/fusion/include/std_tuple.hpp>
-#include <boost/dispatch/hierarchy_of.hpp>
 
 namespace boost { namespace dispatch
 {
-  namespace ext
+  namespace detail
   {
-    template<typename T, typename... Ts, typename Origin>
-    struct hierarchy_of < std::tuple<T,Ts...>,Origin
-                        , typename std::enable_if<is_homogeneous<std::tuple<T,Ts...>>::value>::type
-                        >
+    template<typename T, typename Origin, bool IsHomo>
+    struct hierarchy_of_tuple
     {
-      using type = bag_ < boost::dispatch::property_of<T,Origin>
-                        , std::integral_constant<std::size_t, 1u+sizeof...(Ts)>
+      using first = typename std::tuple_element<0,T>::type;
+      using sz    = std::tuple_size<T>;
+      using type = bag_ < boost::dispatch::property_of<first,Origin>
+                        , std::integral_constant<std::size_t, sz::value>
                         >;
     };
 
-    template<typename T, typename... Ts, typename Origin>
-    struct hierarchy_of < std::tuple<T,Ts...>,Origin
-                        , typename std::enable_if<!is_homogeneous<std::tuple<T,Ts...>>::value>::type
-                        >
+    template<typename T, typename Origin>
+    struct hierarchy_of_tuple<T,Origin, false>
     {
-      using type = tuple_<Origin, std::integral_constant<std::size_t, 1u+sizeof...(Ts)>>;
+      using sz   = std::tuple_size<T>;
+      using type = tuple_<Origin, std::integral_constant<std::size_t, sz::value>>;
     };
+
+  }
+  namespace ext
+  {
+    template<typename T, typename... Ts, typename Origin>
+    struct  hierarchy_of < std::tuple<T,Ts...>, Origin >
+          : detail::hierarchy_of_tuple< std::tuple<T,Ts...>,Origin
+                                      , is_homogeneous<std::tuple<T,Ts...>>::value
+                                      >
+    {};
 
     template<typename Origin>
     struct hierarchy_of<std::tuple<>,Origin>
