@@ -34,7 +34,7 @@ namespace boost { namespace dispatch
       using fixed = typename boost::fusion::result_of::as_vector<Sequence>::type;
 
       // Grab first element of the tuple
-      using first = typename boost::fusion::result_of::value_at<fixed, brigand::int_<0>>::type;
+      using first = typename boost::fusion::result_of::value_at<fixed, boost::mpl::int_<0>>::type;
 
       // Are all yes similar to first ?
       template<typename T> using same = typename std::is_same<T,first>::type;
