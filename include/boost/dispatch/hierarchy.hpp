@@ -20,6 +20,7 @@
 #include <boost/dispatch/hierarchy/cpu.hpp>
 #include <boost/dispatch/hierarchy/floating.hpp>
 #include <boost/dispatch/hierarchy/formal.hpp>
+#include <boost/dispatch/hierarchy/functions.hpp>
 #include <boost/dispatch/hierarchy/fundamental.hpp>
 #include <boost/dispatch/hierarchy/ieee_types.hpp>
 #include <boost/dispatch/hierarchy/integer.hpp>

@@ -21,9 +21,19 @@ NSTEST_CASE( "Parenthood of base hierarchies" )
 
   NSTEST_TYPE_IS( type_<void>::parent         , type_<void> );
   NSTEST_TYPE_IS( architecture_<void>::parent , architecture_<void> );
+  NSTEST_TYPE_IS( function_<void>::parent     , function_<void> );
 
   NSTEST_TYPE_IS( formal_::parent , architecture_<formal_>  );
   NSTEST_TYPE_IS( cpu_::parent    , formal_                 );
+}
+
+NSTEST_CASE( "Parenthood of function object hierarchies" )
+{
+  using namespace boost::dispatch;
+
+  NSTEST_TYPE_IS( elementwise_<void>::parent            , function_<void> );
+  NSTEST_TYPE_IS( (reduction_<void,void,void>::parent)  , function_<void> );
+  NSTEST_TYPE_IS( (cumulative_<void,void,void>::parent) , function_<void> );
 }
 
 NSTEST_CASE( "Parenthood of void hierarchy" )

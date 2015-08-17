@@ -44,6 +44,19 @@ namespace boost { namespace dispatch
     using parent        =  architecture_;
     using hierarchy_tag =  detail::hierarchy_tag;
   };
+
+  /*!
+    @ingroup group-hierarchy
+    @brief Root function hierarchy tag
+
+    The function_ hierarchy classify function related informations.
+  **/
+  template<typename T> struct function_
+  {
+    using type          =  T;
+    using parent        =  function_;
+    using hierarchy_tag =  detail::hierarchy_tag;
+  };
 } }
 
 #endif
