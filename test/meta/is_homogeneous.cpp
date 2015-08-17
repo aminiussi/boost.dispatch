@@ -6,7 +6,7 @@
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 */
 //==================================================================================================
-#include <boost/dispatch/meta/introspection.hpp>
+#include <boost/dispatch/meta/introspection/is_homogeneous.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <nstest.hpp>
