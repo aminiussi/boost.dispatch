@@ -65,6 +65,19 @@ namespace boost { namespace dispatch
   {
     using parent = function_<F>;
   };
+
+  /*!
+    @ingroup group-hierarchy
+    @brief Multi-return function hierarchy tag
+
+    Function object classified as tieable_ if they may return multiple values as a tie expression.
+
+    @tparam F Function object type
+  **/
+  template<typename F> struct tieable_ : function_<F>
+  {
+    using parent = function_<F>;
+  };
 } }
 
 #endif
