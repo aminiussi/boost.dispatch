@@ -38,6 +38,7 @@ NSTEST_CASE( "check for homogeneity on adapted FusionSequence" )
 
 NSTEST_CASE( "check for homogeneity for actual FusionSequence" )
 {
+  NSTEST_EXPECT_NOT((boost::dispatch::is_homogeneous<boost::fusion::vector<>>::value));
   NSTEST_EXPECT_NOT((boost::dispatch::is_homogeneous<boost::fusion::vector<char,void*,int>>::value));
   NSTEST_EXPECT((boost::dispatch::is_homogeneous<boost::fusion::vector<int,int,int>>::value));
   NSTEST_EXPECT((boost::dispatch::is_homogeneous<boost::fusion::vector<double>>::value));
@@ -45,14 +46,8 @@ NSTEST_CASE( "check for homogeneity for actual FusionSequence" )
 
 NSTEST_CASE( "check for homogeneity on std::tuple" )
 {
+  NSTEST_EXPECT_NOT((boost::dispatch::is_homogeneous<std::tuple<>>::value));
   NSTEST_EXPECT_NOT((boost::dispatch::is_homogeneous<std::tuple<char,void*,int>>::value));
   NSTEST_EXPECT((boost::dispatch::is_homogeneous<std::tuple<int,int,int>>::value));
   NSTEST_EXPECT((boost::dispatch::is_homogeneous<std::tuple<float>>::value));
-}
-
-template<typename T> struct munch {};
-
-NSTEST_CASE( "check for homogeneity on single typed type" )
-{
-  NSTEST_EXPECT((boost::dispatch::is_homogeneous<munch<float>>::value));
 }

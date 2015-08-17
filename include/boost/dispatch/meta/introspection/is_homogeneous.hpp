@@ -16,6 +16,7 @@
 
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/fusion/include/as_vector.hpp>
+#include <boost/fusion/include/size.hpp>
 #include <boost/dispatch/detail/brigand.hpp>
 #include <type_traits>
 #include <tuple>
@@ -30,25 +31,40 @@ namespace boost { namespace dispatch
                     , "Sequence does not model FusionSequence"
                     );
 
+      // Zero sized sequence are not homogeneous
+      using sz = boost::fusion::result_of::size<Sequence>;
+
       // Turn the type into an actual Fusion Sequence
       using fixed = typename boost::fusion::result_of::as_vector<Sequence>::type;
 
-      // Grab first element of the tuple
-      using first = typename boost::fusion::result_of::value_at<fixed, boost::mpl::int_<0>>::type;
+      template<typename T, bool Status> struct impl
+      {
+        // Empty sequence are not homogeneous
+        using type = brigand::false_;
+      };
 
-      // Are all yes similar to first ?
-      template<typename T> using same = typename std::is_same<T,first>::type;
-      using type = brigand::all<brigand::as_list<fixed>,same>;
+      template<typename T>
+      struct impl<T,true>
+      {
+        // Grab first element of the tuple
+        using first = typename boost::fusion::result_of::value_at<fixed, boost::mpl::int_<0>>::type;
+
+        // Are all types similar to first ?
+        template<typename T> using same = typename std::is_same<T,first>::type;
+        using type = brigand::all<brigand::as_list<fixed>,same>;
+      };
+
+      using type = typename impl<fixed,sz::value != 0>::type;
     };
 
-    // Empty tuple-like structure are not homogeneous
-    template<template<class...> class Sequence> struct is_homogeneous_<Sequence<>>
+    // Special case for std::tuple<>
+    template<> struct is_homogeneous_<std::tuple<>>
     {
       using type = brigand::false_;
     };
 
-    // Single type tuple-like structure are homogeneous
-    template<template<class...> class Sequence, typename T> struct is_homogeneous_<Sequence<T>>
+    // Special case for std::tuple<T>
+    template<typename T> struct is_homogeneous_<std::tuple<T>>
     {
       using type = brigand::true_;
     };
