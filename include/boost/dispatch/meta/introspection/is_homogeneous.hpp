@@ -50,7 +50,7 @@ namespace boost { namespace dispatch
         using first = typename boost::fusion::result_of::value_at<fixed, boost::mpl::int_<0>>::type;
 
         // Are all types similar to first ?
-        template<typename T> using same = typename std::is_same<T,first>::type;
+        template<typename X> using same = typename std::is_same<X,first>::type;
         using type = brigand::all<brigand::as_list<fixed>,same>;
       };
 
