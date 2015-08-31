@@ -18,6 +18,7 @@
 #include <boost/dispatch/hierarchy/base.hpp>
 #include <boost/dispatch/hierarchy/bool.hpp>
 #include <boost/dispatch/hierarchy/cpu.hpp>
+#include <boost/dispatch/hierarchy/default_site.hpp>
 #include <boost/dispatch/hierarchy/floating.hpp>
 #include <boost/dispatch/hierarchy/formal.hpp>
 #include <boost/dispatch/hierarchy/functions.hpp>
