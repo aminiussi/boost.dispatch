@@ -26,9 +26,10 @@ namespace boost { namespace dispatch
     no execution can take place. Functions defined on formal_ hardware are usually trampoline
     function that rewrite or transform code path.
   **/
-  struct formal_ : architecture_<formal_>
+  struct formal_
   {
-    using parent = architecture_<formal_>;
+    using parent        =  formal_;
+    using hierarchy_tag =  detail::hierarchy_tag;
   };
 } }
 

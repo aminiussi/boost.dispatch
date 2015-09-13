@@ -19,12 +19,9 @@ using namespace boost::dispatch;
 
 STF_CASE( "Parenthood of base hierarchies" )
 {
-  STF_TYPE_IS( type_<void>::parent         , type_<void> );
-  STF_TYPE_IS( architecture_<void>::parent , architecture_<void> );
-  STF_TYPE_IS( function_<void>::parent     , function_<void> );
-
-  STF_TYPE_IS( formal_::parent , architecture_<formal_>  );
-  STF_TYPE_IS( cpu_::parent    , formal_                 );
+  STF_TYPE_IS( type_<void>::parent    , type_<void>     );
+  STF_TYPE_IS( function_<void>::parent, function_<void> );
+  STF_TYPE_IS( cpu_::parent           , formal_         );
 }
 
 STF_CASE( "Parenthood of function object hierarchies" )

@@ -33,18 +33,6 @@ namespace boost { namespace dispatch
 
   /*!
     @ingroup group-hierarchy
-    @brief Root hardware hierarchy tag
-
-    The architecture_ hierarchy classify hardware related informations.
-  **/
-  template<typename T> struct architecture_
-  {
-    using parent        =  architecture_;
-    using hierarchy_tag =  detail::hierarchy_tag;
-  };
-
-  /*!
-    @ingroup group-hierarchy
     @brief Root function hierarchy tag
 
     The function_ hierarchy classify function related informations.
