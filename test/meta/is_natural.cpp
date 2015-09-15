@@ -10,21 +10,21 @@
 #include <cstdint>
 #include <cstddef>
 
-#include <nstest.hpp>
+#include <stf.hpp>
 
-NSTEST_CASE_TPL ( "integral types are natural"
+STF_CASE_TPL ( "integral types are natural"
                 , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)(std::size_t)
                   (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)(std::ptrdiff_t)
                 )
 {
-  NSTEST_EXPECT( boost::dispatch::is_natural<T>::value == true );
+  STF_EXPECT( boost::dispatch::is_natural<T>::value == true );
 }
 
 struct foo {};
 
-NSTEST_CASE_TPL ( "other types are not natural"
+STF_CASE_TPL ( "other types are not natural"
                 , (float)(double)(bool)(foo)
                 )
 {
-  NSTEST_EXPECT( boost::dispatch::is_natural<T>::value == false );
+  STF_EXPECT( boost::dispatch::is_natural<T>::value == false );
 }

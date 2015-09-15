@@ -8,24 +8,24 @@
 //==================================================================================================
 #include <boost/dispatch/meta/introspection/value_of.hpp>
 
-#include <nstest.hpp>
+#include <stf.hpp>
 
-NSTEST_CASE( "value_of of basic types is type itself")
+STF_CASE( "value_of of basic types is type itself")
 {
-  NSTEST_TYPE_IS( boost::dispatch::value_of<float>        , float       );
-  NSTEST_TYPE_IS( boost::dispatch::value_of<float&>       , float&      );
-  NSTEST_TYPE_IS( boost::dispatch::value_of<float&&>      , float&&     );
-  NSTEST_TYPE_IS( boost::dispatch::value_of<float const>  , float const );
-  NSTEST_TYPE_IS( boost::dispatch::value_of<float const&> , float const&);
+  STF_TYPE_IS( boost::dispatch::value_of<float>        , float       );
+  STF_TYPE_IS( boost::dispatch::value_of<float&>       , float&      );
+  STF_TYPE_IS( boost::dispatch::value_of<float&&>      , float&&     );
+  STF_TYPE_IS( boost::dispatch::value_of<float const>  , float const );
+  STF_TYPE_IS( boost::dispatch::value_of<float const&> , float const&);
 }
 
 template<typename T> struct foo {};
 
-NSTEST_CASE_TPL( "value_of of template types is template parameter", (int)(float)(char))
+STF_CASE_TPL( "value_of of template types is template parameter", (int)(float)(char))
 {
-  NSTEST_TYPE_IS( boost::dispatch::value_of<foo<T>>       , T );
-  NSTEST_TYPE_IS( boost::dispatch::value_of<foo<T>&>      , T& );
-  NSTEST_TYPE_IS( boost::dispatch::value_of<foo<T>&&>     , T&& );
-  NSTEST_TYPE_IS( boost::dispatch::value_of<foo<T> const> , T const);
-  NSTEST_TYPE_IS( boost::dispatch::value_of<foo<T> const&>, T const&);
+  STF_TYPE_IS( boost::dispatch::value_of<foo<T>>       , T );
+  STF_TYPE_IS( boost::dispatch::value_of<foo<T>&>      , T& );
+  STF_TYPE_IS( boost::dispatch::value_of<foo<T>&&>     , T&& );
+  STF_TYPE_IS( boost::dispatch::value_of<foo<T> const> , T const);
+  STF_TYPE_IS( boost::dispatch::value_of<foo<T> const&>, T const&);
 }

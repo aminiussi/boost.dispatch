@@ -8,13 +8,13 @@
 //==================================================================================================
 #include <boost/dispatch/meta/introspection/primitive_of.hpp>
 
-#include <nstest.hpp>
+#include <stf.hpp>
 
-NSTEST_CASE( "primitive_of of basic types is type itself")
+STF_CASE( "primitive_of of basic types is type itself")
 {
-  NSTEST_TYPE_IS( boost::dispatch::primitive_of<float>        , float         );
-  NSTEST_TYPE_IS( boost::dispatch::primitive_of<float&>       , float&        );
-  NSTEST_TYPE_IS( boost::dispatch::primitive_of<float&&>      , float&&       );
-  NSTEST_TYPE_IS( boost::dispatch::primitive_of<float const>  , float const   );
-  NSTEST_TYPE_IS( boost::dispatch::primitive_of<float const&> , float const&  );
+  STF_TYPE_IS( boost::dispatch::primitive_of<float>        , float         );
+  STF_TYPE_IS( boost::dispatch::primitive_of<float&>       , float&        );
+  STF_TYPE_IS( boost::dispatch::primitive_of<float&&>      , float&&       );
+  STF_TYPE_IS( boost::dispatch::primitive_of<float const>  , float const   );
+  STF_TYPE_IS( boost::dispatch::primitive_of<float const&> , float const&  );
 }

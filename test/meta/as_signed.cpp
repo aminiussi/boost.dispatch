@@ -9,43 +9,43 @@
 #include <boost/dispatch/meta/generation/as_signed.hpp>
 #include <cstdint>
 
-#include <nstest.hpp>
+#include <stf.hpp>
 
-NSTEST_CASE_TPL ( "Generate signed from signed types"
+STF_CASE_TPL ( "Generate signed from signed types"
                 , (float)(double)(bool)(std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
                 )
 {
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<T>)       , T );
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<T&>)      , T );
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<T&&>)     , T );
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<T const>) , T );
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<T const&>), T );
+  STF_TYPE_IS( (boost::dispatch::as_signed<T>)       , T );
+  STF_TYPE_IS( (boost::dispatch::as_signed<T&>)      , T );
+  STF_TYPE_IS( (boost::dispatch::as_signed<T&&>)     , T );
+  STF_TYPE_IS( (boost::dispatch::as_signed<T const>) , T );
+  STF_TYPE_IS( (boost::dispatch::as_signed<T const&>), T );
 }
 
 template<typename T> using signed_t = typename std::make_signed<T>::type;
 
-NSTEST_CASE_TPL ( "Generate signed from unsigned types"
+STF_CASE_TPL ( "Generate signed from unsigned types"
                 , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
                 )
 {
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<T>)        ,(signed_t<T>) );
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<T&>)       ,(signed_t<T>) );
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<T&&>)      ,(signed_t<T>) );
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<T const>)  ,(signed_t<T>) );
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<T const&&>),(signed_t<T>) );
+  STF_TYPE_IS( (boost::dispatch::as_signed<T>)        ,(signed_t<T>) );
+  STF_TYPE_IS( (boost::dispatch::as_signed<T&>)       ,(signed_t<T>) );
+  STF_TYPE_IS( (boost::dispatch::as_signed<T&&>)      ,(signed_t<T>) );
+  STF_TYPE_IS( (boost::dispatch::as_signed<T const>)  ,(signed_t<T>) );
+  STF_TYPE_IS( (boost::dispatch::as_signed<T const&&>),(signed_t<T>) );
 }
 
 template<typename T> struct foo {};
 
-NSTEST_CASE_TPL ( "Generate signed from custom template types"
+STF_CASE_TPL ( "Generate signed from custom template types"
                 , (float)(double)(bool)
                   (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
                   (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
                 )
 {
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<foo<foo<T>>>)        , foo<foo<boost::dispatch::as_signed<T>>>);
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<foo<foo<T>>&>)       , foo<foo<boost::dispatch::as_signed<T>>>);
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<foo<foo<T>>&&>)      , foo<foo<boost::dispatch::as_signed<T>>>);
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<foo<foo<T>> const>)  , foo<foo<boost::dispatch::as_signed<T>>>);
-  NSTEST_TYPE_IS( (boost::dispatch::as_signed<foo<foo<T>> const&&>), foo<foo<boost::dispatch::as_signed<T>>>);
+  STF_TYPE_IS( (boost::dispatch::as_signed<foo<foo<T>>>)        , foo<foo<boost::dispatch::as_signed<T>>>);
+  STF_TYPE_IS( (boost::dispatch::as_signed<foo<foo<T>>&>)       , foo<foo<boost::dispatch::as_signed<T>>>);
+  STF_TYPE_IS( (boost::dispatch::as_signed<foo<foo<T>>&&>)      , foo<foo<boost::dispatch::as_signed<T>>>);
+  STF_TYPE_IS( (boost::dispatch::as_signed<foo<foo<T>> const>)  , foo<foo<boost::dispatch::as_signed<T>>>);
+  STF_TYPE_IS( (boost::dispatch::as_signed<foo<foo<T>> const&&>), foo<foo<boost::dispatch::as_signed<T>>>);
 }

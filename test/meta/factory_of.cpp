@@ -8,13 +8,13 @@
 //==================================================================================================
 #include <boost/dispatch/meta/introspection/factory_of.hpp>
 
-#include <nstest.hpp>
+#include <stf.hpp>
 
-NSTEST_CASE( "factory_of of basic types is meta-identity")
+STF_CASE( "factory_of of basic types is meta-identity")
 {
-  NSTEST_TYPE_IS( boost::dispatch::factory_of<float>::apply<int>       , int );
-  NSTEST_TYPE_IS( boost::dispatch::factory_of<float&>::apply<int>      , int );
-  NSTEST_TYPE_IS( boost::dispatch::factory_of<float&&>::apply<int>     , int );
-  NSTEST_TYPE_IS( boost::dispatch::factory_of<float const>::apply<int> , int );
-  NSTEST_TYPE_IS( boost::dispatch::factory_of<float const&>::apply<int>, int );
+  STF_TYPE_IS( boost::dispatch::factory_of<float>::apply<int>       , int );
+  STF_TYPE_IS( boost::dispatch::factory_of<float&>::apply<int>      , int );
+  STF_TYPE_IS( boost::dispatch::factory_of<float&&>::apply<int>     , int );
+  STF_TYPE_IS( boost::dispatch::factory_of<float const>::apply<int> , int );
+  STF_TYPE_IS( boost::dispatch::factory_of<float const&>::apply<int>, int );
 }

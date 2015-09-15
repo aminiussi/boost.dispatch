@@ -8,49 +8,49 @@
 //==================================================================================================
 #include <boost/dispatch/meta/generation/transfer_qualifiers.hpp>
 
-#include <nstest.hpp>
+#include <stf.hpp>
 
-NSTEST_CASE( "Check if nothing get transfered")
+STF_CASE( "Check if nothing get transfered")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int, float>)        , int       );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&, float>)       , int&      );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&&, float>)      , int&&     );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const, float>)  , int const );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const&, float>) , int const&);
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int, float>)        , int       );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&, float>)       , int&      );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&&, float>)      , int&&     );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const, float>)  , int const );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const&, float>) , int const&);
 }
 
-NSTEST_CASE( "Check if 'const' get transfered")
+STF_CASE( "Check if 'const' get transfered")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int, float const>)        , int const   );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&, float const>)       , int&        );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&&, float const>)      , int&&       );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const, float const>)  , int const   );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const&, float const>) , int const&  );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int, float const>)        , int const   );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&, float const>)       , int&        );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&&, float const>)      , int&&       );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const, float const>)  , int const   );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const&, float const>) , int const&  );
 }
 
-NSTEST_CASE( "Check if 'const&' get transfered")
+STF_CASE( "Check if 'const&' get transfered")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int, float const&>)       , int const&  );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&, float const&>)      , int&        );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&&, float const&>)     , int&        );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const, float const&>) , int const&  );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const&, float const&>), int const&  );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int, float const&>)       , int const&  );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&, float const&>)      , int&        );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&&, float const&>)     , int&        );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const, float const&>) , int const&  );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const&, float const&>), int const&  );
 }
 
-NSTEST_CASE( "Check if '&' get transfered")
+STF_CASE( "Check if '&' get transfered")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int, float&>)       , int&      );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&, float&>)      , int&      );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&&, float&>)     , int&      );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const, float&>) , int const&);
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const&, float&>), int const&);
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int, float&>)       , int&      );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&, float&>)      , int&      );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&&, float&>)     , int&      );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const, float&>) , int const&);
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const&, float&>), int const&);
 }
 
-NSTEST_CASE( "Check if '&&' get transfered")
+STF_CASE( "Check if '&&' get transfered")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int, float &&>)       , int &&      );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&, float &&>)      , int&        );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&&, float &&>)     , int&&       );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const, float &&>) , int const&& );
-  NSTEST_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const&, float &&>), int const&  );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int, float &&>)       , int &&      );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&, float &&>)      , int&        );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int&&, float &&>)     , int&&       );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const, float &&>) , int const&& );
+  STF_TYPE_IS( (boost::dispatch::transfer_qualifiers<int const&, float &&>), int const&  );
 }

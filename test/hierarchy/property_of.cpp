@@ -10,56 +10,56 @@
 #include <cstdint>
 #include <cstddef>
 
-#include <nstest.hpp>
+#include <stf.hpp>
 
 struct foo {};
 template<typename T> struct wrap {};
 
-NSTEST_CASE( "property_of for random unspecified types" )
+STF_CASE( "property_of for random unspecified types" )
 {
   using namespace boost::dispatch;
 
-  NSTEST_TYPE_IS( property_of<foo>, unspecified_<foo> );
-  NSTEST_TYPE_IS( property_of<wrap<foo>>, unspecified_<wrap<foo>> );
-  NSTEST_TYPE_IS( property_of<wrap<wrap<foo>>>, unspecified_<wrap<wrap<foo>>> );
+  STF_TYPE_IS( property_of<foo>, unspecified_<foo> );
+  STF_TYPE_IS( property_of<wrap<foo>>, unspecified_<wrap<foo>> );
+  STF_TYPE_IS( property_of<wrap<wrap<foo>>>, unspecified_<wrap<wrap<foo>>> );
 }
 
-NSTEST_CASE( "property_of for void" )
+STF_CASE( "property_of for void" )
 {
   using namespace boost::dispatch;
 
-  NSTEST_TYPE_IS( property_of<void>, void_<void> );
-  NSTEST_TYPE_IS( property_of<wrap<void>>, void_<wrap<void>> );
-  NSTEST_TYPE_IS( property_of<wrap<wrap<void>>>, void_<wrap<wrap<void>>> );
+  STF_TYPE_IS( property_of<void>, void_<void> );
+  STF_TYPE_IS( property_of<wrap<void>>, void_<wrap<void>> );
+  STF_TYPE_IS( property_of<wrap<wrap<void>>>, void_<wrap<wrap<void>>> );
 }
 
-NSTEST_CASE( "property_of for bool" )
+STF_CASE( "property_of for bool" )
 {
   using namespace boost::dispatch;
 
-  NSTEST_TYPE_IS( property_of<bool>, bool_<bool> );
-  NSTEST_TYPE_IS( property_of<wrap<bool>>, bool_<wrap<bool>> );
-  NSTEST_TYPE_IS( property_of<wrap<wrap<bool>>>, bool_<wrap<wrap<bool>>> );
+  STF_TYPE_IS( property_of<bool>, bool_<bool> );
+  STF_TYPE_IS( property_of<wrap<bool>>, bool_<wrap<bool>> );
+  STF_TYPE_IS( property_of<wrap<wrap<bool>>>, bool_<wrap<wrap<bool>>> );
 }
 
-NSTEST_CASE( "property_of for IEEE types" )
+STF_CASE( "property_of for IEEE types" )
 {
   using namespace boost::dispatch;
 
-  NSTEST_TYPE_IS( property_of<float>, single_<float> );
-  NSTEST_TYPE_IS( property_of<wrap<float>>, single_<wrap<float>> );
-  NSTEST_TYPE_IS( property_of<wrap<wrap<float>>>, single_<wrap<wrap<float>>> );
+  STF_TYPE_IS( property_of<float>, single_<float> );
+  STF_TYPE_IS( property_of<wrap<float>>, single_<wrap<float>> );
+  STF_TYPE_IS( property_of<wrap<wrap<float>>>, single_<wrap<wrap<float>>> );
 
-  NSTEST_TYPE_IS( property_of<double>, double_<double> );
-  NSTEST_TYPE_IS( property_of<wrap<double>>, double_<wrap<double>> );
-  NSTEST_TYPE_IS( property_of<wrap<wrap<double>>>, double_<wrap<wrap<double>>> );
+  STF_TYPE_IS( property_of<double>, double_<double> );
+  STF_TYPE_IS( property_of<wrap<double>>, double_<wrap<double>> );
+  STF_TYPE_IS( property_of<wrap<wrap<double>>>, double_<wrap<wrap<double>>> );
 
-  NSTEST_TYPE_IS( property_of<long double>, long_double_<long double> );
-  NSTEST_TYPE_IS( property_of<wrap<long double>>, long_double_<wrap<long double>> );
-  NSTEST_TYPE_IS( property_of<wrap<wrap<long double>>>, long_double_<wrap<wrap<long double>>> );
+  STF_TYPE_IS( property_of<long double>, long_double_<long double> );
+  STF_TYPE_IS( property_of<wrap<long double>>, long_double_<wrap<long double>> );
+  STF_TYPE_IS( property_of<wrap<wrap<long double>>>, long_double_<wrap<wrap<long double>>> );
 }
 
-NSTEST_CASE_TPL ( "property_of for integral types"
+STF_CASE_TPL ( "property_of for integral types"
                 , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
                   (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
                   (std::size_t)(std::ptrdiff_t)(std::intptr_t)(std::uintptr_t)
@@ -69,9 +69,9 @@ NSTEST_CASE_TPL ( "property_of for integral types"
 {
   using namespace boost::dispatch;
 
-  NSTEST_TYPE_IS( property_of<T>, (integral_<T,CHAR_BIT*sizeof(T),sign_of<T>>) );
-  NSTEST_TYPE_IS( property_of<wrap<T>>, (integral_<wrap<T>,CHAR_BIT*sizeof(T),sign_of<wrap<T>>>) );
-  NSTEST_TYPE_IS( property_of<wrap<wrap<T>>>
+  STF_TYPE_IS( property_of<T>, (integral_<T,CHAR_BIT*sizeof(T),sign_of<T>>) );
+  STF_TYPE_IS( property_of<wrap<T>>, (integral_<wrap<T>,CHAR_BIT*sizeof(T),sign_of<wrap<T>>>) );
+  STF_TYPE_IS( property_of<wrap<wrap<T>>>
                 , (integral_<wrap<wrap<T>>,CHAR_BIT*sizeof(T),sign_of<wrap<wrap<T>>>>)
                 );
 }

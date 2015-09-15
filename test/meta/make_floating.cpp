@@ -8,18 +8,18 @@
 //==================================================================================================
 #include <boost/dispatch/meta/generation/make_floating.hpp>
 
-#include <nstest.hpp>
+#include <stf.hpp>
 
-NSTEST_CASE( "Generate raw floating point types")
+STF_CASE( "Generate raw floating point types")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::make_floating<8>) , double );
-  NSTEST_TYPE_IS( (boost::dispatch::make_floating<4>) , float  );
+  STF_TYPE_IS( (boost::dispatch::make_floating<8>) , double );
+  STF_TYPE_IS( (boost::dispatch::make_floating<4>) , float  );
 }
 
 template<typename T> using ptr_t  =T*;
 
-NSTEST_CASE( "Generate transformed floating point types")
+STF_CASE( "Generate transformed floating point types")
 {
-  NSTEST_TYPE_IS( (boost::dispatch::make_floating<8,ptr_t>) , double* );
-  NSTEST_TYPE_IS( (boost::dispatch::make_floating<4,ptr_t>) , float*  );
+  STF_TYPE_IS( (boost::dispatch::make_floating<8,ptr_t>) , double* );
+  STF_TYPE_IS( (boost::dispatch::make_floating<4,ptr_t>) , float*  );
 }

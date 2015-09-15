@@ -11,22 +11,22 @@
 #include <boost/dispatch/meta/generation/as_signed.hpp>
 #include <cstdint>
 
-#include <nstest.hpp>
+#include <stf.hpp>
 
-NSTEST_CASE_TPL ( "Applying signed gives signed types"
+STF_CASE_TPL ( "Applying signed gives signed types"
                 , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
                   (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
                   (float)(double)
                 )
 {
-  NSTEST_TYPE_IS( (boost::dispatch::apply_sign<T,signed>), boost::dispatch::as_signed<T> );
+  STF_TYPE_IS( (boost::dispatch::apply_sign<T,signed>), boost::dispatch::as_signed<T> );
 }
 
-NSTEST_CASE_TPL ( "Applying unsigned gives signed types"
+STF_CASE_TPL ( "Applying unsigned gives signed types"
                 , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
                   (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
                   (float)(double)
                 )
 {
-  NSTEST_TYPE_IS( (boost::dispatch::apply_sign<T,unsigned>), boost::dispatch::as_unsigned<T> );
+  STF_TYPE_IS( (boost::dispatch::apply_sign<T,unsigned>), boost::dispatch::as_unsigned<T> );
 }

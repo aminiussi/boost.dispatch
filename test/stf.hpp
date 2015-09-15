@@ -4,6 +4,7 @@
 
   Main header for the unit test system
 
+<<<<<<< HEAD:test/nstest.hpp
   @copyright 2015 NumScale SAS
 
   Distributed under the Boost Software License, Version 1.0.
@@ -11,12 +12,8 @@
 
 **/
 //==================================================================================================
-#ifndef NSTEST_UNIT_HPP_INCLUDED
-#define NSTEST_UNIT_HPP_INCLUDED
-
-
-
-
+#ifndef STF_HPP_INCLUDED
+#define STF_HPP_INCLUDED
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <unordered_map>
@@ -24,7 +21,7 @@
 #include <cstdlib>
 #include <string>
 
-namespace nstest
+namespace stf
 {
   namespace detail
   {
@@ -33,8 +30,8 @@ namespace nstest
       args_map()
       {
                 std::pair<std::string,std::string>
-        envvars[] = { {"NSTEST_COLOR"   , "color"}
-                    , {"NSTEST_COMPACT" , "compact"}
+        envvars[] = { {"STF_COLOR"   , "color"}
+                    , {"STF_COMPACT" , "compact"}
                     };
 
                 for(auto const& id : envvars)
@@ -116,7 +113,7 @@ namespace nstest
 #include <cstddef>
 #include <type_traits>
 
-namespace nstest { namespace detail
+namespace stf { namespace detail
 {
   template<typename T> struct is_container
   {
@@ -176,7 +173,7 @@ namespace nstest { namespace detail
 #include <iostream>
 #include <type_traits>
 
-namespace nstest { namespace detail
+namespace stf { namespace detail
 {
   template<typename T> struct is_streamable
   {
@@ -205,7 +202,7 @@ namespace nstest { namespace detail
 #include <string>
 #include <iomanip>
 
-namespace nstest
+namespace stf
 {
   inline std::string to_string( std::nullptr_t )        { return "nullptr";             }
   inline std::string to_string( bool v )                { return v ? "true" : "false";  }
@@ -269,12 +266,12 @@ namespace nstest
 
 #if defined(BOOST_OS_WINDOWS_AVAILABLE) && !defined(BOOST_OS_CYGWIN_AVAILABLE)
 #include <windows.h>
-#define NSTEST_USE_CONSOLE_ATTRIBUTES
+#define STF_USE_CONSOLE_ATTRIBUTES
 #endif
 
-namespace nstest
+namespace stf
 {
-    #if defined(NSTEST_USE_CONSOLE_ATTRIBUTES)
+    #if defined(STF_USE_CONSOLE_ATTRIBUTES)
   enum Color { GRAY = 7, DARKGRAY = 8, GREEN = 10, RED = 12, YELLOW = 14, WHITE = 15, DEFAULT = 7 };
 #else
   enum Color { GRAY = 37, DARKGRAY = 90, GREEN = 32, RED = 31, YELLOW = 33, WHITE = 97, DEFAULT = 39 };
@@ -292,7 +289,7 @@ namespace nstest
     {
       if(&os == &std::cout && args("color",true))
       {
-#if defined(NSTEST_USE_CONSOLE_ATTRIBUTES)
+#if defined(STF_USE_CONSOLE_ATTRIBUTES)
         auto h = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(h, Code);
 #else
@@ -334,7 +331,7 @@ namespace nstest
 #include <cstddef>
 #include <string>
 
-namespace nstest
+namespace stf
 {
   namespace unit
   {
@@ -421,12 +418,12 @@ namespace nstest
     {
       auto hbar = std::string(80,'-');
       env.stream()  << hbar << std::endl
-                    << "Scenario: " << ::nstest::white_(t.name) << std::endl
+                    << "Scenario: " << ::stf::white_(t.name) << std::endl
                     << hbar << std::endl;
     }
     else
     {
-      env.stream()  << "Scenario: " << ::nstest::white_(t.name) << " : ";
+      env.stream()  << "Scenario: " << ::stf::white_(t.name) << " : ";
     }
   }
 
@@ -436,35 +433,35 @@ namespace nstest
     {
       env.as_invalid();
       if(!env.is_compact())
-        env.invalid() << ::nstest::white_("Empty test case") << std::endl;
+        env.invalid() << ::stf::white_("Empty test case") << std::endl;
       else
-        env.stream() << ::nstest::yellow_("!");
+        env.stream() << ::stf::yellow_("!");
     }
   }
 }
 
 
 
-#define NSTEST_STRING__(...) #__VA_ARGS__
-#define NSTEST_STRING_(text) NSTEST_STRING__ text
+#define STF_STRING__(...) #__VA_ARGS__
+#define STF_STRING_(text) STF_STRING__ text
 
-#define NSTEST_STRING(...) NSTEST_STRING_((__VA_ARGS__))
+#define STF_STRING(...) STF_STRING_((__VA_ARGS__))
 
 
-#define NSTEST_UNIQUE3( ID, LINE )  ID ## LINE
-#define NSTEST_UNIQUE2( ID, LINE )  NSTEST_UNIQUE3( ID, LINE )
+#define STF_UNIQUE3( ID, LINE )  ID ## LINE
+#define STF_UNIQUE2( ID, LINE )  STF_UNIQUE3( ID, LINE )
 
 #if defined(DOXYGEN_ONLY)
-#define NSTEST_UNIQUE( Identifier )
+#define STF_UNIQUE( Identifier )
 
-#define NTEST_FUNCTION
+#define STF_FUNCTION
 
-#define NTEST_REGISTRATION
+#define STF_REGISTRATION
 #else
 
-#define NSTEST_UNIQUE( Identifier ) NSTEST_UNIQUE2( Identifier, __LINE__ )
-#define NTEST_FUNCTION      NSTEST_UNIQUE(nstest_function)
-#define NTEST_REGISTRATION  NSTEST_UNIQUE(nstest_registration)
+#define STF_UNIQUE( Identifier ) STF_UNIQUE2( Identifier, __LINE__ )
+#define STF_FUNCTION      STF_UNIQUE(stf_function)
+#define STF_REGISTRATION  STF_UNIQUE(stf_registration)
 
 #endif
 
@@ -473,7 +470,7 @@ namespace nstest
 #include <vector>
 #include <functional>
 
-namespace nstest { namespace unit
+namespace stf { namespace unit
 {
   struct test
   {
@@ -497,11 +494,11 @@ namespace nstest { namespace unit
 } }
 
 
-namespace nstest { namespace detail
+namespace stf { namespace detail
 {
   struct registrar
   {
-    registrar( ::nstest::unit::test const& test_case ) { unit::suite().push_back( test_case ); }
+    registrar( ::stf::unit::test const& test_case ) { unit::suite().push_back( test_case ); }
   };
 } }
 
@@ -510,44 +507,44 @@ namespace nstest { namespace detail
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 
-#define NSTEST_CASE(DESCRIPTION)                                                                    \
-void NTEST_FUNCTION( ::nstest::unit::env& );                                                        \
+#define STF_CASE(DESCRIPTION)                                                                    \
+void STF_FUNCTION( ::stf::unit::env& );                                                        \
 namespace                                                                                           \
 {                                                                                                   \
-  ::nstest::detail::registrar                                                                       \
-  NTEST_REGISTRATION{::nstest::unit::test(DESCRIPTION, NTEST_FUNCTION)};                            \
+  ::stf::detail::registrar                                                                       \
+  STF_REGISTRATION{::stf::unit::test(DESCRIPTION, STF_FUNCTION)};                            \
 }                                                                                                   \
-void NTEST_FUNCTION( ::nstest::unit::env& $ )                                                       \
+void STF_FUNCTION( ::stf::unit::env& $ )                                                       \
 
-#define NTEST_RTYPE(z, n, t)                                                                        \
+#define STF_RTYPE(z, n, t)                                                                        \
 {                                                                                                   \
   using T = BOOST_PP_SEQ_ELEM(n,t);                                                                 \
   $.stream() << std::endl;                                                                          \
-  $.stream() <<  "With T = [" << ::nstest::white_(NSTEST_STRING(BOOST_PP_SEQ_ELEM(n,t)))            \
+  $.stream() <<  "With T = [" << ::stf::white_(STF_STRING(BOOST_PP_SEQ_ELEM(n,t)))            \
                         << "] ";                                                                    \
   if(!$.is_compact()) $.stream() << std::endl;                                                      \
-  NTEST_FUNCTION<T>($);                                                                             \
+  STF_FUNCTION<T>($);                                                                             \
 }                                                                                                   \
 
-#define NSTEST_CASE_TPL(DESCRIPTION, TYPES)                                                         \
-template<typename T> void NTEST_FUNCTION( nstest::unit::env& );                                     \
+#define STF_CASE_TPL(DESCRIPTION, TYPES)                                                         \
+template<typename T> void STF_FUNCTION( stf::unit::env& );                                     \
 namespace                                                                                           \
 {                                                                                                   \
-  nstest::detail::registrar                                                                         \
-  NTEST_REGISTRATION{ nstest::unit::test                                                            \
+  stf::detail::registrar                                                                         \
+  STF_REGISTRATION{ stf::unit::test                                                            \
                       ( DESCRIPTION                                                                 \
-                      , [](::nstest::unit::env& $) -> void                                          \
+                      , [](::stf::unit::env& $) -> void                                          \
                         {                                                                           \
-                          BOOST_PP_REPEAT(BOOST_PP_SEQ_SIZE(TYPES),NTEST_RTYPE,TYPES)               \
+                          BOOST_PP_REPEAT(BOOST_PP_SEQ_SIZE(TYPES),STF_RTYPE,TYPES)               \
                         }                                                                           \
                       )                                                                             \
                     };                                                                              \
 }                                                                                                   \
-template<typename T> void NTEST_FUNCTION( nstest::unit::env& $ )                                    \
+template<typename T> void STF_FUNCTION( stf::unit::env& $ )                                    \
 
 
 
-namespace nstest
+namespace stf
 {
   inline bool is_false()  { return false; }
 
@@ -557,7 +554,7 @@ namespace nstest
 #include <algorithm>
 #include <random>
 
-namespace nstest
+namespace stf
 {
   template<typename Environment, typename Suite, typename... Setup>
   inline bool run(Environment& environment, Suite& tests, Setup const&... setup)
@@ -582,28 +579,29 @@ namespace nstest
       environment.stream() << std::endl;
     }
 
-    return ::nstest::report(environment,setup...);
+    return ::stf::report(environment,setup...);
   }
 }
 
 
-#if !defined(NSTEST_USE_CUSTOM_DRIVER)
+#if !defined(STF_USE_CUSTOM_DRIVER)
 
-#if !defined(NSTEST_CUSTOM_DRIVER_FUNCTION)
-#define NSTEST_CUSTOM_DRIVER_FUNCTION main
+#if !defined(STF_CUSTOM_DRIVER_FUNCTION)
+#define STF_CUSTOM_DRIVER_FUNCTION main
 #endif
 
 #if defined(DOXYGEN_ONLY)
-#define NSTEST_CUSTOM_DRIVER_FUNCTION
+#define STF_CUSTOM_DRIVER_FUNCTION
 #endif
 
-int NSTEST_CUSTOM_DRIVER_FUNCTION(int argc, const char** argv)
+int STF_CUSTOM_DRIVER_FUNCTION(int argc, const char** argv)
 {
-  ::nstest::unit::env $env(argc,argv,std::cout);
-  return ::nstest::run( $env, ::nstest::unit::suite(), 0, 0 );
+  ::stf::unit::env $env(argc,argv,std::cout);
+  return ::stf::run( $env, ::stf::unit::suite(), 0, 0 );
 }
 
 #endif
+
 
 
 
@@ -612,7 +610,7 @@ int NSTEST_CUSTOM_DRIVER_FUNCTION(int argc, const char** argv)
 #include <iostream>
 #include <string>
 
-namespace nstest
+namespace stf
 {
   struct location
   {
@@ -632,7 +630,7 @@ namespace nstest
 
 #include <string>
 
-namespace nstest { namespace detail
+namespace stf { namespace detail
 {
     struct result
   {
@@ -645,13 +643,13 @@ namespace nstest { namespace detail
   };
 } }
 
-#define NSTEST_DUMP(R)                                                                              \
+#define STF_DUMP(R)                                                                              \
 $.stream()  << "failing because:\n"                                                                 \
-            << ::nstest::white_(R.lhs) << R.op << ::nstest::white_(R.rhs) << "\n"                   \
+            << ::stf::white_(R.lhs) << R.op << ::stf::white_(R.rhs) << "\n"                   \
             << "is incorrect.\n";                                                                   \
 
 
-namespace nstest { namespace detail
+namespace stf { namespace detail
 {
   template<typename LHS, typename RHS>
   inline bool compare_equal(LHS const& l, RHS const& r)         { return l == r; }
@@ -673,7 +671,7 @@ namespace nstest { namespace detail
 } }
 
 
-namespace nstest { namespace detail
+namespace stf { namespace detail
 {
     template<typename Expression> struct lhs_expr
   {
@@ -687,29 +685,29 @@ namespace nstest { namespace detail
     operator result()
     {
       return result { bool(lhs)
-                    , nstest::to_string( bool(lhs) )
-                    , nstest::to_string("")
-                    , nstest::to_string("")
+                    , stf::to_string( bool(lhs) )
+                    , stf::to_string("")
+                    , stf::to_string("")
                     };
     }
 
-    #define NSTEST_BINARY_DECOMPOSE(OP,SB,FN)                                                       \
+    #define STF_BINARY_DECOMPOSE(OP,SB,FN)                                                       \
     template<typename R> result operator OP( R const & rhs )                                        \
     {                                                                                               \
-      using nstest::detail::FN;                                                                     \
+      using stf::detail::FN;                                                                     \
       return  { FN(lhs, rhs)                                                                        \
-              , nstest::to_string( lhs ), nstest::split_line(lhs,rhs,SB), nstest::to_string(rhs)    \
+              , stf::to_string( lhs ), stf::split_line(lhs,rhs,SB), stf::to_string(rhs)    \
               };                                                                                    \
     }                                                                                               \
 
-    NSTEST_BINARY_DECOMPOSE( ==,  "==", compare_equal         )
-    NSTEST_BINARY_DECOMPOSE( !=,  "!=", compare_not_equal     )
-    NSTEST_BINARY_DECOMPOSE( < ,  "<" , compare_less          )
-    NSTEST_BINARY_DECOMPOSE( <=,  "<=", compare_less_equal    )
-    NSTEST_BINARY_DECOMPOSE( > ,  ">" , compare_greater       )
-    NSTEST_BINARY_DECOMPOSE( >=,  ">=", compare_greater_equal )
+    STF_BINARY_DECOMPOSE( ==,  "==", compare_equal         )
+    STF_BINARY_DECOMPOSE( !=,  "!=", compare_not_equal     )
+    STF_BINARY_DECOMPOSE( < ,  "<" , compare_less          )
+    STF_BINARY_DECOMPOSE( <=,  "<=", compare_less_equal    )
+    STF_BINARY_DECOMPOSE( > ,  ">" , compare_greater       )
+    STF_BINARY_DECOMPOSE( >=,  ">=", compare_greater_equal )
 
-    #undef NSTEST_BINARY_DECOMPOSE
+    #undef STF_BINARY_DECOMPOSE
   };
 
   struct decomposer
@@ -722,77 +720,90 @@ namespace nstest { namespace detail
   };
 } }
 
-#define NSTEST_DECOMPOSE( XPR ) ( nstest::detail::decomposer()->* XPR )
+#define STF_DECOMPOSE( XPR ) ( stf::detail::decomposer()->* XPR )
 
 
-#define NSTEST_PASS( MESSAGE )                                                                      \
+#define STF_DISPLAY( INDICATOR, COLOR, MESSAGE )                                                 \
+do                                                                                                  \
+{                                                                                                   \
+  if(!$.is_compact()) $.stream() << COLOR(INDICATOR) << MESSAGE << std::endl;                       \
+} while( ::stf::is_false() )                                                                     \
+
+#define STF_INFO( MESSAGE ) STF_DISPLAY("[INFO] ",stf::green_, MESSAGE)
+
+#define STF_WARNING( MESSAGE ) STF_DISPLAY("[WARNING] ",stf::yellow_, MESSAGE)
+
+#define STF_ERROR( MESSAGE ) STF_DISPLAY("[ERROR] ",stf::red_, MESSAGE)
+
+#define STF_PASS( MESSAGE )                                                                      \
 do                                                                                                  \
 {                                                                                                   \
   $.as_success();                                                                                   \
   if(!$.is_compact())                                                                               \
   {                                                                                                 \
-    $.pass() << MESSAGE << " in: " << ::nstest::at(__FILE__,__LINE__) << std::endl;                 \
+    $.pass() << MESSAGE << " in: " << ::stf::at(__FILE__,__LINE__) << std::endl;                 \
   }                                                                                                 \
   else                                                                                              \
   {                                                                                                 \
-    $.stream() << ::nstest::green_("+");                                                            \
+    $.stream() << ::stf::green_("+");                                                            \
   }                                                                                                 \
-} while( ::nstest::is_false() )                                                                     \
+} while( ::stf::is_false() )                                                                     \
 
-#define NSTEST_FAIL( MESSAGE )                                                                      \
+#define STF_FAIL( MESSAGE )                                                                      \
 do                                                                                                  \
 {                                                                                                   \
   $.as_failure();                                                                                   \
   if(!$.is_compact())                                                                               \
   {                                                                                                 \
-    $.fail() << MESSAGE << " in: " << ::nstest::at(__FILE__,__LINE__) << std::endl;                 \
+    $.fail() << MESSAGE << " in: " << ::stf::at(__FILE__,__LINE__) << std::endl;                 \
   }                                                                                                 \
   else                                                                                              \
   {                                                                                                 \
-    $.stream() << ::nstest::red_("-");                                                              \
+    $.stream() << ::stf::red_("-");                                                              \
   }                                                                                                 \
-} while( ::nstest::is_false() )                                                                     \
+} while( ::stf::is_false() )                                                                     \
 
-#define NSTEST_EXPECT( EXPR )                                                                       \
+
+#define STF_EXPECT( EXPR )                                                                       \
 do                                                                                                  \
 {                                                                                                   \
-  if( ::nstest::detail::result r = NSTEST_DECOMPOSE(EXPR) )                                         \
-    NSTEST_PASS( "Expecting: " << ::nstest::white_(NSTEST_STRING(EXPR)) );                          \
+  if( ::stf::detail::result r = STF_DECOMPOSE(EXPR) )                                         \
+    STF_PASS( "Expecting: " << ::stf::white_(STF_STRING(EXPR)) );                          \
   else                                                                                              \
   {                                                                                                 \
-    NSTEST_FAIL( "Expecting: " << ::nstest::white_(NSTEST_STRING(EXPR)) );                          \
-    if(!$.is_compact()) NSTEST_DUMP( r );                                                           \
+    STF_FAIL( "Expecting: " << ::stf::white_(STF_STRING(EXPR)) );                          \
+    if(!$.is_compact()) STF_DUMP( r );                                                           \
   }                                                                                                 \
-} while( ::nstest::is_false() )                                                                     \
+} while( ::stf::is_false() )                                                                     \
 
-#define NSTEST_EXPECT_NOT( EXPR )                                                                   \
+#define STF_EXPECT_NOT( EXPR )                                                                   \
 do                                                                                                  \
 {                                                                                                   \
-  if( ::nstest::detail::result r = NSTEST_DECOMPOSE(EXPR) )                                         \
+  if( ::stf::detail::result r = STF_DECOMPOSE(EXPR) )                                         \
   {                                                                                                 \
-    NSTEST_FAIL( "Not expecting: " << ::nstest::white_(NSTEST_STRING(EXPR)) );                      \
-    if(!$.is_compact()) NSTEST_DUMP( r );                                                           \
+    STF_FAIL( "Not expecting: " << ::stf::white_(STF_STRING(EXPR)) );                      \
+    if(!$.is_compact()) STF_DUMP( r );                                                           \
   }                                                                                                 \
   else                                                                                              \
-    NSTEST_PASS( "Not expecting: " << ::nstest::white_(NSTEST_STRING(EXPR)) );                      \
-} while( ::nstest::is_false() )                                                                     \
+    STF_PASS( "Not expecting: " << ::stf::white_(STF_STRING(EXPR)) );                      \
+} while( ::stf::is_false() )                                                                     \
 
 
 
 #if defined(__GNUC__) || defined(DOXYGEN_ONLY)
-#define NSTEST_UNUSED(X) (void) X
+#define STF_UNUSED(X) (void) X
 #else
-#define NSTEST_UNUSED(X) X
+#define STF_UNUSED(X) X
 #endif
 
 
 #if !defined(BOOST_ENABLE_ASSERT_HANDLER)
-#error BOOST_ENABLE_ASSERT_HANDLER must be defined to use NSTEST_ASSERT() macro
+#error BOOST_ENABLE_ASSERT_HANDLER must be defined to use STF_ASSERT() macro
 #endif
 
 #include <boost/config.hpp>
 #if defined(BOOST_NO_EXCEPTIONS)
-#error Exceptions must be enabled to  use NSTEST_ASSERT() macro
+#error Exceptions must be enabled to  use STF_ASSERT() macro
 #endif
 
 #include <boost/core/ignore_unused.hpp>
@@ -800,7 +811,7 @@ do                                                                              
 #include <boost/exception/all.hpp>
 #include <boost/assert.hpp>
 
-namespace nstest { namespace detail
+namespace stf { namespace detail
 {
   struct BOOST_SYMBOL_VISIBLE assertion_failure : virtual boost::exception, std::runtime_error
   {
@@ -815,13 +826,13 @@ namespace nstest { namespace detail
     auto fn   = boost::get_error_info< ::boost::throw_function >(e);
     auto f    = boost::get_error_info< ::boost::throw_file >(e);
     auto l    = boost::get_error_info< ::boost::throw_line >(e);
-    auto msg  = boost::get_error_info< ::nstest::detail::throw_message >(e);
+    auto msg  = boost::get_error_info< ::stf::detail::throw_message >(e);
 
-    os  << "Assertion    '"  << ::nstest::white_(e.what()) << "' failed\n"
-        << " in function '"  << ::nstest::white_(*fn) << "'\n"
-        << " from         "  << ::nstest::at(*f,*l)    << " \n";
+    os  << "Assertion    '"  << ::stf::white_(e.what()) << "' failed\n"
+        << " in function '"  << ::stf::white_(*fn) << "'\n"
+        << " from         "  << ::stf::at(*f,*l)    << " \n";
 
-    if(msg)  os << " because     '"  << ::nstest::white_(*msg) << "'";
+    if(msg)  os << " because     '"  << ::stf::white_(*msg) << "'";
 
     return os;
   }
@@ -833,14 +844,14 @@ namespace boost
   {
     #ifndef BOOST_EXCEPTION_DISABLE
     ::boost::throw_exception
-    (     ::boost::enable_error_info( ::nstest::detail::assertion_failure(expr) )
+    (     ::boost::enable_error_info( ::stf::detail::assertion_failure(expr) )
       <<  ::boost::throw_function(fn)
       <<  ::boost::throw_file(f)
       <<  ::boost::throw_line(int(l))
     );
     #else
     ::boost::ignore_unused(fn,f,l);
-    ::boost::throw_exception( ::nstest::detail::assertion_failure(expr) );
+    ::boost::throw_exception( ::stf::detail::assertion_failure(expr) );
     #endif
   }
 
@@ -850,82 +861,82 @@ namespace boost
   {
     #ifndef BOOST_EXCEPTION_DISABLE
     ::boost::throw_exception
-    (     ::boost::enable_error_info( ::nstest::detail::assertion_failure(expr) )
+    (     ::boost::enable_error_info( ::stf::detail::assertion_failure(expr) )
       <<  ::boost::throw_function(fn)
       <<  ::boost::throw_file(f)
       <<  ::boost::throw_line(int(l))
-      <<  ::nstest::detail::throw_message(msg)
+      <<  ::stf::detail::throw_message(msg)
     );
     #else
     ::boost::ignore_unused(expr,fn,f,l);
-    ::boost::throw_exception( ::nstest::detail::assertion_failure(msg) );
+    ::boost::throw_exception( ::stf::detail::assertion_failure(msg) );
     #endif
   }
 }
 
 #include <boost/preprocessor/punctuation/remove_parens.hpp>
 
-#define NSTEST_THROW( X, T )                                                                        \
+#define STF_THROW( X, T )                                                                        \
 do                                                                                                  \
 {                                                                                                   \
   bool caught = false;                                                                              \
-  try                                 { NSTEST_UNUSED(BOOST_PP_REMOVE_PARENS(X)); }                 \
+  try                                 { STF_UNUSED(BOOST_PP_REMOVE_PARENS(X)); }                 \
   catch( BOOST_PP_REMOVE_PARENS(T)& ) { caught = true; }                                            \
                                                                                                     \
   if(caught)                                                                                        \
-    NSTEST_PASS (   ::nstest::white_(NSTEST_STRING(X))                                              \
+    STF_PASS (   ::stf::white_(STF_STRING(X))                                              \
                 <<  " throws "                                                                      \
-                <<  ::nstest::white_(NSTEST_STRING(T))                                              \
+                <<  ::stf::white_(STF_STRING(T))                                              \
                 );                                                                                  \
   else                                                                                              \
-    NSTEST_FAIL(   ::nstest::white_(NSTEST_STRING(X))                                               \
+    STF_FAIL(   ::stf::white_(STF_STRING(X))                                               \
                 <<  " does not throw "                                                              \
-                <<  ::nstest::white_(NSTEST_STRING(T))                                              \
+                <<  ::stf::white_(STF_STRING(T))                                              \
                 );                                                                                  \
-} while( ::nstest::is_false() )                                                                     \
+} while( ::stf::is_false() )                                                                     \
 
-#define NSTEST_NO_THROW( X )                                                                        \
+#define STF_NO_THROW( X )                                                                        \
 do                                                                                                  \
 {                                                                                                   \
   bool caught = false;                                                                              \
-  try          { NSTEST_UNUSED(BOOST_PP_REMOVE_PARENS(X)); }                                        \
+  try          { STF_UNUSED(BOOST_PP_REMOVE_PARENS(X)); }                                        \
   catch( ... ) { caught = true; }                                                                   \
                                                                                                     \
   if(caught)                                                                                        \
-    NSTEST_FAIL( ::nstest::white_(NSTEST_STRING(X)) << " throws while not expected to" );           \
+    STF_FAIL( ::stf::white_(STF_STRING(X)) << " throws while not expected to" );           \
   else                                                                                              \
-    NSTEST_PASS( ::nstest::white_(NSTEST_STRING(X)) << " doesn't throw" );                          \
-} while( ::nstest::is_false() )                                                                     \
+    STF_PASS( ::stf::white_(STF_STRING(X)) << " doesn't throw" );                          \
+} while( ::stf::is_false() )                                                                     \
 
-#define NSTEST_ASSERT(X)                                                                            \
+#define STF_ASSERT(X)                                                                            \
 do                                                                                                  \
 {                                                                                                   \
   bool caught = false;                                                                              \
-  try  { NSTEST_UNUSED(BOOST_PP_REMOVE_PARENS(X)); }                                                \
-  catch( ::nstest::detail::assertion_failure& e)                                                    \
+  try  { STF_UNUSED(BOOST_PP_REMOVE_PARENS(X)); }                                                \
+  catch( ::stf::detail::assertion_failure& e)                                                    \
   {                                                                                                 \
     caught = true;                                                                                  \
-    NSTEST_PASS( ::nstest::white_(NSTEST_STRING(X)) << " triggered: \n" << e << "\n" );             \
+    STF_PASS( ::stf::white_(STF_STRING(X)) << " triggered: \n" << e << "\n" );             \
   }                                                                                                 \
                                                                                                     \
   if(!caught)                                                                                       \
-    NSTEST_FAIL( ::nstest::white_(NSTEST_STRING(X)) << " didn't trigger any assertion." );          \
-} while( ::nstest::is_false() )                                                                     \
+    STF_FAIL( ::stf::white_(STF_STRING(X)) << " didn't trigger any assertion." );          \
+} while( ::stf::is_false() )                                                                     \
 
-#define NSTEST_NO_ASSERT(X)                                                                         \
+#define STF_NO_ASSERT(X)                                                                         \
 do                                                                                                  \
 {                                                                                                   \
   bool caught = false;                                                                              \
-  try  { NSTEST_UNUSED(BOOST_PP_REMOVE_PARENS(X)); }                                                \
-  catch( ::nstest::detail::assertion_failure& e)                                                    \
+  try  { STF_UNUSED(BOOST_PP_REMOVE_PARENS(X)); }                                                \
+  catch( ::stf::detail::assertion_failure& e)                                                    \
   {                                                                                                 \
     caught = true;                                                                                  \
-    NSTEST_FAIL( ::nstest::white_(NSTEST_STRING(X)) << " triggered: \n" << e << "\n" );             \
+    STF_FAIL( ::stf::white_(STF_STRING(X)) << " triggered: \n" << e << "\n" );             \
   }                                                                                                 \
                                                                                                     \
   if(!caught)                                                                                       \
-    NSTEST_PASS( ::nstest::white_(NSTEST_STRING(X)) << " didn't trigger any assertion." );          \
-} while( ::nstest::is_false() )                                                                     \
+    STF_PASS( ::stf::white_(STF_STRING(X)) << " didn't trigger any assertion." );          \
+} while( ::stf::is_false() )                                                                     \
 
 
 
@@ -933,7 +944,7 @@ do                                                                              
 #include <vector>
 #include <string>
 
-namespace nstest
+namespace stf
 {
     template<typename Measure, typename Reference> struct approx_
   {
@@ -974,7 +985,7 @@ namespace nstest
     template<typename U, typename X, typename Y>
     inline void check(U const&  u, X const& x, Y const& y, std::ptrdiff_t idx) const
     {
-      using nstest::to_string;
+      using stf::to_string;
 
       if( u  > diff )
       {
@@ -993,7 +1004,7 @@ namespace nstest
     template<typename Measure, typename Reference>
   std::string to_string( approx_<Measure,Reference> const& u )
   {
-    using nstest::to_string;
+    using stf::to_string;
 
     if(u.mismatched()) return "arguments with mismatched size.";
 
@@ -1025,7 +1036,7 @@ namespace nstest
 
 #include <type_traits>
 
-namespace nstest { namespace detail
+namespace stf { namespace detail
 {
   template<typename T, typename R>
   using if_integral = typename std::enable_if<std::is_integral<T>::value, R>::type;
@@ -1041,7 +1052,7 @@ namespace nstest { namespace detail
 #include <iterator>
 #include <cmath>
 
-namespace nstest
+namespace stf
 {
 #if defined(DOXYGEN_ONLY)
   template<typename T, typename U> inline auto ulpdist(T a0, U a1);
@@ -1085,7 +1096,7 @@ namespace nstest
 
     std::transform( a0.begin(), a0.end(), a1.begin()
                   , std::back_inserter(ulps)
-                  , [](type const& a,type const& b) { using ::nstest::ulpdist; return ulpdist(a,b); }
+                  , [](type const& a,type const& b) { using ::stf::ulpdist; return ulpdist(a,b); }
                   );
 
     return ulps;
@@ -1100,7 +1111,7 @@ namespace nstest
 
     std::transform( a0.begin(), a0.end()
                   , std::back_inserter(ulps)
-                  , [&a1](type const& a) { using ::nstest::ulpdist; return ulpdist(a,a1); }
+                  , [&a1](type const& a) { using ::stf::ulpdist; return ulpdist(a,a1); }
                   );
 
     return ulps;
@@ -1115,7 +1126,7 @@ namespace nstest
 
     std::transform( a0.begin(), a0.end()
                   , std::back_inserter(ulps)
-                  , [&a1](type const& a) { using ::nstest::ulpdist; return ulpdist(a1,a); }
+                  , [&a1](type const& a) { using ::stf::ulpdist; return ulpdist(a1,a); }
                   );
 
     return ulps;
@@ -1136,7 +1147,7 @@ namespace nstest
 
 #include <string>
 
-namespace nstest
+namespace stf
 {
   namespace detail
   {
@@ -1145,7 +1156,7 @@ namespace nstest
       template<typename T, typename U>
       auto operator()(T const& data, U const& ref) const -> decltype(ulpdist(data,ref))
       {
-        using nstest::ulpdist;
+        using stf::ulpdist;
         return ulpdist(data,ref);
       }
 
@@ -1166,7 +1177,7 @@ namespace nstest
 #include <iterator>
 #include <cmath>
 
-namespace nstest
+namespace stf
 {
 #if defined(DOXYGEN_ONLY)
   template<typename T, typename U> inline auto reldist(T a0, U a1);
@@ -1202,7 +1213,7 @@ namespace nstest
 
     std::transform( a0.begin(), a0.end(), a1.begin()
                   , std::back_inserter(rels)
-                  , [](type const& a,type const& b) { using ::nstest::reldist; return reldist(a,b); }
+                  , [](type const& a,type const& b) { using ::stf::reldist; return reldist(a,b); }
                   );
 
     return rels;
@@ -1217,7 +1228,7 @@ namespace nstest
 
     std::transform( a0.begin(), a0.end()
                   , std::back_inserter(rels)
-                  , [&a1](type const& a) { using ::nstest::reldist; return reldist(a1,a); }
+                  , [&a1](type const& a) { using ::stf::reldist; return reldist(a1,a); }
                   );
 
     return rels;
@@ -1232,7 +1243,7 @@ namespace nstest
 
     std::transform( a0.begin(), a0.end()
                   , std::back_inserter(rels)
-                  , [&a1](type const& a) { using ::nstest::reldist; return reldist(a,a1); }
+                  , [&a1](type const& a) { using ::stf::reldist; return reldist(a,a1); }
                   );
 
     return rels;
@@ -1251,7 +1262,7 @@ namespace nstest
 
 #include <string>
 
-namespace nstest
+namespace stf
 {
   namespace detail
   {
@@ -1260,7 +1271,7 @@ namespace nstest
       template<typename T, typename U>
       auto operator()(T const& data, U const& ref) const -> decltype(reldist(data,ref))
       {
-        using nstest::reldist;
+        using stf::reldist;
         return reldist(data,ref);
       }
 
@@ -1278,50 +1289,50 @@ namespace nstest
 }
 
 
-#define NSTEST_ULP_EQUAL(A,B,X)                                                                     \
+#define STF_ULP_EQUAL(A,B,X)                                                                     \
 do                                                                                                  \
 {                                                                                                   \
-  auto r = NSTEST_DECOMPOSE((A) == ::nstest::ulp(B,X));                                             \
+  auto r = STF_DECOMPOSE((A) == ::stf::ulp(B,X));                                             \
   if( r )                                                                                           \
-    NSTEST_PASS ( "Expecting: " << ::nstest::white_(NSTEST_STRING(A) " == " NSTEST_STRING(B))       \
-                                << " within " << ::nstest::white_(X) << " ULPs."                    \
+    STF_PASS ( "Expecting: " << ::stf::white_(STF_STRING(A) " == " STF_STRING(B))       \
+                                << " within " << ::stf::white_(X) << " ULPs."                    \
                 );                                                                                  \
   else                                                                                              \
-    NSTEST_FAIL ( "Expecting: " << ::nstest::white_(NSTEST_STRING(A) " == " NSTEST_STRING(B))       \
-                                << " within " << ::nstest::white_(X) << " ULPs "                    \
-                                << "but found:\n" << ::nstest::white_(r.rhs)                        \
+    STF_FAIL ( "Expecting: " << ::stf::white_(STF_STRING(A) " == " STF_STRING(B))       \
+                                << " within " << ::stf::white_(X) << " ULPs "                    \
+                                << "but found:\n" << ::stf::white_(r.rhs)                        \
                 );                                                                                  \
-} while( ::nstest::is_false() )                                                                     \
+} while( ::stf::is_false() )                                                                     \
 
 
-#define NSTEST_RELATIVE_EQUAL(A,B,X)                                                                \
+#define STF_RELATIVE_EQUAL(A,B,X)                                                                \
 do                                                                                                  \
 {                                                                                                   \
-  auto r = NSTEST_DECOMPOSE((A) == ::nstest::relative(B,X));                                        \
+  auto r = STF_DECOMPOSE((A) == ::stf::relative(B,X));                                        \
   if( r )                                                                                           \
-    NSTEST_PASS ( "Expecting: " << ::nstest::white_(NSTEST_STRING(A) " == " NSTEST_STRING(B))       \
-                                << " within " << ::nstest::white_(X) << " %."                       \
+    STF_PASS ( "Expecting: " << ::stf::white_(STF_STRING(A) " == " STF_STRING(B))       \
+                                << " within " << ::stf::white_(X) << " %."                       \
                 );                                                                                  \
   else                                                                                              \
-    NSTEST_FAIL ( "Expecting: " << ::nstest::white_(NSTEST_STRING(A) " == " NSTEST_STRING(B))       \
-                                << " within " << ::nstest::white_(X) << " % "                       \
-                                << "but found:\n" << ::nstest::white_(r.rhs)                        \
+    STF_FAIL ( "Expecting: " << ::stf::white_(STF_STRING(A) " == " STF_STRING(B))       \
+                                << " within " << ::stf::white_(X) << " % "                       \
+                                << "but found:\n" << ::stf::white_(r.rhs)                        \
                 );                                                                                  \
-} while( ::nstest::is_false() )                                                                     \
+} while( ::stf::is_false() )                                                                     \
 
 
 
-#define NSTEST_EQUAL( A, B )      NSTEST_EXPECT( (A) == (B) )
+#define STF_EQUAL( A, B )      STF_EXPECT( (A) == (B) )
 
-#define NSTEST_NOT_EQUAL( A, B )  NSTEST_EXPECT( (A) != (B) )
+#define STF_NOT_EQUAL( A, B )  STF_EXPECT( (A) != (B) )
 
-#define NSTEST_LESS(A,B)        NSTEST_EXPECT( (A) < (B) )
+#define STF_LESS(A,B)        STF_EXPECT( (A) < (B) )
 
-#define NSTEST_GREATER(A,B)       NSTEST_EXPECT( (A) > (B) )
+#define STF_GREATER(A,B)       STF_EXPECT( (A) > (B) )
 
-#define NSTEST_LESS_EQUAL(A,B)  NSTEST_EXPECT( (A) <= (B) )
+#define STF_LESS_EQUAL(A,B)  STF_EXPECT( (A) <= (B) )
 
-#define NSTEST_GREATER_EQUAL(A,B) NSTEST_EXPECT( (A) >= (B) )
+#define STF_GREATER_EQUAL(A,B) STF_EXPECT( (A) >= (B) )
 
 
 #include <type_traits>
@@ -1331,7 +1342,7 @@ do                                                                              
 #include <typeinfo>
 #include <string>
 
-namespace nstest
+namespace stf
 {
   template<typename T> inline std::string type_id()
   {
@@ -1357,26 +1368,26 @@ namespace nstest
 #include <boost/core/ignore_unused.hpp>
 #include <boost/mpl/apply.hpp>
 
-#define NSTEST_TYPE_IS(T, Type)                                                                     \
+#define STF_TYPE_IS(T, Type)                                                                     \
 do                                                                                                  \
 {                                                                                                   \
   volatile bool b = std::is_same<BOOST_PP_REMOVE_PARENS(Type), BOOST_PP_REMOVE_PARENS(T)>::value;   \
   if( b )                                                                                           \
-    NSTEST_PASS (   "Expecting " << ::nstest::white_ << NSTEST_STRING(BOOST_PP_REMOVE_PARENS(T))    \
-                <<  " == " << nstest::type_id<BOOST_PP_REMOVE_PARENS(Type)>() << ::nstest::default_ \
+    STF_PASS (   "Expecting " << ::stf::white_ << STF_STRING(BOOST_PP_REMOVE_PARENS(T))    \
+                <<  " == " << stf::type_id<BOOST_PP_REMOVE_PARENS(Type)>() << ::stf::default_ \
                 );                                                                                  \
   else                                                                                              \
-    NSTEST_FAIL (   "Expecting " << ::nstest::white_(NSTEST_STRING(BOOST_PP_REMOVE_PARENS(T)))      \
-                <<  " == " << ::nstest::white_(nstest::type_id<BOOST_PP_REMOVE_PARENS(Type)>())     \
-                <<  " found " << ::nstest::white_(nstest::type_id<BOOST_PP_REMOVE_PARENS(T)>())     \
+    STF_FAIL (   "Expecting " << ::stf::white_(STF_STRING(BOOST_PP_REMOVE_PARENS(T)))      \
+                <<  " == " << ::stf::white_(stf::type_id<BOOST_PP_REMOVE_PARENS(Type)>())     \
+                <<  " found " << ::stf::white_(stf::type_id<BOOST_PP_REMOVE_PARENS(T)>())     \
                 <<  " instead"                                                                      \
                 );                                                                                  \
-} while( ::nstest::is_false() )                                                                     \
+} while( ::stf::is_false() )                                                                     \
 
-#define NSTEST_EXPR_IS(Expression, Type)                                                            \
-NSTEST_TYPE_IS(decltype( BOOST_PP_REMOVE_PARENS(Expression)), Type)                                 \
+#define STF_EXPR_IS(Expression, Type)                                                            \
+STF_TYPE_IS(decltype( BOOST_PP_REMOVE_PARENS(Expression)), Type)                                 \
 
-#define NSTEST_EXPR_TYPE(Expression, Lambda, Type)                                                  \
+#define STF_EXPR_TYPE(Expression, Lambda, Type)                                                  \
 do                                                                                                  \
 {                                                                                                   \
   using other = boost::mpl::apply < BOOST_PP_REMOVE_PARENS(Lambda)                                  \
@@ -1385,27 +1396,27 @@ do                                                                              
                                                                                                     \
   volatile bool b = std::is_same<BOOST_PP_REMOVE_PARENS(Type), other>::value;                       \
   if( b )                                                                                           \
-    NSTEST_PASS (   "Expecting "                                                                    \
-                << ::nstest::white_(NSTEST_STRING(BOOST_PP_REMOVE_PARENS(Lambda)))                  \
+    STF_PASS (   "Expecting "                                                                    \
+                << ::stf::white_(STF_STRING(BOOST_PP_REMOVE_PARENS(Lambda)))                  \
                 << " applied on "                                                                   \
-                << ::nstest::white_(nstest::type_id(BOOST_PP_REMOVE_PARENS(Expression)))            \
+                << ::stf::white_(stf::type_id(BOOST_PP_REMOVE_PARENS(Expression)))            \
                 <<  " to be "                                                                       \
-                << ::nstest::white_(nstest::type_id<BOOST_PP_REMOVE_PARENS(Type)>())                \
+                << ::stf::white_(stf::type_id<BOOST_PP_REMOVE_PARENS(Type)>())                \
                 );                                                                                  \
   else                                                                                              \
-    NSTEST_FAIL(   "Expecting "                                                                     \
-                << ::nstest::white_(NSTEST_STRING(BOOST_PP_REMOVE_PARENS(Lambda)))                  \
+    STF_FAIL(   "Expecting "                                                                     \
+                << ::stf::white_(STF_STRING(BOOST_PP_REMOVE_PARENS(Lambda)))                  \
                 << " applied on "                                                                   \
-                << ::nstest::white_(nstest::type_id(BOOST_PP_REMOVE_PARENS(Expression)))            \
+                << ::stf::white_(stf::type_id(BOOST_PP_REMOVE_PARENS(Expression)))            \
                 <<  " to be "                                                                       \
-                << ::nstest::white_(nstest::type_id<BOOST_PP_REMOVE_PARENS(Type)>())                \
-                << " but found " << ::nstest::white_(nstest::type_id<other>()) << " instead"        \
+                << ::stf::white_(stf::type_id<BOOST_PP_REMOVE_PARENS(Type)>())                \
+                << " but found " << ::stf::white_(stf::type_id<other>()) << " instead"        \
                 );                                                                                  \
-} while( ::nstest::is_false() )                                                                     \
+} while( ::stf::is_false() )                                                                     \
 
 
 
-namespace nstest
+namespace stf
 {
   namespace unit
   {
@@ -1414,7 +1425,7 @@ namespace nstest
 
 
 #if defined(DOXYGEN_ONLY)
-#define NSTEST_USE_CUSTOM_DRIVER
+#define STF_USE_CUSTOM_DRIVER
 #endif
   }
 
