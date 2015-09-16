@@ -9,7 +9,7 @@
 #ifndef ARCH_DEFAULT_FOO_INCLUDED
 #define ARCH_DEFAULT_FOO_INCLUDED
 
-#include <boost/dispatch/hierarchy/formal.hpp>
+#include <boost/dispatch/hierarchy/cpu.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {

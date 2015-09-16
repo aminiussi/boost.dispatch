@@ -13,7 +13,7 @@
 
 namespace tutu { namespace titi
 {
-  BOOST_DISPATCH_REGISTER_NAMESPACE(ext, (boost::dispatch::generic_dispatcher<Tag,Site>) );
+  BOOST_DISPATCH_REGISTER_NAMESPACE(ext,boost::dispatch);
 } }
 
 #endif

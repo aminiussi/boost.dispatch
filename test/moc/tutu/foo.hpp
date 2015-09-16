@@ -10,30 +10,8 @@
 #define TUTU_FOO_INCLUDED
 
 #include <boost/dispatch/function/callable_object.hpp>
+#include <boost/dispatch/function/functor.hpp>
 #include "moc/tutu.hpp"
-
-namespace boost { namespace dispatch
-{
-  template<typename T, typename Site = boost::dispatch::default_site<T>>
-  struct functor
-  {
-    template<typename Other> using rebind = functor<T,Other>;
-
-    template<typename OtherSite, typename... Args>
-    BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE on(Args&&... args) const
-    BOOST_AUTO_DECLTYPE_BODY( T::dispatch_to( OtherSite()
-                                            , boost::dispatch::hierarchy_of_t<Args>()...
-                                            )( std::forward<Args>(args)...)
-                            )
-
-    template<typename... Args>
-    BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE operator()(Args&&... args) const
-    BOOST_AUTO_DECLTYPE_BODY( T::dispatch_to( Site()
-                                            , boost::dispatch::hierarchy_of_t<Args>()...
-                                            )( std::forward<Args>(args)...)
-                            )
-  };
-} }
 
 namespace tutu { namespace titi
 {
@@ -51,7 +29,7 @@ namespace tutu { namespace titi
 
     template<typename Site, typename... Ts>
     BOOST_FORCEINLINE generic_dispatcher<tag::foo_, Site>
-    BOOST_DISPATCH_DISPATCHING_FUNCTION(foo)
+    BOOST_DISPATCH_DISPATCHING_FUNCTION(foo_)
     (adl_helper const&, Site const&, boost::dispatch::type_<Ts> const&...)
     {
       return {};
