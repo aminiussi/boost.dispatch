@@ -24,49 +24,51 @@ namespace boost { namespace dispatch
 {
   /*!
     @ingroup group-api
-    @brief Lightweight type wrapper.
-
-    Provides a type wrapper allowing functions to receive type informations in a dispatchable way.
+    Provides a type wrapper allowing functions to receive type informations as an object.
 
     @tparam T Type to wrap
   **/
   template<typename T> struct as_
   {
+    /// Encapsulated type
     using type = T;
   };
 
   /*!
     @ingroup group-api
-    @brief Lightweight type wrapper function.
+    @brief Generates a type wrapper from an existing value
 
-    Generates a type wrapper from an existing value
+    @par Usage:
 
-    @param v Value from which type is wrapped from
+    @snippet api/as.cpp as
 
-    @return An instance of as_<T> where @c T is the type of @c v.
+    @param  v Value from which type is wrapped from
+    @return An instance of as_ instantiated with the type of @c v.
   **/
-  template<typename T> as_<T> as(T& v)
+  template<typename T> as_<typename std::decay<T>::type> as(T&& v)
   {
     boost::ignore_unused(v);
     return {};
   };
 
-  template<typename T> as_<T> as(T const& v)
+  namespace detail
   {
-    boost::ignore_unused(v);
-    return {};
-  };
+    template<typename T> struct target_value            { using type = T; };
+    template<typename T> struct target_value< as_<T> >  { using type = T; };
+  }
 
   /*!
     @ingroup group-meta
-    @brief Extract type from a target wrapper
 
     Retrieves the type wrapped by an instance of @c as_ .
 
+    @par Usage:
+
+    @snippet api/as.cpp target_value
+
     @tparam T Type to extract wrapped type from
   **/
-  template<typename T> struct target_value            { using type = T; };
-  template<typename T> struct target_value< as_<T> >  { using type = T; };
+  template<typename T> using target_value = typename detail::target_value<T>::type;
 
   /*!
     @ingroup group-hierarchy
@@ -76,9 +78,11 @@ namespace boost { namespace dispatch
   **/
   template<typename T> struct target_ : target_< typename T::parent >
   {
+    /// Parent hierarchy
     using parent = target_< typename T::parent >;
   };
 
+#if !defined(DOXYGEN_ONLY)
   template<typename T> struct target_< unspecified_<T> > : unspecified_<T>
   {
     using parent = unspecified_<T>;
@@ -95,6 +99,7 @@ namespace boost { namespace dispatch
       using type = target_<boost::dispatch::hierarchy_of<T,Origin>>;
     };
   }
+#endif
 } }
 
 #endif
