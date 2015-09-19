@@ -17,8 +17,7 @@
 
 #include <boost/dispatch/meta/introspection/value_of.hpp>
 #include <boost/dispatch/meta/introspection/model_of.hpp>
-#include <boost/dispatch/hierarchy/unspecified.hpp>
-#include <boost/dispatch/hierarchy_of.hpp>
+#include <boost/dispatch/adapted/hierarchy/integral_constant.hpp>
 #include <type_traits>
 
 namespace boost { namespace dispatch
@@ -36,28 +35,6 @@ namespace boost { namespace dispatch
       using type = T;
     };
   }
-
-  /*!
-    @ingroup group-hierarchy
-    @brief integral constant type hierarchy tag
-
-    Types are classified as constant_ if they are type embedding a integral constant.
-
-    @note When reaching @c constant_<unspecified_<T>> , the hierarchy turns into
-    @c scalar_<integral_<T>> and evolves accordingly.
-
-    @tparam T Base hierarchy
-  **/
-  template<typename T> struct constant_ : constant_<typename T::parent>
-  {
-    using parent = constant_<typename T::parent>;
-  };
-
-  template<typename T>
-  struct  constant_< unspecified_<T> > : hierarchy_of< typename T::value_type >
-  {
-    using parent = hierarchy_of< typename T::value_type, T >;
-  };
 
   namespace ext
   {
