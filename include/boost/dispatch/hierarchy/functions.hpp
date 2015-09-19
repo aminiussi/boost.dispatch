@@ -20,6 +20,19 @@ namespace boost { namespace dispatch
 {
   /*!
     @ingroup group-hierarchy
+    @brief Abstract function hierarchy tag
+
+    Function object classified as abstract_ if they represent higher-order functions
+
+    @tparam F Function object type
+  **/
+  template<typename F> struct abstract_ : function_<F>
+  {
+    using parent = function_<F>;
+  };
+
+  /*!
+    @ingroup group-hierarchy
     @brief Elementwise function hierarchy tag
 
     Function object classified as elementwise_ if they can be used as argument to the map
