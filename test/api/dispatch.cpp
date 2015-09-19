@@ -6,8 +6,11 @@
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 */
 //==================================================================================================
+#include <stf.hpp>
 
+// This mimics one way to generate a special architecture hierarchy
 #include <boost/dispatch/hierarchy/cpu.hpp>
+
 struct wazoo : boost::dispatch::cpu_
 {
   using parent = boost::dispatch::cpu_;
@@ -16,21 +19,42 @@ struct wazoo : boost::dispatch::cpu_
 // This mimics one way to dispatch to different function object
 #include "moc/tutu/foo.hpp"
 
-#include <stf.hpp>
-
 STF_CASE( "dispatch works correctly")
 {
-/*  std::cout << tutu::titi::foo('4') << "\n";
-  std::cout << tutu::titi::foo.on<boost::dispatch::cpu_>('4') << "\n";
-  std::cout << tutu::titi::foo.on<wazoo>('4') << "\n";
-  std::cout << tutu::titi::foo(4) << "\n";
-  std::cout << tutu::titi::foo(short(4)) << "\n";
-  std::cout << tutu::titi::foo(4.) << "\n";
-  std::cout << tutu::titi::foo.on<boost::dispatch::cpu_>(4.) << "\n";
-  std::cout << tutu::titi::foo.on<wazoo>(4.) << "\n";*/
+  STF_EQUAL(tutu::titi::foo('4')  , '#'     );
+  STF_EQUAL(tutu::titi::foo(4)    , -13.37f );
+  STF_EQUAL(tutu::titi::foo(4ULL) , 44ULL   );
+  STF_EQUAL(tutu::titi::foo(4.)   , 0.4     );
+}
 
-//  double x = 4.;
-//  std::cout << x << "\n";
-//  std::cout << tutu::titi::foo(x) << "\n";
-//  std::cout << x << "\n";
+STF_CASE( "dispatch works correctly using .on<cpu_>")
+{
+  // Same as above
+  STF_EQUAL(tutu::titi::foo.on<boost::dispatch::cpu_>('4')  , '#'     );
+  STF_EQUAL(tutu::titi::foo.on<boost::dispatch::cpu_>(4)    , -13.37f );
+  STF_EQUAL(tutu::titi::foo.on<boost::dispatch::cpu_>(4ULL) , 44ULL   );
+  STF_EQUAL(tutu::titi::foo.on<boost::dispatch::cpu_>(4.)   , 0.4     );
+}
+
+STF_CASE( "dispatch works correctly using .on<Site>")
+{
+  // Different behavior on different arch
+  STF_EQUAL(tutu::titi::foo.on<wazoo>('4')  , 'Z'     );
+  STF_EQUAL(tutu::titi::foo.on<wazoo>(4)    , -13.37f );
+  STF_EQUAL(tutu::titi::foo.on<wazoo>(4ULL) , 44ULL   );
+  STF_EQUAL(tutu::titi::foo.on<wazoo>(4.)   , 0.4     );
+}
+
+template<typename F> auto some_call(F f) -> decltype(f('x'))
+{
+  return f('x');
+}
+
+STF_CASE( "dispatch works correctly when functor are passed as parameters")
+{
+  using functor_type = decltype(tutu::titi::foo);
+
+  STF_EQUAL(some_call(tutu::titi::foo), '#');
+  STF_EQUAL(some_call(tutu::titi::foo.rebind<wazoo>()), 'Z');
+  STF_EQUAL(some_call(functor_type::rebind<wazoo>()),'Z');;
 }

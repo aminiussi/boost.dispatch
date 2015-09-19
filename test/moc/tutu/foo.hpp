@@ -9,34 +9,27 @@
 #ifndef TUTU_FOO_INCLUDED
 #define TUTU_FOO_INCLUDED
 
-#include <boost/dispatch/function/callable_object.hpp>
-#include <boost/dispatch/function/functor.hpp>
+#include <boost/dispatch/function/make_callable.hpp>
+#include <boost/dispatch/hierarchy/functions.hpp>
 #include "moc/tutu.hpp"
 
 namespace tutu { namespace titi
 {
   namespace tag
   {
-    struct foo_ : boost::dispatch::function_<foo_>
+    struct foo_ : boost::dispatch::elementwise_<foo_>
     {
-      BOOST_DISPATCH_CALLABLE_OBJECT(foo_,boost::dispatch::function_<foo_>);
+      BOOST_DISPATCH_MAKE_CALLABLE(foo_,boost::dispatch::elementwise_<foo_>);
     };
   }
 
   namespace ext
   {
-    template<typename T> struct impl_foo;
-
-    template<typename Site, typename... Ts>
-    BOOST_FORCEINLINE generic_dispatcher<tag::foo_, Site>
-    BOOST_DISPATCH_DISPATCHING_FUNCTION(foo_)
-    (adl_helper const&, Site const&, boost::dispatch::type_<Ts> const&...)
-    {
-      return {};
-    }
+    BOOST_DISPATCH_FUNCTION_DECLARATION(tag,foo_);
   }
 
-  static const boost::dispatch::functor<tag::foo_> foo = {};
+  BOOST_DISPATCH_FUNCTION_DEFINITION(tag::foo_,foo);
+  BOOST_DISPATCH_FUNCTION_DEFINITION(tag::foo_,foo2);
 } }
 
 #include "moc/arch/default/foo.hpp"

@@ -10,6 +10,8 @@
 #define ARCH_DEFAULT_FOO_INCLUDED
 
 #include <boost/dispatch/hierarchy/cpu.hpp>
+#include <boost/dispatch/hierarchy/base.hpp>
+#include <boost/dispatch/hierarchy/functions.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -23,19 +25,10 @@ namespace boost { namespace dispatch { namespace meta
     template<typename T> T operator()(T const& x) { return x*10; }
   };
 
-  template<typename T>
-  dub dispatching ( meta::adl_helper const& , tutu::titi::tag::foo_ const&
-                                      , cpu_ const&
-                                      , type_<T> const&
-                  )
-  {
-    return {};
-  }
-
-  template<typename T>
-  dub2 dispatching ( meta::adl_helper const& , tutu::titi::tag::foo_ const&
-                                      , wazoo const&
-                                      , type_<T> const&
+  template<typename F, typename A, typename T>
+  dub dispatching ( meta::adl_helper const& , function_<F> const&
+                                            , unspecified_<A> const&
+                                            , scalar_<unspecified_<T>> const&
                   )
   {
     return {};
