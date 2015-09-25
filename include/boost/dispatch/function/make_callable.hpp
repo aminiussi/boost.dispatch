@@ -42,6 +42,21 @@ using parent = PARENT                                                           
 /*!
   @ingroup group-api
 
+  Generates the boilerplate code for generating a @c TAG type as
+  a Boost.Dispatch callable object
+
+  @par Usage:
+
+  @param TAG    Tag type to be implemented
+  @param PARENT Tag's parent hierarchy
+**/
+#define BOOST_DISPATCH_MAKE_TAG(TAG, PARENT)                                                        \
+struct TAG : PARENT { BOOST_DISPATCH_MAKE_CALLABLE(TAG,PARENT); }                                   \
+/**/
+
+/*!
+  @ingroup group-api
+
   Generates the boilerplate code for defining the dispatching function for a given @c TAG
 
   @par Usage:
@@ -50,13 +65,9 @@ using parent = PARENT                                                           
   @param TAG        Tag type identifier
 **/
 #define BOOST_DISPATCH_FUNCTION_DECLARATION(NAMESPACE,TAG)                                          \
-template<typename... T> struct impl_##TAG;                                                          \
 template<typename Site>                                                                             \
 inline generic_dispatcher<NAMESPACE::TAG>                                                           \
-BOOST_DISPATCH_DISPATCHING_FUNCTION(TAG)( adl_helper const&                                         \
-                                        , ::boost::dispatch::unspecified_<Site> const&              \
-                                        , ...                                                       \
-                                        )                                                           \
+BOOST_DISPATCH_IMPLEMENTS(TAG, ::boost::dispatch::unspecified_<Site> const&, ... )                  \
 {                                                                                                   \
   return {};                                                                                        \
 }                                                                                                   \

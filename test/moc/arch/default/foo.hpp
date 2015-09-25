@@ -20,16 +20,11 @@ namespace boost { namespace dispatch { namespace meta
     template<typename T> T operator()(T const& x) { return x/10; }
   };
 
-  struct dub2
-  {
-    template<typename T> T operator()(T const& x) { return x*10; }
-  };
-
   template<typename F, typename A, typename T>
-  dub dispatching ( meta::adl_helper const& , function_<F> const&
-                                            , unspecified_<A> const&
-                                            , scalar_<unspecified_<T>> const&
-                  )
+  dub BOOST_DISPATCH_FALLBACK ( function_<F> const&
+                              , unspecified_<A> const&
+                              , scalar_<unspecified_<T>> const&
+                              )
   {
     return {};
   }

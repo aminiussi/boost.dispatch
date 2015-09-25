@@ -15,21 +15,10 @@
 
 namespace tutu { namespace titi
 {
-  namespace tag
-  {
-    struct foo_ : boost::dispatch::elementwise_<foo_>
-    {
-      BOOST_DISPATCH_MAKE_CALLABLE(foo_,boost::dispatch::elementwise_<foo_>);
-    };
-  }
-
-  namespace ext
-  {
-    BOOST_DISPATCH_FUNCTION_DECLARATION(tag,foo_);
-  }
+  namespace tag { BOOST_DISPATCH_MAKE_TAG(foo_,boost::dispatch::elementwise_<foo_>); }
+  namespace ext { BOOST_DISPATCH_FUNCTION_DECLARATION(tag,foo_); }
 
   BOOST_DISPATCH_FUNCTION_DEFINITION(tag::foo_,foo);
-  BOOST_DISPATCH_FUNCTION_DEFINITION(tag::foo_,foo2);
 } }
 
 #include "moc/arch/default/foo.hpp"

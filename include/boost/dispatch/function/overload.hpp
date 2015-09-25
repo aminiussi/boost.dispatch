@@ -25,4 +25,15 @@
 **/
 #define BOOST_DISPATCH_DISPATCHING_FUNCTION(TAG) BOOST_PP_CAT(dispatching_, TAG)
 
+/*!
+
+**/
+#define BOOST_DISPATCH_IMPLEMENTS(TAG, ...)                                                         \
+BOOST_DISPATCH_DISPATCHING_FUNCTION(TAG)( adl_helper const&, __VA_ARGS__)                           \
+
+/*!
+
+**/
+#define BOOST_DISPATCH_FALLBACK(...) dispatching( adl_helper const&, __VA_ARGS__)
+
 #endif
