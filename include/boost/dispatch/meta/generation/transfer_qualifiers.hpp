@@ -21,10 +21,7 @@ namespace boost { namespace dispatch
   namespace detail
   {
     template<typename T, typename U>
-    struct transfer_qualifiers
-    {
-      typedef T type;
-    };
+    struct transfer_qualifiers { typedef T type; };
 
     template<typename T, typename U>
     struct transfer_qualifiers<T, U&&> : std::add_rvalue_reference<T> {};
@@ -57,7 +54,12 @@ namespace boost { namespace dispatch
     @tparam U Type which modifier needs to be transfered
   **/
   template<typename T, typename U>
-  using transfer_qualifiers = typename detail::transfer_qualifiers<T,U>::type;
+  struct transfer_qualifiers : detail::transfer_qualifiers<T,U>
+  {};
+
+  /// Eager short-cut for transfer_qualifiers
+  template<typename T, typename U>
+  using transfer_qualifiers_t = typename transfer_qualifiers<T,U>::type;
 } }
 
 #endif

@@ -42,7 +42,7 @@ STF_CASE ( "Parenthood of array types hierarchy" )
   STF_TYPE_IS( ( typename array_ < unspecified_<std::array<char,3>>
                                     , std::integral_constant<std::size_t,3>
                                     >::parent)
-                , (bag_ < property_of<std::array<char,3>>
+                , (bag_ < property_of_t<std::array<char,3>>
                         , std::integral_constant<std::size_t,3>
                         >
                   )
@@ -53,7 +53,7 @@ STF_CASE ( "Parenthood of array types hierarchy" )
   STF_TYPE_IS( ( typename array_ < array_<unspecified_<B>,std::integral_constant<std::size_t,3>>
                                     , std::integral_constant<std::size_t,3>
                                     >::parent)
-                , (array_ < bag_<property_of<B>,std::integral_constant<std::size_t,3>>
+                , (array_ < bag_<property_of_t<B>,std::integral_constant<std::size_t,3>>
                           , std::integral_constant<std::size_t,3>
                           >
                   )

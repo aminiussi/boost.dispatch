@@ -12,30 +12,32 @@
 
 #include <stf.hpp>
 
+using namespace boost::dispatch;
+
 struct foo {};
 template<typename T> struct bar {};
 
-STF_CASE_TPL ( "sign_of of signed types is signed"
-                , (float)(double)
-                  (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)(std::ptrdiff_t)
-                )
+STF_CASE_TPL( "sign_of of signed types is signed"
+            , (float)(double)
+              (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)(std::ptrdiff_t)
+            )
 {
-  STF_TYPE_IS( boost::dispatch::sign_of<bar<T>>   , signed );
-  STF_TYPE_IS( boost::dispatch::sign_of<T>        , signed );
-  STF_TYPE_IS( boost::dispatch::sign_of<T&>       , signed );
-  STF_TYPE_IS( boost::dispatch::sign_of<T&&>      , signed );
-  STF_TYPE_IS( boost::dispatch::sign_of<T const>  , signed );
-  STF_TYPE_IS( boost::dispatch::sign_of<T const&> , signed );
+  STF_TYPE_IS( sign_of_t<bar<T>>   , signed );
+  STF_TYPE_IS( sign_of_t<T>        , signed );
+  STF_TYPE_IS( sign_of_t<T&>       , signed );
+  STF_TYPE_IS( sign_of_t<T&&>      , signed );
+  STF_TYPE_IS( sign_of_t<T const>  , signed );
+  STF_TYPE_IS( sign_of_t<T const&> , signed );
 }
 
-STF_CASE_TPL ( "sign_of of unsigned types is unsigned"
-                , (foo)(std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)(std::size_t)
-                )
+STF_CASE_TPL( "sign_of of unsigned types is unsigned"
+            , (foo)(std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)(std::size_t)
+            )
 {
-  STF_TYPE_IS( boost::dispatch::sign_of<bar<T>>   , unsigned );
-  STF_TYPE_IS( boost::dispatch::sign_of<T>        , unsigned );
-  STF_TYPE_IS( boost::dispatch::sign_of<T&>       , unsigned );
-  STF_TYPE_IS( boost::dispatch::sign_of<T&&>      , unsigned );
-  STF_TYPE_IS( boost::dispatch::sign_of<T const>  , unsigned );
-  STF_TYPE_IS( boost::dispatch::sign_of<T const&> , unsigned );
+  STF_TYPE_IS( sign_of_t<bar<T>>   , unsigned );
+  STF_TYPE_IS( sign_of_t<T>        , unsigned );
+  STF_TYPE_IS( sign_of_t<T&>       , unsigned );
+  STF_TYPE_IS( sign_of_t<T&&>      , unsigned );
+  STF_TYPE_IS( sign_of_t<T const>  , unsigned );
+  STF_TYPE_IS( sign_of_t<T const&> , unsigned );
 }

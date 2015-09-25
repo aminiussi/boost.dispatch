@@ -15,6 +15,7 @@
 #define BOOST_DISPATCH_META_INTROSPECTION_BEHAVE_AS_HPP_INCLUDED
 
 #include <boost/dispatch/meta/introspection/primitive_of.hpp>
+#include <boost/dispatch/detail/brigand.hpp>
 
 namespace boost { namespace dispatch
 {
@@ -27,8 +28,13 @@ namespace boost { namespace dispatch
     @tparam T         Type to manipulate
     @tparam Function  Meta-function to apply
   **/
-  template<typename T, template<class> class Function>
-  using behave_as = Function<boost::dispatch::primitive_of<T>>;
+  template<typename T, typename Function>
+  struct  behave_as
+        : brigand::apply<Function,boost::dispatch::primitive_of_t<T>>
+  {};
+
+  template<typename T, typename Function>
+  using  behave_as_t = typename behave_as<T,Function>::type;
 } }
 
 #endif

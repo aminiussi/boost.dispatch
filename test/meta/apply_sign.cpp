@@ -13,20 +13,22 @@
 
 #include <stf.hpp>
 
-STF_CASE_TPL ( "Applying signed gives signed types"
-                , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
-                  (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
-                  (float)(double)
-                )
+using namespace boost::dispatch;
+
+STF_CASE_TPL( "Applying signed gives signed types"
+            , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
+              (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
+              (float)(double)
+            )
 {
-  STF_TYPE_IS( (boost::dispatch::apply_sign<T,signed>), boost::dispatch::as_signed<T> );
+  STF_TYPE_IS( (apply_sign_t<T,signed>), as_signed_t<T> );
 }
 
-STF_CASE_TPL ( "Applying unsigned gives signed types"
-                , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
-                  (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
-                  (float)(double)
-                )
+STF_CASE_TPL( "Applying unsigned gives signed types"
+            , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
+              (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
+              (float)(double)
+            )
 {
-  STF_TYPE_IS( (boost::dispatch::apply_sign<T,unsigned>), boost::dispatch::as_unsigned<T> );
+  STF_TYPE_IS( (apply_sign_t<T,unsigned>), as_unsigned_t<T> );
 }

@@ -27,8 +27,8 @@ namespace boost { namespace dispatch
     struct as_signed
     {
       using f_t  = boost::dispatch::factory_of<T>;
-      using p_t  = boost::dispatch::primitive_of<T>;
-      using type = typename f_t::template apply<typename detail::as_signed<p_t>::type>;
+      using p_t  = boost::dispatch::primitive_of_t<T>;
+      using type = typename f_t::template apply<typename detail::as_signed<p_t>::type>::type;
     };
 
     template<typename T>
@@ -49,7 +49,11 @@ namespace boost { namespace dispatch
     @tparam T     Type to convert.
   **/
   template<typename T>
-  using as_signed = typename detail::as_signed<typename std::decay<T>::type>::type;
+  struct as_signed : detail::as_signed<typename std::decay<T>::type>
+  {};
+
+  /// Eager shortcut to as_signed
+  template<typename T> using as_signed_t = typename as_signed<T>::type;
 } }
 
 #endif

@@ -22,14 +22,14 @@ namespace boost { namespace dispatch
     template<typename OtherSite, typename... Args>
     BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE on(Args&&... args) const
     BOOST_AUTO_DECLTYPE_BODY( T::dispatch_to( OtherSite()
-                                            , boost::dispatch::hierarchy_of<Args>()...
+                                            , boost::dispatch::hierarchy_of_t<Args>()...
                                             )( std::forward<Args>(args)...)
                             )
 
     template<typename... Args>
     BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE operator()(Args&&... args) const
     BOOST_AUTO_DECLTYPE_BODY( T::dispatch_to( Site()
-                                            , boost::dispatch::hierarchy_of<Args>()...
+                                            , boost::dispatch::hierarchy_of_t<Args>()...
                                             )( std::forward<Args>(args)...)
                             )
   };

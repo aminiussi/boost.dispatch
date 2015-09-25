@@ -21,9 +21,7 @@ namespace boost { namespace dispatch
 {
   namespace detail
   {
-    template< std::size_t Size
-            , template<class> class Transform = brigand::identity
-            >
+    template< std::size_t Size, typename Transform>
     struct  make_floating
     {
       static_assert ( Size == sizeof(float) || Size == sizeof(double)
@@ -32,16 +30,16 @@ namespace boost { namespace dispatch
       using type = brigand::no_such_type_;
     };
 
-    template<template<class> class Transform>
+    template<typename Transform>
     struct make_floating<sizeof(double),Transform>
     {
-      using type = Transform<double>;
+      using type = brigand::apply<Transform,double>;
     };
 
-    template<template<class> class Transform>
+    template<typename Transform>
     struct make_floating<sizeof(float),Transform>
     {
-      using type = Transform<float>;
+      using type = brigand::apply<Transform,float>;
     };
   }
 
@@ -55,8 +53,12 @@ namespace boost { namespace dispatch
     @tparam Size      Size in bytes of the requested type
     @tparam Transform Optional unary meta-function to apply to the generated type
   **/
-  template<std::size_t Size, template<class> class Transform = brigand::identity>
-  using make_floating = typename detail::make_floating<Size,Transform>::type;
+  template<std::size_t Size, typename Transform = brigand::identity<brigand::_1>>
+  struct make_floating : detail::make_floating<Size,Transform>
+  {};
+
+  template<std::size_t Size, typename Transform = brigand::identity<brigand::_1>>
+  using make_floating_t = typename make_floating<Size,Transform>::type;
 } }
 
 #endif

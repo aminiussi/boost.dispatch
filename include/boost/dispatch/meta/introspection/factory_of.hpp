@@ -15,6 +15,7 @@
 #define BOOST_DISPATCH_META_INTROSPECTION_FACTORY_OF_HPP_INCLUDED
 
 #include <boost/dispatch/meta/introspection/detail/factory_of.hpp>
+#include <boost/dispatch/meta/introspection/primitive_of.hpp>
 
 namespace boost { namespace dispatch
 {
@@ -61,7 +62,7 @@ namespace boost { namespace dispatch
     @see primitive_of
     @see model_of
   **/
-  template<typename T, typename Limit = primitive_of<T>>
+  template<typename T, typename Limit = primitive_of_t<T>>
   struct factory_of : detail::factory_of<T, Limit>
   {};
 } }

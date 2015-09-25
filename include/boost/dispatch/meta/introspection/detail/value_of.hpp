@@ -33,7 +33,7 @@ namespace boost { namespace dispatch
       @tparam T       Type to build a Model @metafunction from
       @tparam Enable  SFINAE condition to be specified
     **/
-    template<typename T, typename Enable = void> struct value_of
+    template<typename T, typename Enable> struct value_of
     {
       using type = T;
     };
@@ -58,36 +58,21 @@ namespace boost { namespace dispatch
       @tparam T       Type to build a Model @metafunction from
       @tparam Enable  SFINAE condition to be specified
     **/
-    template<typename T, typename Enable = void> struct value_of_cv;
-
     template<typename T, typename Enable>
     struct value_of_cv<T const, Enable>
-         : std::add_const<boost::dispatch::value_of<T>>
+         : std::add_const<typename boost::dispatch::value_of<T>::type>
     {};
 
     template<typename T, typename Enable>
     struct value_of_cv<T&, Enable>
-         : std::add_lvalue_reference<boost::dispatch::value_of<T>>
+         : std::add_lvalue_reference<typename boost::dispatch::value_of<T>::type>
     {};
 
     template<typename T, typename Enable>
     struct value_of_cv<T&&, Enable>
-         : std::add_rvalue_reference<boost::dispatch::value_of<T>>
+         : std::add_rvalue_reference<typename boost::dispatch::value_of<T>::type>
     {};
   }
-
-  namespace detail
-  {
-    template<typename T> struct  value_of          : ext::value_of<T>          {};
-    template<typename T> struct  value_of<T&>      : ext::value_of_cv<T&>      {};
-    template<typename T> struct  value_of<T&&>     : ext::value_of_cv<T&&>     {};
-    template<typename T> struct  value_of<T const> : ext::value_of_cv<T const> {};
-
-#ifndef BOOST_NO_RESTRICT_REFERENCES
-    template<typename T> struct  value_of<T& BOOST_RESTRICT> : ext::value_of_cv<T&> {};
-#endif
-  }
-
 } }
 
 #endif

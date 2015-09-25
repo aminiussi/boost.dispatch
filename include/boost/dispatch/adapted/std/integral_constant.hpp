@@ -27,7 +27,7 @@ namespace boost { namespace dispatch
   {
     template<typename T, T N> struct model_of<std::integral_constant<T,N>>
     {
-      template<typename X> using apply = std::integral_constant<X,X(N)>;
+      template<typename X> struct apply { using type = std::integral_constant<X,X(N)>; };
     };
 
     template<typename T, T N> struct value_of<std::integral_constant<T,N>>
@@ -42,7 +42,7 @@ namespace boost { namespace dispatch
     template<typename T, T N, typename Origin>
     struct hierarchy_of<std::integral_constant<T,N>,Origin>
     {
-      using type = constant_< boost::dispatch::property_of<T,Origin> >;
+      using type = constant_< boost::dispatch::property_of_t<T,Origin> >;
     };
   }
 

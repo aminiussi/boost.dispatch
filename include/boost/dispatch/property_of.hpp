@@ -39,9 +39,13 @@ namespace boost { namespace dispatch
 
   **/
   template<typename T, typename Origin = T>
-  using property_of = typename ext::property_of < scalar_of<T>
-                                                , typename std::remove_reference<Origin>::type
-                                                >::type;
+  struct property_of : ext::property_of < scalar_of_t<T>
+                                        , typename std::remove_reference<Origin>::type
+                                        >
+  {};
+
+  template<typename T, typename Origin = T>
+  using property_of_t = typename property_of<T,Origin>::type;
 } }
 
 #endif

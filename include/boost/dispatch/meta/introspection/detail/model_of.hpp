@@ -32,14 +32,14 @@ namespace boost { namespace dispatch { namespace ext
   template<typename T, typename Enable = void>
   struct model_of
   {
-    template<typename X> using apply = X;
+    template<typename X> struct apply { using type= X; };
   };
 
   // Specialize for all Template<Type> like class
   template<template<class> class Template, typename Type>
   struct model_of<Template<Type>>
   {
-    template<typename X> using apply = Template<X>;
+    template<typename X> struct apply { using type = Template<X>; };
   };
 } } }
 

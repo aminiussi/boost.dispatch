@@ -10,16 +10,18 @@
 
 #include <stf.hpp>
 
+using namespace boost::dispatch;
+
 STF_CASE( "Generate raw floating point types")
 {
-  STF_TYPE_IS( (boost::dispatch::make_floating<8>) , double );
-  STF_TYPE_IS( (boost::dispatch::make_floating<4>) , float  );
+  STF_TYPE_IS( (make_floating_t<8>) , double );
+  STF_TYPE_IS( (make_floating_t<4>) , float  );
 }
 
-template<typename T> using ptr_t  =T*;
+using ptr_t = std::add_pointer<brigand::_1>;
 
 STF_CASE( "Generate transformed floating point types")
 {
-  STF_TYPE_IS( (boost::dispatch::make_floating<8,ptr_t>) , double* );
-  STF_TYPE_IS( (boost::dispatch::make_floating<4,ptr_t>) , float*  );
+  STF_TYPE_IS( (make_floating_t<8,ptr_t>) , double* );
+  STF_TYPE_IS( (make_floating_t<4,ptr_t>) , float*  );
 }

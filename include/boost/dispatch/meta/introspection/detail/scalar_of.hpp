@@ -22,7 +22,7 @@ namespace boost { namespace dispatch
 #if !defined(DOXYGEN_ONLY)
   namespace detail
   {
-    template<typename T, typename U = boost::dispatch::value_of<T>>
+    template<typename T, typename U = boost::dispatch::value_of_t<T>>
     struct scalar_of : boost::dispatch::detail::scalar_of<U>
     {};
 

@@ -10,11 +10,13 @@
 
 #include <stf.hpp>
 
+using namespace boost::dispatch;
+
 STF_CASE( "primitive_of of basic types is type itself")
 {
-  STF_TYPE_IS( boost::dispatch::primitive_of<float>        , float         );
-  STF_TYPE_IS( boost::dispatch::primitive_of<float&>       , float&        );
-  STF_TYPE_IS( boost::dispatch::primitive_of<float&&>      , float&&       );
-  STF_TYPE_IS( boost::dispatch::primitive_of<float const>  , float const   );
-  STF_TYPE_IS( boost::dispatch::primitive_of<float const&> , float const&  );
+  STF_TYPE_IS( primitive_of_t<float>        , float         );
+  STF_TYPE_IS( primitive_of_t<float&>       , float&        );
+  STF_TYPE_IS( primitive_of_t<float&&>      , float&&       );
+  STF_TYPE_IS( primitive_of_t<float const>  , float const   );
+  STF_TYPE_IS( primitive_of_t<float const&> , float const&  );
 }

@@ -52,7 +52,10 @@ namespace boost { namespace dispatch
     @see model_of
   **/
   template<typename T>
-  using primitive_of = typename detail::primitive_of<boost::dispatch::value_of<T>, T>::type;
+  struct primitive_of : detail::primitive_of<boost::dispatch::value_of_t<T>, T>
+  {};
+
+  template<typename T> using primitive_of_t = typename primitive_of<T>::type;
 } }
 
 #endif

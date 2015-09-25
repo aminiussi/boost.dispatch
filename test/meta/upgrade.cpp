@@ -13,46 +13,46 @@
 
 #include <stf.hpp>
 
-STF_CASE_TPL ( "Upgradable integral types turn into their next-of-kind"
-                , (bool)
-                  (std::uint8_t)(std::uint16_t)(std::uint32_t)
-                  (std::int8_t)(std::int16_t)(std::int32_t)
-                )
+using namespace boost::dispatch;
+
+STF_CASE_TPL( "Upgradable integral types turn into their next-of-kind"
+            , (bool)
+              (std::uint8_t)(std::uint16_t)(std::uint32_t)
+              (std::int8_t)(std::int16_t)(std::int32_t)
+            )
 {
-  using          result_type = boost::dispatch::upgrade<T>;
-  using   signed_result_type = boost::dispatch::upgrade<T,signed>;
-  using unsigned_result_type = boost::dispatch::upgrade<T,unsigned>;
+  using          result_type = upgrade_t<T>;
+  using   signed_result_type = upgrade_t<T,signed>;
+  using unsigned_result_type = upgrade_t<T,unsigned>;
 
-  STF_TYPE_IS( boost::dispatch::upgrade<T&>      , result_type );
-  STF_TYPE_IS( boost::dispatch::upgrade<T&&>     , result_type );
-  STF_TYPE_IS( boost::dispatch::upgrade<T const> , result_type );
-  STF_TYPE_IS( boost::dispatch::upgrade<T const&>, result_type );
+  STF_TYPE_IS( upgrade_t<T&>      , result_type );
+  STF_TYPE_IS( upgrade_t<T&&>     , result_type );
+  STF_TYPE_IS( upgrade_t<T const> , result_type );
+  STF_TYPE_IS( upgrade_t<T const&>, result_type );
 
-  STF_TYPE_IS( boost::dispatch::sign_of<         result_type>, boost::dispatch::sign_of<T> );
-  STF_TYPE_IS( boost::dispatch::sign_of<  signed_result_type>, signed                      );
-  STF_TYPE_IS( boost::dispatch::sign_of<unsigned_result_type>, unsigned                    );
+  STF_TYPE_IS( sign_of_t<         result_type>, sign_of_t<T>  );
+  STF_TYPE_IS( sign_of_t<  signed_result_type>, signed        );
+  STF_TYPE_IS( sign_of_t<unsigned_result_type>, unsigned      );
 
   STF_EXPECT( sizeof(result_type)          == 2*sizeof(T));
   STF_EXPECT( sizeof(signed_result_type)   == 2*sizeof(T));
   STF_EXPECT( sizeof(unsigned_result_type) == 2*sizeof(T));
 }
 
-STF_CASE_TPL ( "Top integral types stay put"
-                , (std::int64_t)(std::uint64_t)
-                )
+STF_CASE_TPL( "Top integral types stay put", (std::int64_t)(std::uint64_t) )
 {
-  using          result_type = boost::dispatch::upgrade<T>;
-  using   signed_result_type = boost::dispatch::upgrade<T,signed>;
-  using unsigned_result_type = boost::dispatch::upgrade<T,unsigned>;
+  using          result_type = upgrade_t<T>;
+  using   signed_result_type = upgrade_t<T,signed>;
+  using unsigned_result_type = upgrade_t<T,unsigned>;
 
-  STF_TYPE_IS( boost::dispatch::upgrade<T&>      , result_type );
-  STF_TYPE_IS( boost::dispatch::upgrade<T&&>     , result_type );
-  STF_TYPE_IS( boost::dispatch::upgrade<T const> , result_type );
-  STF_TYPE_IS( boost::dispatch::upgrade<T const&>, result_type );
+  STF_TYPE_IS( upgrade_t<T&>      , result_type );
+  STF_TYPE_IS( upgrade_t<T&&>     , result_type );
+  STF_TYPE_IS( upgrade_t<T const> , result_type );
+  STF_TYPE_IS( upgrade_t<T const&>, result_type );
 
-  STF_TYPE_IS( boost::dispatch::sign_of<         result_type>, boost::dispatch::sign_of<T> );
-  STF_TYPE_IS( boost::dispatch::sign_of<  signed_result_type>, signed                      );
-  STF_TYPE_IS( boost::dispatch::sign_of<unsigned_result_type>, unsigned                    );
+  STF_TYPE_IS( sign_of_t<         result_type>, sign_of_t<T>  );
+  STF_TYPE_IS( sign_of_t<  signed_result_type>, signed        );
+  STF_TYPE_IS( sign_of_t<unsigned_result_type>, unsigned      );
 
   STF_EXPECT( sizeof(result_type)          == sizeof(T));
   STF_EXPECT( sizeof(signed_result_type)   == sizeof(T));
@@ -61,37 +61,37 @@ STF_CASE_TPL ( "Top integral types stay put"
 
 STF_CASE("Upgrading float leads to double")
 {
-  STF_TYPE_IS( boost::dispatch::upgrade<float>           , double );
-  STF_TYPE_IS( boost::dispatch::upgrade<float&>          , double );
-  STF_TYPE_IS( boost::dispatch::upgrade<float&&>         , double );
-  STF_TYPE_IS( boost::dispatch::upgrade<float const>     , double );
-  STF_TYPE_IS( boost::dispatch::upgrade<float const&>    , double );
-  STF_TYPE_IS( (boost::dispatch::upgrade<float,signed>)  , double );
-  STF_TYPE_IS( (boost::dispatch::upgrade<float,unsigned>), double );
+  STF_TYPE_IS( upgrade_t<float>           , double );
+  STF_TYPE_IS( upgrade_t<float&>          , double );
+  STF_TYPE_IS( upgrade_t<float&&>         , double );
+  STF_TYPE_IS( upgrade_t<float const>     , double );
+  STF_TYPE_IS( upgrade_t<float const&>    , double );
+  STF_TYPE_IS( (upgrade_t<float,signed>)  , double );
+  STF_TYPE_IS( (upgrade_t<float,unsigned>), double );
 }
 
 STF_CASE("Upgrading double leads to double")
 {
-  STF_TYPE_IS( boost::dispatch::upgrade<double>           , double );
-  STF_TYPE_IS( boost::dispatch::upgrade<double&>          , double );
-  STF_TYPE_IS( boost::dispatch::upgrade<double&&>         , double );
-  STF_TYPE_IS( boost::dispatch::upgrade<double const>     , double );
-  STF_TYPE_IS( boost::dispatch::upgrade<double const&>    , double );
-  STF_TYPE_IS( (boost::dispatch::upgrade<double,signed>)  , double );
-  STF_TYPE_IS( (boost::dispatch::upgrade<double,unsigned>), double );
+  STF_TYPE_IS( upgrade_t<double>           , double );
+  STF_TYPE_IS( upgrade_t<double&>          , double );
+  STF_TYPE_IS( upgrade_t<double&&>         , double );
+  STF_TYPE_IS( upgrade_t<double const>     , double );
+  STF_TYPE_IS( upgrade_t<double const&>    , double );
+  STF_TYPE_IS( (upgrade_t<double,signed>)  , double );
+  STF_TYPE_IS( (upgrade_t<double,unsigned>), double );
 }
 
 template<typename T> struct foo {};
 
-STF_CASE_TPL ( "Upgrading sees through template layer"
-                , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
-                  (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
-                  (float)(double)
-                )
+STF_CASE_TPL( "Upgrading sees through template layer"
+            , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
+              (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
+              (float)(double)
+            )
 {
-  using u_t = boost::dispatch::upgrade<T>;
+  using u_t = upgrade_t<T>;
 
-  STF_TYPE_IS( boost::dispatch::upgrade<foo<T>>          , foo<u_t> );
-  STF_TYPE_IS( boost::dispatch::upgrade<foo<foo<T>>>     , foo<foo<u_t>> );
-  STF_TYPE_IS( boost::dispatch::upgrade<foo<foo<foo<T>>>>, foo<foo<foo<u_t>>> );
+  STF_TYPE_IS( upgrade_t<foo<T>>          , foo<u_t> );
+  STF_TYPE_IS( upgrade_t<foo<foo<T>>>     , foo<foo<u_t>> );
+  STF_TYPE_IS( upgrade_t<foo<foo<foo<T>>>>, foo<foo<foo<u_t>>> );
 }

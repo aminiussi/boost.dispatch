@@ -10,22 +10,24 @@
 
 #include <stf.hpp>
 
+using namespace boost::dispatch;
+
 STF_CASE( "model_of of basic types is meta-identity")
 {
-  STF_TYPE_IS( boost::dispatch::model_of<float>::apply<int>       , int );
-  STF_TYPE_IS( boost::dispatch::model_of<float&>::apply<int>      , int );
-  STF_TYPE_IS( boost::dispatch::model_of<float&&>::apply<int>     , int );
-  STF_TYPE_IS( boost::dispatch::model_of<float const>::apply<int> , int );
-  STF_TYPE_IS( boost::dispatch::model_of<float const&>::apply<int>, int );
+  STF_TYPE_IS( model_of<float>::apply<int>::type       , int );
+  STF_TYPE_IS( model_of<float&>::apply<int>::type      , int );
+  STF_TYPE_IS( model_of<float&&>::apply<int>::type     , int );
+  STF_TYPE_IS( model_of<float const>::apply<int>::type , int );
+  STF_TYPE_IS( model_of<float const&>::apply<int>::type, int );
 }
 
 template<typename T> struct foo {};
 
 STF_CASE( "model_of of template types is template<_>")
 {
-  STF_TYPE_IS( boost::dispatch::model_of<foo<float>>::apply<int>       , foo<int> );
-  STF_TYPE_IS( boost::dispatch::model_of<foo<float>&>::apply<int>      , foo<int> );
-  STF_TYPE_IS( boost::dispatch::model_of<foo<float>&&>::apply<int>     , foo<int> );
-  STF_TYPE_IS( boost::dispatch::model_of<foo<float> const>::apply<int> , foo<int> );
-  STF_TYPE_IS( boost::dispatch::model_of<foo<float> const&>::apply<int>, foo<int> );
+  STF_TYPE_IS( model_of<foo<float>>::apply<int>::type       , foo<int> );
+  STF_TYPE_IS( model_of<foo<float>&>::apply<int>::type      , foo<int> );
+  STF_TYPE_IS( model_of<foo<float>&&>::apply<int>::type     , foo<int> );
+  STF_TYPE_IS( model_of<foo<float> const>::apply<int>::type , foo<int> );
+  STF_TYPE_IS( model_of<foo<float> const&>::apply<int>::type, foo<int> );
 }

@@ -22,16 +22,8 @@ namespace boost { namespace dispatch
   namespace detail
   {
     template<typename T,typename Sign> struct apply_sign;
-
-    template<typename T> struct apply_sign<T,signed>
-    {
-      using type = boost::dispatch::as_signed<T>;
-    };
-
-    template<typename T> struct apply_sign<T,unsigned>
-    {
-      using type = boost::dispatch::as_unsigned<T>;
-    };
+    template<typename T> struct apply_sign<T,signed> : boost::dispatch::as_signed<T>      {};
+    template<typename T> struct apply_sign<T,unsigned> : boost::dispatch::as_unsigned<T>  {};
   }
 
   /*!
@@ -43,8 +35,9 @@ namespace boost { namespace dispatch
     @tparam T     Type to modify
     @tparam Sign  Sign to apyl to @c T
   **/
-  template<typename T,typename Sign>
-  using apply_sign = typename detail::apply_sign<T,Sign>::type;
+  template<typename T,typename Sign> struct apply_sign : detail::apply_sign<T,Sign> {};
+
+  template<typename T,typename Sign> using apply_sign_t = typename apply_sign<T,Sign>::type;
 } }
 
 #endif

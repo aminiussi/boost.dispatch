@@ -25,10 +25,9 @@ namespace boost { namespace dispatch
   {
     template<typename T> struct as_floating
     {
-      template<typename X> using f_t = typename boost::dispatch::factory_of<T>::template apply<X>;
-      using type  = boost::dispatch::make_floating < sizeof(boost::dispatch::primitive_of<T>)
-                                                  , f_t
-                                                  >;
+      using type  = boost::dispatch::make_floating_t< sizeof(boost::dispatch::primitive_of_t<T>)
+                                                    , boost::dispatch::factory_of<T>
+                                                    >;
     };
   }
 
@@ -42,7 +41,11 @@ namespace boost { namespace dispatch
     @tparam T     Type to convert.
   **/
   template<typename T>
-  using as_floating = typename detail::as_floating<typename std::decay<T>::type>::type;
+  struct as_floating : detail::as_floating<typename std::decay<T>::type>
+  {};
+
+  template<typename T>
+  using as_floating_t = typename as_floating<T>::type;
 } }
 
 #endif

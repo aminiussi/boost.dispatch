@@ -10,22 +10,24 @@
 
 #include <stf.hpp>
 
-STF_CASE( "value_of of basic types is type itself")
+using namespace boost::dispatch;
+
+STF_CASE( "value_of_t of basic types is type itself")
 {
-  STF_TYPE_IS( boost::dispatch::value_of<float>        , float       );
-  STF_TYPE_IS( boost::dispatch::value_of<float&>       , float&      );
-  STF_TYPE_IS( boost::dispatch::value_of<float&&>      , float&&     );
-  STF_TYPE_IS( boost::dispatch::value_of<float const>  , float const );
-  STF_TYPE_IS( boost::dispatch::value_of<float const&> , float const&);
+  STF_TYPE_IS( value_of_t<float>        , float       );
+  STF_TYPE_IS( value_of_t<float&>       , float&      );
+  STF_TYPE_IS( value_of_t<float&&>      , float&&     );
+  STF_TYPE_IS( value_of_t<float const>  , float const );
+  STF_TYPE_IS( value_of_t<float const&> , float const&);
 }
 
 template<typename T> struct foo {};
 
-STF_CASE_TPL( "value_of of template types is template parameter", (int)(float)(char))
+STF_CASE_TPL( "value_of_t of template types is template parameter", (int)(float)(char))
 {
-  STF_TYPE_IS( boost::dispatch::value_of<foo<T>>       , T );
-  STF_TYPE_IS( boost::dispatch::value_of<foo<T>&>      , T& );
-  STF_TYPE_IS( boost::dispatch::value_of<foo<T>&&>     , T&& );
-  STF_TYPE_IS( boost::dispatch::value_of<foo<T> const> , T const);
-  STF_TYPE_IS( boost::dispatch::value_of<foo<T> const&>, T const&);
+  STF_TYPE_IS( value_of_t<foo<T>>       , T );
+  STF_TYPE_IS( value_of_t<foo<T>&>      , T& );
+  STF_TYPE_IS( value_of_t<foo<T>&&>     , T&& );
+  STF_TYPE_IS( value_of_t<foo<T> const> , T const);
+  STF_TYPE_IS( value_of_t<foo<T> const&>, T const&);
 }

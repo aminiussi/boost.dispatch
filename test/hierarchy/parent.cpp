@@ -15,10 +15,10 @@
 
 #include <stf.hpp>
 
+using namespace boost::dispatch;
+
 STF_CASE( "Parenthood of base hierarchies" )
 {
-  using namespace boost::dispatch;
-
   STF_TYPE_IS( type_<void>::parent         , type_<void> );
   STF_TYPE_IS( architecture_<void>::parent , architecture_<void> );
   STF_TYPE_IS( function_<void>::parent     , function_<void> );
@@ -29,8 +29,6 @@ STF_CASE( "Parenthood of base hierarchies" )
 
 STF_CASE( "Parenthood of function object hierarchies" )
 {
-  using namespace boost::dispatch;
-
   STF_TYPE_IS( elementwise_<void>::parent            , function_<void> );
   STF_TYPE_IS( (reduction_<void,void,void>::parent)  , function_<void> );
   STF_TYPE_IS( (cumulative_<void,void,void>::parent) , function_<void> );
@@ -38,8 +36,6 @@ STF_CASE( "Parenthood of function object hierarchies" )
 
 STF_CASE( "Parenthood of void hierarchy" )
 {
-  using namespace boost::dispatch;
-
   STF_TYPE_IS( void_<void>::parent        , fundamental_<void> );
   STF_TYPE_IS( fundamental_<void>::parent , unspecified_<void> );
   STF_TYPE_IS( unspecified_<void>::parent , type_<void>        );
@@ -47,8 +43,6 @@ STF_CASE( "Parenthood of void hierarchy" )
 
 STF_CASE( "Parenthood of bool hierarchy" )
 {
-  using namespace boost::dispatch;
-
   STF_TYPE_IS( bool_<bool>::parent        , fundamental_<bool> );
   STF_TYPE_IS( fundamental_<bool>::parent , unspecified_<bool> );
   STF_TYPE_IS( unspecified_<bool>::parent , type_<bool>        );
@@ -56,8 +50,6 @@ STF_CASE( "Parenthood of bool hierarchy" )
 
 STF_CASE( "Parenthood of scalar_ hierarchy" )
 {
-  using namespace boost::dispatch;
-
   STF_TYPE_IS( scalar_<bool_<bool>>::parent        , scalar_<bool_<bool>::parent>        );
   STF_TYPE_IS( scalar_<fundamental_<bool>>::parent , scalar_<fundamental_<bool>::parent> );
   STF_TYPE_IS( scalar_<unspecified_<bool>>::parent , unspecified_<bool>                  );
@@ -65,8 +57,6 @@ STF_CASE( "Parenthood of scalar_ hierarchy" )
 
 STF_CASE( "Parenthood of IEEE types hierarchy" )
 {
-  using namespace boost::dispatch;
-
   STF_TYPE_IS( single_<float>::parent      , type32_<float>      );
   STF_TYPE_IS( type32_<float>::parent      , floating_<float>    );
   STF_TYPE_IS( floating_<float>::parent    , signed_<float>      );
@@ -84,45 +74,22 @@ STF_CASE( "Parenthood of IEEE types hierarchy" )
   STF_TYPE_IS( unspecified_<double>::parent , type_<double>        );
 }
 
-STF_CASE_TPL ( "Parenthood of integral types hierarchy"
-                , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
-                  (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
-                  (std::size_t)(std::ptrdiff_t)(std::intptr_t)(std::uintptr_t)
-                  (unsigned char)(unsigned short)(unsigned int)(unsigned long)(unsigned long long)
-                  (char)(short)(int)(long)(long long)
-                )
+STF_CASE_TPL( "Parenthood of integral types hierarchy"
+            , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
+              (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
+              (std::size_t)(std::ptrdiff_t)(std::intptr_t)(std::uintptr_t)
+              (unsigned char)(unsigned short)(unsigned int)
+              (unsigned long)(unsigned long long)
+              (char)(short)(int)(long)(long long)
+            )
 {
-  using namespace boost::dispatch;
-
-  STF_TYPE_IS( (typename integral_<T,8*sizeof(T),sign_of<T>>::parent), (ints_<T,8*sizeof(T)>));
+  STF_TYPE_IS( (typename integral_<T,8*sizeof(T),sign_of_t<T>>::parent), (ints_<T,8*sizeof(T)>));
   STF_TYPE_IS( (typename ints_<T,8*sizeof(T)>::parent), (sized_type_<T,8*sizeof(T)>));
-  STF_TYPE_IS( (typename sized_type_<T,8*sizeof(T)>::parent), (signed_integral_<T,sign_of<T>>));
-  STF_TYPE_IS( (typename signed_integral_<T,sign_of<T>>::parent), (signed_type_<T,sign_of<T>>));
-  STF_TYPE_IS( (typename signed_type_<T,sign_of<T>>::parent), integer_<T> );
+  STF_TYPE_IS( (typename sized_type_<T,8*sizeof(T)>::parent), (signed_integral_<T,sign_of_t<T>>));
+  STF_TYPE_IS( (typename signed_integral_<T,sign_of_t<T>>::parent), (signed_type_<T,sign_of_t<T>>));
+  STF_TYPE_IS( (typename signed_type_<T,sign_of_t<T>>::parent), integer_<T> );
   STF_TYPE_IS(  typename integer_<T>::parent     , arithmetic_<T>  );
   STF_TYPE_IS(  typename arithmetic_<T>::parent  , fundamental_<T> );
   STF_TYPE_IS(  typename fundamental_<T>::parent , unspecified_<T> );
   STF_TYPE_IS(  typename unspecified_<T>::parent , type_<T>        );
 }
-
-/*STF_CASE ( "Parenthood of array types hierarchy" )
-{
-  using namespace boost::dispatch;
-
-  using T = char;
-  using A = std::array<T,3>;
-  using B = std::array<A,3>;
-  using N = std::integral_constant<std::size_t,3>;
-
-  STF_TYPE_IS( ( typename array_<integral_<A,8,signed>, N>::parent)
-                , (array_ < ints_<A,8>, N>)
-                );
-
-  STF_TYPE_IS( ( typename array_<unspecified_<A>, N>::parent)
-                , (bag_<property_of<A>,N>)
-                );
-
-  STF_TYPE_IS( ( typename hierarchy_of<B>::parent::parent::parent::parent::parent::parent::parent::parent::parent::parent)
-                , (array_<bag_<property_of<B>,N>,N>)
-                );
-}*/

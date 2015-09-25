@@ -38,7 +38,7 @@ namespace boost { namespace dispatch { namespace ext
   template<typename T, typename Origin = T, typename Enable = void>
   struct  hierarchy_of
   {
-    using type = scalar_<boost::dispatch::property_of<T,Origin>>;
+    using type = scalar_<boost::dispatch::property_of_t<T,Origin>>;
   };
 
   // hierarchy_of on Hierarchy returns the Hierarchy

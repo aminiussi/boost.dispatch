@@ -30,7 +30,7 @@ namespace boost { namespace dispatch
     {
       using first = typename std::tuple_element<0,T>::type;
       using sz    = std::tuple_size<T>;
-      using type = bag_ < boost::dispatch::property_of<first,Origin>
+      using type = bag_ < boost::dispatch::property_of_t<first,Origin>
                         , std::integral_constant<std::size_t, sz::value>
                         >;
     };

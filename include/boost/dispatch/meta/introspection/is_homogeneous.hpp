@@ -50,7 +50,7 @@ namespace boost { namespace dispatch
         using first = typename boost::fusion::result_of::value_at<fixed, boost::mpl::int_<0>>::type;
 
         // Are all types similar to first ?
-        template<typename X> using same = typename std::is_same<X,first>::type;
+        using same = std::is_same<brigand::_1,first>;
         using type = brigand::all<brigand::as_list<fixed>,same>;
       };
 
@@ -73,7 +73,7 @@ namespace boost { namespace dispatch
     template<typename T, typename U, typename... Ts> struct is_homogeneous_<std::tuple<T,U,Ts...>>
     {
       // Are all yes similar to first ?
-      template<typename X> using same = typename std::is_same<T,X>::type;
+      using same = std::is_same<T,brigand::_1>;
       using type = brigand::all<std::tuple<U,Ts...>,same>;
     };
   }

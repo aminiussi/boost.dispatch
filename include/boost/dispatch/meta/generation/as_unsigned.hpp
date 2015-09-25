@@ -27,8 +27,8 @@ namespace boost { namespace dispatch
     struct as_unsigned
     {
       using f_t  = boost::dispatch::factory_of<T>;
-      using p_t  = boost::dispatch::primitive_of<T>;
-      using type = typename f_t::template apply<typename detail::as_unsigned<p_t>::type>;
+      using p_t  = boost::dispatch::primitive_of_t<T>;
+      using type = typename f_t::template apply<typename detail::as_unsigned<p_t>::type>::type;
     };
 
     template<typename T>
@@ -49,7 +49,10 @@ namespace boost { namespace dispatch
     @tparam T     Type to convert.
   **/
   template<typename T>
-  using as_unsigned = typename detail::as_unsigned<typename std::decay<T>::type>::type;
+  struct as_unsigned : detail::as_unsigned<typename std::decay<T>::type>
+  {};
+
+  template<typename T> using as_unsigned_t= typename as_unsigned<T>::type;
 } }
 
 #endif

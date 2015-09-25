@@ -22,18 +22,17 @@ namespace boost { namespace dispatch { namespace detail
 {
   template<typename T, typename U> struct factory_of
   {
-    using v_t = boost::dispatch::value_of<T>;
-
-    template<typename X>
-    using f_t = typename detail::factory_of<v_t,U>::template apply<X>;
-
-    template<typename X>
-    using apply = typename boost::dispatch::model_of<T>::template apply<f_t<X>>;
+    template<typename X> struct apply
+    {
+      using v_t   = boost::dispatch::value_of_t<T>;
+      using f_t   = typename detail::factory_of<v_t,U>::template apply<X>::type;
+      using type  = typename boost::dispatch::model_of<T>::template apply<f_t>::type;
+    };
   };
 
   template<typename T> struct factory_of<T, T>
   {
-    template<typename X> using apply = X;
+    template<typename X> struct apply { using type = X; };
   };
 } } }
 

@@ -27,7 +27,7 @@ namespace boost { namespace dispatch
   {
     template<typename T, std::size_t N> struct model_of<boost::array<T,N>>
     {
-      template<typename X> using apply = boost::array<X,N>;
+      template<typename X> struct apply { using type = boost::array<X,N>; };
     };
 
     template<typename T, std::size_t N> struct value_of<boost::array<T,N>>
@@ -38,7 +38,7 @@ namespace boost { namespace dispatch
     template<typename T, std::size_t N, typename Origin>
     struct hierarchy_of<boost::array<T,N>,Origin>
     {
-      using type = array_ < boost::dispatch::hierarchy_of<T,Origin>
+      using type = array_ < boost::dispatch::hierarchy_of_t<T,Origin>
                           , std::integral_constant<std::size_t, N>
                           >;
     };

@@ -32,7 +32,7 @@ namespace boost { namespace dispatch
     {
       using first = typename boost::fusion::result_of::value_at<T, boost::mpl::int_<0>>::type;
       using sz    = boost::fusion::result_of::size<T>;
-      using type  = bag_< boost::dispatch::property_of<first,Origin>
+      using type  = bag_< boost::dispatch::property_of_t<first,Origin>
                         , std::integral_constant<std::size_t, sz::value>
                         >;
     };
@@ -50,7 +50,9 @@ namespace boost { namespace dispatch
     template<typename Sequence, typename Origin>
     struct  hierarchy_of< Sequence
                         , Origin
-                        , typename std::enable_if<boost::fusion::traits::is_sequence<Sequence>::value>::type
+                        , typename std::enable_if < boost::fusion::traits
+                                                         ::is_sequence<Sequence>::value
+                                                  >::type
                         >
           : detail::hierarchy_of_tuple<Sequence,Origin,is_homogeneous<Sequence>::value>
     {};

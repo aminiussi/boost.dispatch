@@ -18,7 +18,11 @@
 
 namespace boost { namespace dispatch
 {
-  namespace detail { template<typename T> struct  value_of; }
+  namespace ext
+  {
+    template<typename T, typename Enable = void> struct value_of;
+    template<typename T, typename Enable = void> struct value_of_cv;
+  }
 
   /*!
     @ingroup group-meta
@@ -56,8 +60,18 @@ namespace boost { namespace dispatch
 
     @tparam T Type to analyze
   **/
-  template<typename T>
-  using value_of = typename detail::value_of<T>::type;
+  template<typename T> struct  value_of          : ext::value_of<T>          {};
+
+  template<typename T> struct  value_of<T&>      : ext::value_of_cv<T&>      {};
+  template<typename T> struct  value_of<T&&>     : ext::value_of_cv<T&&>     {};
+  template<typename T> struct  value_of<T const> : ext::value_of_cv<T const> {};
+
+#ifndef BOOST_NO_RESTRICT_REFERENCES
+  template<typename T> struct  value_of<T& BOOST_RESTRICT> : ext::value_of_cv<T&> {};
+#endif
+
+  // Eager short-cut for value_of
+  template<typename T> using value_of_t = typename value_of<T>::type;
 } }
 
 #include <boost/dispatch/meta/introspection/detail/value_of.hpp>

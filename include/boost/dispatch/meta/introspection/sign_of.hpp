@@ -23,7 +23,7 @@ namespace boost { namespace dispatch
   {
     template<typename T, typename Enable = void> struct  sign_of
     {
-      using primitive = boost::dispatch::primitive_of<T>;
+      using primitive = boost::dispatch::primitive_of_t<T>;
       using signed_t  = std::is_signed<primitive>;
       using float_t   = std::is_floating_point<primitive>;
       using type      = typename std::conditional < (signed_t::value || float_t::value)
@@ -43,7 +43,11 @@ namespace boost { namespace dispatch
     @tparam T Type to introspect.
   **/
   template<typename T>
-  using sign_of = typename ext::sign_of<typename std::decay<T>::type>::type;
+  struct sign_of : ext::sign_of<typename std::decay<T>::type>
+  {};
+
+  /// Eager shortcut for sign_of
+  template<typename T> using sign_of_t = typename sign_of<T>::type;
 } }
 
 #endif

@@ -42,6 +42,7 @@ namespace boost { namespace dispatch { namespace ext
   template<typename T, typename Origin, typename Enable = void>
   struct property_of
   {
+    /// The property category of @c T
     using type = unspecified_<Origin>;
   };
 
@@ -50,7 +51,7 @@ namespace boost { namespace dispatch { namespace ext
                     , typename std::enable_if<std::is_integral<T>::value>::type
                     >
   {
-    using type = integral_<Origin, CHAR_BIT*sizeof(T), boost::dispatch::sign_of<T>>;
+    using type = integral_<Origin, CHAR_BIT*sizeof(T), boost::dispatch::sign_of_t<T>>;
   };
 
   template<typename Origin> struct property_of<float, Origin>

@@ -33,13 +33,14 @@ namespace boost { namespace dispatch
   **/
   template<typename T, typename N> struct array_ : array_<typename T::parent, N>
   {
+    /// Parent hierarchy of array_
     using parent = array_<typename T::parent, N>;
   };
 
   template<typename T, typename N>
-  struct  array_<unspecified_<T>,N> : bag_<property_of<T>, N>
+  struct  array_<unspecified_<T>,N> : bag_<property_of_t<T>, N>
   {
-    using parent = bag_<property_of<T>, N>;
+    using parent = bag_<property_of_t<T>, N>;
   };
 } }
 

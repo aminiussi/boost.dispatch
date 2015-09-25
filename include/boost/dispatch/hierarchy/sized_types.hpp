@@ -35,17 +35,17 @@ namespace boost { namespace dispatch
     @tparam BitSize Type size in bits
   **/
   template<typename T, std::size_t BitSize>
-  struct sized_type_ : std::conditional < behave_as<T, std::is_floating_point>::value
+  struct sized_type_ : std::conditional < behave_as<T, std::is_floating_point<brigand::_1>>::value
                                         , floating_<T>
-                                        , signed_integral_<T,sign_of<T>>
+                                        , signed_integral_<T,sign_of_t<T>>
                                         >::type
   {
     static const std::size_t bits = BitSize;
     static const std::size_t byte = bits/CHAR_BIT;
 
-    using parent = typename std::conditional< behave_as<T, std::is_floating_point>::value
+    using parent = typename std::conditional< behave_as<T, std::is_floating_point<brigand::_1>>::value
                                             , floating_<T>
-                                            , signed_integral_<T,sign_of<T>>
+                                            , signed_integral_<T,sign_of_t<T>>
                                             >::type;
   };
 

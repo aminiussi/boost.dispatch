@@ -37,9 +37,12 @@ namespace boost { namespace dispatch
 
   **/
   template<typename T, typename Origin = T>
-  using hierarchy_of = typename detail::hierarchy_of< T
-                                                    , typename std::remove_reference<Origin>::type
-                                                    >::type;
+  struct hierarchy_of : detail::hierarchy_of<T, typename std::remove_reference<Origin>::type>
+  {};
+
+  /// EAger short-cur for hierarchy_of
+  template<typename T, typename Origin = T>
+  using hierarchy_of_t = typename hierarchy_of<T, Origin>::type;
 } }
 
 #endif

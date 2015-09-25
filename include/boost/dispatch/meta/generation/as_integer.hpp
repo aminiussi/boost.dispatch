@@ -26,11 +26,10 @@ namespace boost { namespace dispatch
   {
     template<typename T, typename Sign> struct as_integer
     {
-      template<typename X> using f_t = typename boost::dispatch::factory_of<T>::template apply<X>;
-      using type  = boost::dispatch::make_integer < sizeof(boost::dispatch::primitive_of<T>)
-                                                  , Sign
-                                                  , f_t
-                                                  >;
+      using type  = boost::dispatch::make_integer_t < sizeof(boost::dispatch::primitive_of_t<T>)
+                                                    , Sign
+                                                    , boost::dispatch::factory_of<T>
+                                                    >;
     };
   }
 
@@ -44,8 +43,12 @@ namespace boost { namespace dispatch
     @tparam T     Type to convert.
     @tparam Sign  Optional sign of the resulting integer (@ signed or @c unsigned)
   **/
-  template<typename T, typename Sign = boost::dispatch::sign_of<T>>
-  using as_integer = typename detail::as_integer<typename std::decay<T>::type,Sign>::type;
+  template<typename T, typename Sign = boost::dispatch::sign_of_t<T>>
+  struct as_integer : detail::as_integer<typename std::decay<T>::type,Sign>
+  {};
+
+  template<typename T, typename Sign = boost::dispatch::sign_of_t<T>>
+  using as_integer_t = typename as_integer<T,Sign>::type;
 } }
 
 #endif

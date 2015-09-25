@@ -92,11 +92,14 @@ namespace boost { namespace dispatch
   namespace ext
   {
     template<typename T> struct value_of<as_<T>> { using type = T; };
-    template<typename T> struct model_of<as_<T>> { template<typename X> using apply = as_<X>; };
+    template<typename T> struct model_of<as_<T>>
+    {
+      template<typename X> struct apply { using type = as_<X>; };
+    };
 
     template<typename T, typename Origin> struct hierarchy_of< as_<T>, Origin>
     {
-      using type = target_<boost::dispatch::hierarchy_of<T,Origin>>;
+      using type = target_<boost::dispatch::hierarchy_of_t<T,Origin>>;
     };
   }
 #endif

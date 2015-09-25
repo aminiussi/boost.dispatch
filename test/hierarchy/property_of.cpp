@@ -15,48 +15,43 @@
 struct foo {};
 template<typename T> struct wrap {};
 
+using namespace boost::dispatch;
+
 STF_CASE( "property_of for random unspecified types" )
 {
-  using namespace boost::dispatch;
-
-  STF_TYPE_IS( property_of<foo>, unspecified_<foo> );
-  STF_TYPE_IS( property_of<wrap<foo>>, unspecified_<wrap<foo>> );
-  STF_TYPE_IS( property_of<wrap<wrap<foo>>>, unspecified_<wrap<wrap<foo>>> );
+  STF_TYPE_IS( property_of_t<foo>, unspecified_<foo> );
+  STF_TYPE_IS( property_of_t<wrap<foo>>, unspecified_<wrap<foo>> );
+  STF_TYPE_IS( property_of_t<wrap<wrap<foo>>>, unspecified_<wrap<wrap<foo>>> );
 }
 
 STF_CASE( "property_of for void" )
 {
-  using namespace boost::dispatch;
 
-  STF_TYPE_IS( property_of<void>, void_<void> );
-  STF_TYPE_IS( property_of<wrap<void>>, void_<wrap<void>> );
-  STF_TYPE_IS( property_of<wrap<wrap<void>>>, void_<wrap<wrap<void>>> );
+  STF_TYPE_IS( property_of_t<void>, void_<void> );
+  STF_TYPE_IS( property_of_t<wrap<void>>, void_<wrap<void>> );
+  STF_TYPE_IS( property_of_t<wrap<wrap<void>>>, void_<wrap<wrap<void>>> );
 }
 
 STF_CASE( "property_of for bool" )
 {
-  using namespace boost::dispatch;
-
-  STF_TYPE_IS( property_of<bool>, bool_<bool> );
-  STF_TYPE_IS( property_of<wrap<bool>>, bool_<wrap<bool>> );
-  STF_TYPE_IS( property_of<wrap<wrap<bool>>>, bool_<wrap<wrap<bool>>> );
+  STF_TYPE_IS( property_of_t<bool>, bool_<bool> );
+  STF_TYPE_IS( property_of_t<wrap<bool>>, bool_<wrap<bool>> );
+  STF_TYPE_IS( property_of_t<wrap<wrap<bool>>>, bool_<wrap<wrap<bool>>> );
 }
 
 STF_CASE( "property_of for IEEE types" )
 {
-  using namespace boost::dispatch;
+  STF_TYPE_IS( property_of_t<float>, single_<float> );
+  STF_TYPE_IS( property_of_t<wrap<float>>, single_<wrap<float>> );
+  STF_TYPE_IS( property_of_t<wrap<wrap<float>>>, single_<wrap<wrap<float>>> );
 
-  STF_TYPE_IS( property_of<float>, single_<float> );
-  STF_TYPE_IS( property_of<wrap<float>>, single_<wrap<float>> );
-  STF_TYPE_IS( property_of<wrap<wrap<float>>>, single_<wrap<wrap<float>>> );
+  STF_TYPE_IS( property_of_t<double>, double_<double> );
+  STF_TYPE_IS( property_of_t<wrap<double>>, double_<wrap<double>> );
+  STF_TYPE_IS( property_of_t<wrap<wrap<double>>>, double_<wrap<wrap<double>>> );
 
-  STF_TYPE_IS( property_of<double>, double_<double> );
-  STF_TYPE_IS( property_of<wrap<double>>, double_<wrap<double>> );
-  STF_TYPE_IS( property_of<wrap<wrap<double>>>, double_<wrap<wrap<double>>> );
-
-  STF_TYPE_IS( property_of<long double>, long_double_<long double> );
-  STF_TYPE_IS( property_of<wrap<long double>>, long_double_<wrap<long double>> );
-  STF_TYPE_IS( property_of<wrap<wrap<long double>>>, long_double_<wrap<wrap<long double>>> );
+  STF_TYPE_IS( property_of_t<long double>, long_double_<long double> );
+  STF_TYPE_IS( property_of_t<wrap<long double>>, long_double_<wrap<long double>> );
+  STF_TYPE_IS( property_of_t<wrap<wrap<long double>>>, long_double_<wrap<wrap<long double>>> );
 }
 
 STF_CASE_TPL ( "property_of for integral types"
@@ -67,11 +62,9 @@ STF_CASE_TPL ( "property_of for integral types"
                   (char)(short)(int)(long)(long long)
                 )
 {
-  using namespace boost::dispatch;
-
-  STF_TYPE_IS( property_of<T>, (integral_<T,CHAR_BIT*sizeof(T),sign_of<T>>) );
-  STF_TYPE_IS( property_of<wrap<T>>, (integral_<wrap<T>,CHAR_BIT*sizeof(T),sign_of<wrap<T>>>) );
-  STF_TYPE_IS( property_of<wrap<wrap<T>>>
-                , (integral_<wrap<wrap<T>>,CHAR_BIT*sizeof(T),sign_of<wrap<wrap<T>>>>)
+  STF_TYPE_IS( property_of_t<T>, (integral_<T,CHAR_BIT*sizeof(T),sign_of_t<T>>) );
+  STF_TYPE_IS( property_of_t<wrap<T>>, (integral_<wrap<T>,CHAR_BIT*sizeof(T),sign_of_t<wrap<T>>>) );
+  STF_TYPE_IS( property_of_t<wrap<wrap<T>>>
+                , (integral_<wrap<wrap<T>>,CHAR_BIT*sizeof(T),sign_of_t<wrap<wrap<T>>>>)
                 );
 }

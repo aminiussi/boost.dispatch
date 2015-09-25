@@ -27,8 +27,10 @@ namespace boost { namespace dispatch
 
     @tparam T Type to analyze
   **/
-  template<typename T>
-  using scalar_of = typename ext::scalar_of<T>::type;
+  template<typename T> struct scalar_of : ext::scalar_of<T> {};
+
+  /// Eager shortcut for scalar_of
+  template<typename T> using scalar_of_t = typename scalar_of<T>::type;
 } }
 
 #endif

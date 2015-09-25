@@ -1,7 +1,6 @@
 //==================================================================================================
 /*!
   @file
-  @ingroup group-hierarchy
 
   Provides a hierarchy for integral constant types
 
@@ -39,7 +38,7 @@ namespace boost { namespace dispatch
   template<typename T>
   struct  constant_< unspecified_<T> > : hierarchy_of< typename T::value_type >
   {
-    using parent = hierarchy_of< typename T::value_type, T >;
+    using parent = hierarchy_of_t< typename T::value_type, T >;
   };
 } }
 

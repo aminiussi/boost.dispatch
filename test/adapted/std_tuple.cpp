@@ -16,31 +16,31 @@ STF_CASE( "hierarchy_of over std::tuple<T...>")
 {
   using namespace boost::dispatch;
 
-  STF_TYPE_IS( hierarchy_of<std::tuple<>>
-                , ( tuple_< std::tuple<>
-                          , std::integral_constant<std::size_t,0u>
-                          >
-                  )
-                );
-
-  STF_TYPE_IS( (hierarchy_of<std::tuple<int,void*,char,std::size_t*,float[4]>>)
-                , ( tuple_< std::tuple<int,void*,char,std::size_t*,float[4]>
-                          , std::integral_constant<std::size_t, 5u>
-                          >
-                  )
-                );
-
-  STF_TYPE_IS( hierarchy_of<std::tuple<int>>
-                , ( bag_< int32_<std::tuple<int>>
-                        , std::integral_constant<std::size_t, 1u>
+  STF_TYPE_IS ( hierarchy_of_t<std::tuple<>>
+              , ( tuple_< std::tuple<>
+                        , std::integral_constant<std::size_t,0u>
                         >
-                  )
-                );
+                )
+              );
 
-  STF_TYPE_IS( (hierarchy_of<std::tuple<int,int,int,int,int>>)
-                , ( bag_< int32_<std::tuple<int,int,int,int,int>>
+  STF_TYPE_IS ( (hierarchy_of_t<std::tuple<int,void*,char,std::size_t*,float[4]>>)
+              , ( tuple_< std::tuple<int,void*,char,std::size_t*,float[4]>
                         , std::integral_constant<std::size_t, 5u>
                         >
-                  )
-                );
+                )
+              );
+
+  STF_TYPE_IS ( hierarchy_of_t<std::tuple<int>>
+              , ( bag_< int32_<std::tuple<int>>
+                      , std::integral_constant<std::size_t, 1u>
+                      >
+                )
+              );
+
+  STF_TYPE_IS ( (hierarchy_of_t<std::tuple<int,int,int,int,int>>)
+              , ( bag_< int32_<std::tuple<int,int,int,int,int>>
+                      , std::integral_constant<std::size_t, 5u>
+                      >
+                )
+              );
 }

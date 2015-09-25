@@ -22,7 +22,7 @@ namespace boost { namespace dispatch
 {
   namespace detail
   {
-    template< std::size_t Size, typename Sign, template<class> class Transform>
+    template< std::size_t Size, typename Sign, typename Transform>
     struct  make_integer
     {
       static_assert ( Size >= sizeof(std::int8_t) && Size <= sizeof(std::int64_t)
@@ -32,52 +32,52 @@ namespace boost { namespace dispatch
       using type = brigand::no_such_type_;
     };
 
-    template<template<class> class Transform>
+    template<typename Transform>
     struct make_integer<1u, unsigned, Transform>
     {
-      using type = Transform<std::uint8_t>;
+      using type = brigand::apply<Transform,std::uint8_t>;
     };
 
-    template<template<class> class Transform>
+    template<typename Transform>
     struct make_integer<2u, unsigned, Transform>
     {
-      using type = Transform<std::uint16_t>;
+      using type = brigand::apply<Transform,std::uint16_t>;
     };
 
-    template<template<class> class Transform>
+    template<typename Transform>
     struct make_integer<4u, unsigned, Transform>
     {
-      using type = Transform<std::uint32_t>;
+      using type = brigand::apply<Transform,std::uint32_t>;
     };
 
-    template<template<class> class Transform>
+    template<typename Transform>
     struct make_integer<8u, unsigned, Transform>
     {
-      using type = Transform<std::uint64_t>;
+      using type = brigand::apply<Transform,std::uint64_t>;
     };
 
-    template<template<class> class Transform>
+    template<typename Transform>
     struct make_integer<1u, signed, Transform>
     {
-      using type = Transform<std::int8_t>;
+      using type = brigand::apply<Transform,std::int8_t>;
     };
 
-    template<template<class> class Transform>
+    template<typename Transform>
     struct make_integer<2u, signed, Transform>
     {
-      using type = Transform<std::int16_t>;
+      using type = brigand::apply<Transform,std::int16_t>;
     };
 
-    template<template<class> class Transform>
+    template<typename Transform>
     struct make_integer<4u, signed, Transform>
     {
-      using type = Transform<std::int32_t>;
+      using type = brigand::apply<Transform,std::int32_t>;
     };
 
-    template<template<class> class Transform>
+    template<typename Transform>
     struct make_integer<8u, signed, Transform>
     {
-      using type = Transform<std::int64_t>;
+      using type = brigand::apply<Transform,std::int64_t>;
     };
   }
 
@@ -93,10 +93,17 @@ namespace boost { namespace dispatch
     @tparam Transform Optional unary meta-function to apply to the generated type
   **/
   template< std::size_t Size
-          , class Sign                      = unsigned
-          , template<class> class Transform = brigand::identity
+          , typename Sign       = unsigned
+          , typename Transform  = brigand::identity<brigand::_1>
           >
-  using make_integer = typename detail::make_integer<Size,Sign,Transform>::type;
+  struct make_integer : detail::make_integer<Size,Sign,Transform>
+  {};
+
+  template< std::size_t Size
+          , typename Sign       = unsigned
+          , typename Transform  = brigand::identity<brigand::_1>
+          >
+  using make_integer_t = typename make_integer<Size,Sign,Transform>::type;
 } }
 
 #endif

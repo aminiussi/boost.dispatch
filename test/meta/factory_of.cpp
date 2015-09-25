@@ -12,9 +12,9 @@
 
 STF_CASE( "factory_of of basic types is meta-identity")
 {
-  STF_TYPE_IS( boost::dispatch::factory_of<float>::apply<int>       , int );
-  STF_TYPE_IS( boost::dispatch::factory_of<float&>::apply<int>      , int );
-  STF_TYPE_IS( boost::dispatch::factory_of<float&&>::apply<int>     , int );
-  STF_TYPE_IS( boost::dispatch::factory_of<float const>::apply<int> , int );
-  STF_TYPE_IS( boost::dispatch::factory_of<float const&>::apply<int>, int );
+  STF_TYPE_IS( boost::dispatch::factory_of<float>::apply<int>::type       , int );
+  STF_TYPE_IS( boost::dispatch::factory_of<float&>::apply<int>::type      , int );
+  STF_TYPE_IS( boost::dispatch::factory_of<float&&>::apply<int>::type     , int );
+  STF_TYPE_IS( boost::dispatch::factory_of<float const>::apply<int>::type , int );
+  STF_TYPE_IS( boost::dispatch::factory_of<float const&>::apply<int>::type, int );
 }

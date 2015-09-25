@@ -45,8 +45,12 @@ namespace boost { namespace dispatch
     struct downgrade<T const,Sign> : boost::dispatch::detail::downgrade<T,Sign> {};
   }
 
-  template<typename T,typename Sign = sign_of<T>>
-  using downgrade = typename detail::downgrade<T,Sign>::type;
+  template<typename T,typename Sign = sign_of_t<T>>
+  struct downgrade : detail::downgrade<T,Sign>
+  {};
+
+  template<typename T,typename Sign = sign_of_t<T>>
+  using downgrade_t = typename downgrade<T,Sign>::type;
 } }
 
 #endif

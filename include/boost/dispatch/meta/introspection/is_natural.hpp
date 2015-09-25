@@ -32,6 +32,9 @@ namespace boost { namespace dispatch
   using is_natural = brigand::and_< std::is_integral<T>
                                   , brigand::not_<std::is_same<T,bool>>
                                   >;
+
+  /// Eager short-cut for is_native
+  template<typename T> using is_natural_t = typename is_natural<T>::type;
 } }
 
 #endif

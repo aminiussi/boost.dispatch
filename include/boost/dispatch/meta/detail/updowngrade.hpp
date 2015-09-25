@@ -28,15 +28,15 @@ namespace boost { namespace dispatch { namespace detail
   {
     // Decompose in factory/primitive
     using f_t = boost::dispatch::factory_of<T>;
-    using p_t = boost::dispatch::primitive_of<T>;
+    using p_t = boost::dispatch::primitive_of_t<T>;
 
-    // Unsign the primitive to limit the map's size
-    using b_t  = boost::dispatch::as_unsigned<p_t>;
+    // Use the unsigned the primitive to limit the map's size
+    using b_t  = boost::dispatch::as_unsigned_t<p_t>;
     using db_t = brigand::at<Map,b_t>;
 
     // Reapply sign and reconstruct
-    using d_t  = boost::dispatch::apply_sign<db_t,Sign>;
-    using type = typename f_t::template apply<d_t>;
+    using d_t  = boost::dispatch::apply_sign_t<db_t,Sign>;
+    using type = typename f_t::template apply<d_t>::type;
   };
 } } }
 

@@ -8,26 +8,27 @@
 //==================================================================================================
 #include <boost/dispatch/meta/introspection/scalar_of.hpp>
 #include <cstdint>
-
 #include <stf.hpp>
+
+using namespace boost::dispatch;
 
 STF_CASE( "scalar_of of basic types is the type itself" )
 {
-  STF_TYPE_IS( boost::dispatch::scalar_of<int>       , int         );
-  STF_TYPE_IS( boost::dispatch::scalar_of<char&>      , char&        );
-  STF_TYPE_IS( boost::dispatch::scalar_of<float&&>     , float&&       );
-  STF_TYPE_IS( boost::dispatch::scalar_of<long const> , long const   );
-  STF_TYPE_IS( boost::dispatch::scalar_of<double const&>, double const&  );
+  STF_TYPE_IS( scalar_of_t<int>           , int           );
+  STF_TYPE_IS( scalar_of_t<char&>         , char&         );
+  STF_TYPE_IS( scalar_of_t<float&&>       , float&&       );
+  STF_TYPE_IS( scalar_of_t<long const>    , long const    );
+  STF_TYPE_IS( scalar_of_t<double const&> , double const& );
 }
 
 template<typename T> struct foo {};
 
 STF_CASE( "scalar_of of template types is the template parameter" )
 {
-  STF_TYPE_IS( boost::dispatch::scalar_of<foo<int>>       , int         );
-  STF_TYPE_IS( boost::dispatch::scalar_of<foo<foo<int>>>  , int         );
-  STF_TYPE_IS( boost::dispatch::scalar_of<foo<int>&>      , int&        );
-  STF_TYPE_IS( boost::dispatch::scalar_of<foo<int>&&>     , int&&       );
-  STF_TYPE_IS( boost::dispatch::scalar_of<foo<int> const> , int const   );
-  STF_TYPE_IS( boost::dispatch::scalar_of<foo<int> const&>, int const&  );
+  STF_TYPE_IS( scalar_of_t<foo<int>>       , int         );
+  STF_TYPE_IS( scalar_of_t<foo<foo<int>>>  , int         );
+  STF_TYPE_IS( scalar_of_t<foo<int>&>      , int&        );
+  STF_TYPE_IS( scalar_of_t<foo<int>&&>     , int&&       );
+  STF_TYPE_IS( scalar_of_t<foo<int> const> , int const   );
+  STF_TYPE_IS( scalar_of_t<foo<int> const&>, int const&  );
 }
