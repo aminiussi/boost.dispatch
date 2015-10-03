@@ -43,6 +43,10 @@ matrix:
           packages: ['clang-3.6']
       env: TOOLSET=clang++-3.6
 
+    - os: osx
+      compiler: clang
+      env: TOOLSET=clang++
+
 # Install boost
 before_install:
   - bash ./script/travis/install_boost.sh
