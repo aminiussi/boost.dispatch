@@ -31,12 +31,12 @@ namespace boost { namespace dispatch
     template<typename Other, typename... Args> BOOST_FORCEINLINE
     auto on(Args&&... args) const
         -> decltype ( Tag::dispatch_to( Other()
-                                      , boost::dispatch::hierarchy_of<Args>()...
+                                      , boost::dispatch::hierarchy_of_t<Args>()...
                                       )( std::forward<Args>(args)...)
                     )
     {
       return Tag::dispatch_to ( Other()
-                              , boost::dispatch::hierarchy_of<Args>()...
+                              , boost::dispatch::hierarchy_of_t<Args>()...
                               )( std::forward<Args>(args)...);
     }
 
@@ -60,12 +60,12 @@ namespace boost { namespace dispatch
     template<typename... Args> BOOST_FORCEINLINE
     auto operator()(Args&&... args) const
                       -> decltype ( Tag::dispatch_to( Site()
-                                                    , boost::dispatch::hierarchy_of<Args>()...
+                                                    , boost::dispatch::hierarchy_of_t<Args>()...
                                                     )( std::forward<Args>(args)...)
                                   )
     {
       return Tag::dispatch_to ( Site()
-                              , boost::dispatch::hierarchy_of<Args>()...
+                              , boost::dispatch::hierarchy_of_t<Args>()...
                               )( std::forward<Args>(args)...);
     }
   };
