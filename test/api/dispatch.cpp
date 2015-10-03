@@ -40,6 +40,7 @@ STF_CASE( "dispatch works correctly using .on<Site>")
 {
   // Different behavior on different arch
   STF_EQUAL(tutu::titi::foo.on<wazoo>('4')  , 'Z'     );
+  STF_EQUAL(tutu::titi::foo.on<wazoo>('A',3), 'D'     );
   STF_EQUAL(tutu::titi::foo.on<wazoo>(4)    , -13.37f );
   STF_EQUAL(tutu::titi::foo.on<wazoo>(4ULL) , 44ULL   );
   STF_EQUAL(tutu::titi::foo.on<wazoo>(4.)   , 0.4     );

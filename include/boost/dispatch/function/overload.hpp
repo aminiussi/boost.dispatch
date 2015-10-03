@@ -15,7 +15,7 @@
 #define BOOST_DISPATCH_FUNCTION_OVERLOAD_HPP_INCLUDED
 
 #include <boost/preprocessor/cat.hpp>
-
+#include <boost/preprocessor/tuple/rem.hpp>
 /*!
   @ingroup group-api
 
@@ -35,5 +35,14 @@ BOOST_DISPATCH_DISPATCHING_FUNCTION(TAG)( adl_helper const&, __VA_ARGS__)       
 
 **/
 #define BOOST_DISPATCH_FALLBACK(...) dispatching( adl_helper const&, __VA_ARGS__)
+
+/*!
+
+**/
+#define BOOST_DISPATCH_OVERLOAD(TAG, TEMPLATES, ... )                                               \
+template<BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)>                                                        \
+BOOST_PP_CAT(impl_,TAG)<__VA_ARGS__> BOOST_DISPATCH_IMPLEMENTS(TAG,__VA_ARGS__) { return {}; }      \
+template<BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)> struct BOOST_PP_CAT(impl_,TAG)<__VA_ARGS__>            \
+/**/
 
 #endif

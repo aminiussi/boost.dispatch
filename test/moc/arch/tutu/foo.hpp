@@ -9,35 +9,37 @@
 #ifndef ARCH_TUTU_FOO_INCLUDED
 #define ARCH_TUTU_FOO_INCLUDED
 
+#include <boost/dispatch/function/overload.hpp>
+
 namespace tutu { namespace titi { namespace ext
 {
-  struct int8_foo
+  BOOST_DISPATCH_OVERLOAD ( foo_
+                          , (typename T)
+                          , boost::dispatch::cpu_
+                          , boost::dispatch::scalar_<boost::dispatch::int8_<T>>
+                          )
   {
-    template<typename T> char operator()( T ) const { return '#'; }
+    char operator()( T const& ) const { return '#'; }
   };
 
-  template<typename T>
-  int8_foo BOOST_DISPATCH_IMPLEMENTS( foo_
-                                    , boost::dispatch::cpu_ const&
-                                    , boost::dispatch::scalar_<boost::dispatch::int8_<T>> const&
-                                    )
+  BOOST_DISPATCH_OVERLOAD ( foo_
+                          , (typename T)
+                          , wazoo
+                          , boost::dispatch::scalar_<boost::dispatch::int8_<T>>
+                          )
   {
-    return {};
-  }
-
-  struct bob
-  {
-    template<typename T> char operator()(T) const { return 'Z'; }
+    char operator()(T) const { return 'Z'; }
   };
 
-  template<typename T>
-  bob BOOST_DISPATCH_IMPLEMENTS ( foo_
-                                , wazoo const&
-                                , boost::dispatch::scalar_<boost::dispatch::int8_<T>> const&
-                                )
+  BOOST_DISPATCH_OVERLOAD ( foo_
+                          , (typename T,typename U)
+                          , wazoo
+                          , boost::dispatch::scalar_<boost::dispatch::int8_<T>>
+                          , boost::dispatch::scalar_<boost::dispatch::int_<U>>
+                          )
   {
-    return {};
-  }
+    char operator()(T a, U b) const { return a+char(b); }
+  };
 } } }
 
 #endif
