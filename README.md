@@ -1,9 +1,5 @@
 # boost.dispatch
 
-[![Build Status](https://travis-ci.org/jfalcou/boost.dispatch.png?branch=master)]
- (https://travis-ci.org/jfalcou/boost.dispatch)
-[![Build status](https://ci.appveyor.com/api/projects/status/od5x8urfct3l52a6?svg=true)](https://ci.appveyor.com/project/jfalcou/boost-dispatch)
-
 # Description
 
 Boost.Dispatch is a Boost candidate library that aims at providing an idiomatic way to use tag
@@ -73,3 +69,11 @@ COMING SOON
 
 * Repository    : https://github.com/jfalcou/boost.dispatch
 * Documentation : http://jfalcou.github.io/boost.dispatch
+
+## Continuous Integration
+
+| Platform & Compiler | `master`| `develop`|
+|---------------------|---------|----------|
+| Linux clang & g++   | [![Build Status](https://travis-ci.org/jfalcou/boost.dispatch.png?branch=master)](https://travis-ci.org/jfalcou/boost.dispatch) | [![Build Status](https://travis-ci.org/jfalcou/boost.dispatch.png?branch=develop)](https://travis-ci.org/jfalcou/boost.dispatch) |
+| OS X   clang    | [![Build Status](https://travis-ci.org/jfalcou/boost.dispatch.png?branch=master)](https://travis-ci.org/jfalcou/boost.dispatch) | [![Build Status](https://travis-ci.org/jfalcou/boost.dispatch.png?branch=develop)](https://travis-ci.org/jfalcou/boost.dispatch) |
+| Windows  MSVC 2012 | [![Build status](https://ci.appveyor.com/api/projects/status/od5x8urfct3l52a6/branch/master?svg=true)](https://ci.appveyor.com/project/jfalcou/boost-dispatch/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/od5x8urfct3l52a6/branch/develop?svg=true)](https://ci.appveyor.com/project/jfalcou/boost-dispatch/branch/develop) |
