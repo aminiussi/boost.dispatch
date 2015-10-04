@@ -1,6 +1,4 @@
-# boost.dispatch
-
-# Description
+# Boost.Dispatch
 
 Boost.Dispatch is a Boost candidate library that aims at providing an idiomatic way to use tag
 dispatching in a way functions can be extended or specialized, with each specialization being able
@@ -17,9 +15,9 @@ Boost.Dispatch solves these problems through two related components:
   * A dispatching mechanism built on top of the hierarchies and overloading,
     that automates the use of tag dispatching with one or all arguments.
 
-# Sample Usage
+## Sample Usage
 
-## Type Hierarchies
+### Type Hierarchies
 
 Fundamental and standard types are automatically hierarchized using a recursive, bottom-up descriptive set of hierarchy tags that allow fine to coarse grain type discrimination. A sample
 tag-dispatched function can then be written like:
@@ -61,11 +59,11 @@ template<typename T> T absolute_value(T t)
 }
 ```
 
-## Tag-Dispatched Callable Object
+### Tag-Dispatched Callable Object
 
 COMING SOON
 
-# More informations
+## More informations
 
 * Repository    : https://github.com/jfalcou/boost.dispatch
 * Documentation : http://jfalcou.github.io/boost.dispatch
