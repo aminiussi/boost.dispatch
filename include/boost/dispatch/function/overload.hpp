@@ -45,4 +45,14 @@ BOOST_PP_CAT(impl_,TAG)<__VA_ARGS__> BOOST_DISPATCH_IMPLEMENTS(TAG,__VA_ARGS__) 
 template<BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)> struct BOOST_PP_CAT(impl_,TAG)<__VA_ARGS__>            \
 /**/
 
+/*!
+
+**/
+#define BOOST_DISPATCH_OVERLOAD_FALLBACK( TEMPLATES, ... )                                          \
+template<typename... Specifications> struct impl_fallback;                                          \
+template<BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)>                                                        \
+impl_fallback<__VA_ARGS__> dispatching( adl_helper const&, __VA_ARGS__) { return {}; }              \
+template<BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)> struct impl_fallback<__VA_ARGS__>                      \
+/**/
+
 #endif

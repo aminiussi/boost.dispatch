@@ -15,19 +15,14 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  struct dub
+  BOOST_DISPATCH_OVERLOAD_FALLBACK( (typename F, typename A, typename T)
+                                  , function_<F> const&
+                                  , unspecified_<A> const&
+                                  , scalar_<unspecified_<T>> const&
+                                  )
   {
-    template<typename T> T operator()(T const& x) { return x/10; }
+    T operator()(T const& x) { return x/10; }
   };
-
-  template<typename F, typename A, typename T>
-  dub BOOST_DISPATCH_FALLBACK ( function_<F> const&
-                              , unspecified_<A> const&
-                              , scalar_<unspecified_<T>> const&
-                              )
-  {
-    return {};
-  }
 } } }
 
 #endif
