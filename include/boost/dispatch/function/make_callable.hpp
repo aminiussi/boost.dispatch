@@ -30,11 +30,11 @@
   @param TAG    Tag type to be implemented
   @param PARENT Tag's parent hierarchy
 **/
-#define BOOST_DISPATCH_MAKE_CALLABLE(TAG,PARENT)                                                    \
+#define BOOST_DISPATCH_MAKE_CALLABLE(NS,TAG,PARENT)                                                 \
 template<typename... Args>                                                                          \
 static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch_to(Args&&... args)                            \
 BOOST_AUTO_DECLTYPE_BODY( BOOST_DISPATCH_DISPATCHING_FUNCTION(TAG)                                  \
-                          (ext::adl_helper(), std::forward<Args>(args)...)                          \
+                          (NS::adl_helper(), std::forward<Args>(args)...)                           \
                         )                                                                           \
 using parent = PARENT                                                                               \
 /**/
@@ -50,8 +50,8 @@ using parent = PARENT                                                           
   @param TAG    Tag type to be implemented
   @param PARENT Tag's parent hierarchy
 **/
-#define BOOST_DISPATCH_MAKE_TAG(TAG, PARENT)                                                        \
-struct TAG : PARENT { BOOST_DISPATCH_MAKE_CALLABLE(TAG,PARENT); }                                   \
+#define BOOST_DISPATCH_MAKE_TAG(NS,TAG, PARENT)                                                     \
+struct TAG : PARENT { BOOST_DISPATCH_MAKE_CALLABLE(NS,TAG,PARENT); }                                \
 /**/
 
 /*!
