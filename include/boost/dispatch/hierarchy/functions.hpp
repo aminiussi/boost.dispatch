@@ -47,6 +47,20 @@ namespace boost { namespace dispatch
 
   /*!
     @ingroup group-hierarchy
+    @brief Constant value function hierarchy tag
+
+    Function object classified as constant_value if they evaluate to a value independant of their
+    input values.
+
+    @tparam F Function object type
+  **/
+  template<typename F> struct constant_value_ : elementwise_<F>
+  {
+    using parent = elementwise_<F>;
+  };
+
+  /*!
+    @ingroup group-hierarchy
     @brief Reductive function hierarchy tag
 
     Function object classified as reduction_ if they can be used as argument to the fold
