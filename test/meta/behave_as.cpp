@@ -20,13 +20,3 @@ STF_CASE( "behave_as of basic types is same as direct meta-function call")
   STF_TYPE_IS( (behave_as_t<char  ,std::is_floating_point<brigand::_1>>), brigand::false_ );
   STF_TYPE_IS( (behave_as_t<void* ,std::is_floating_point<brigand::_1>>), brigand::false_ );
 }
-
-template<typename T> struct foo {};
-template<typename T> struct bar {};
-
-STF_CASE( "behave_as go through template layers")
-{
-  STF_TYPE_IS( (behave_as_t<foo<float>          ,std::is_floating_point<brigand::_1>>), brigand::true_  );
-  STF_TYPE_IS( (behave_as_t<foo<bar<double>>    ,std::is_floating_point<brigand::_1>>), brigand::true_  );
-  STF_TYPE_IS( (behave_as_t<foo<bar<foo<void>>> ,std::is_floating_point<brigand::_1>>), brigand::false_ );
-}

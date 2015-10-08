@@ -20,15 +20,3 @@ STF_CASE( "scalar_of of basic types is the type itself" )
   STF_TYPE_IS( scalar_of_t<long const>    , long const    );
   STF_TYPE_IS( scalar_of_t<double const&> , double const& );
 }
-
-template<typename T> struct foo {};
-
-STF_CASE( "scalar_of of template types is the template parameter" )
-{
-  STF_TYPE_IS( scalar_of_t<foo<int>>       , int         );
-  STF_TYPE_IS( scalar_of_t<foo<foo<int>>>  , int         );
-  STF_TYPE_IS( scalar_of_t<foo<int>&>      , int&        );
-  STF_TYPE_IS( scalar_of_t<foo<int>&&>     , int&&       );
-  STF_TYPE_IS( scalar_of_t<foo<int> const> , int const   );
-  STF_TYPE_IS( scalar_of_t<foo<int> const&>, int const&  );
-}

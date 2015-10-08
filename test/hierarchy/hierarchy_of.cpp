@@ -13,12 +13,11 @@
 #include <stf.hpp>
 
 using namespace boost::dispatch;
-
 struct foo {};
-template<typename T> struct wrap {};
 
-STF_CASE_TPL( "hierarchy_of for random unspecified types", (foo)(wrap<foo>)(wrap<wrap<foo>>))
+STF_CASE( "hierarchy_of for random unspecified types")
 {
+  using T = foo;
   STF_TYPE_IS( hierarchy_of_t<T>         , scalar_<unspecified_<T>> );
   STF_TYPE_IS( hierarchy_of_t<T&>        , scalar_<unspecified_<T>> );
   STF_TYPE_IS( hierarchy_of_t<T const>   , scalar_<unspecified_<T>> );
@@ -29,30 +28,18 @@ STF_CASE_TPL( "hierarchy_of for random unspecified types", (foo)(wrap<foo>)(wrap
 STF_CASE( "hierarchy_of for void" )
 {
   STF_TYPE_IS( hierarchy_of_t<void>, scalar_<void_<void>> );
-  STF_TYPE_IS( hierarchy_of_t<wrap<void>>, scalar_<void_<wrap<void>>> );
-  STF_TYPE_IS( hierarchy_of_t<wrap<wrap<void>>>, scalar_<void_<wrap<wrap<void>>>> );
 }
 
 STF_CASE( "hierarchy_of for bool" )
 {
   STF_TYPE_IS( hierarchy_of_t<bool>, scalar_<bool_<bool>> );
-  STF_TYPE_IS( hierarchy_of_t<wrap<bool>>, scalar_<bool_<wrap<bool>>> );
-  STF_TYPE_IS( hierarchy_of_t<wrap<wrap<bool>>>, scalar_<bool_<wrap<wrap<bool>>>> );
 }
 
 STF_CASE( "hierarchy_of for IEEE types" )
 {
   STF_TYPE_IS( hierarchy_of_t<float>, scalar_<single_<float>> );
-  STF_TYPE_IS( hierarchy_of_t<wrap<float>>, scalar_<single_<wrap<float>>> );
-  STF_TYPE_IS( hierarchy_of_t<wrap<wrap<float>>>, scalar_<single_<wrap<wrap<float>>>> );
-
   STF_TYPE_IS( hierarchy_of_t<double>, scalar_<double_<double>> );
-  STF_TYPE_IS( hierarchy_of_t<wrap<double>>, scalar_<double_<wrap<double>>> );
-  STF_TYPE_IS( hierarchy_of_t<wrap<wrap<double>>>, scalar_<double_<wrap<wrap<double>>>> );
-
   STF_TYPE_IS( hierarchy_of_t<long double>, scalar_<long_double_<long double>> );
-  STF_TYPE_IS( hierarchy_of_t<wrap<long double>>, scalar_<long_double_<wrap<long double>>> );
-  STF_TYPE_IS( hierarchy_of_t<wrap<wrap<long double>>>, scalar_<long_double_<wrap<wrap<long double>>>> );
 }
 
 STF_CASE_TPL( "hierarchy_of for integral types"
@@ -65,13 +52,5 @@ STF_CASE_TPL( "hierarchy_of for integral types"
 {
   STF_TYPE_IS( hierarchy_of_t<T>
                 , (scalar_<integral_<T,CHAR_BIT*sizeof(T),sign_of_t<T>>>)
-                );
-
-  STF_TYPE_IS( hierarchy_of_t<wrap<T>>
-                , (scalar_<integral_<wrap<T>,CHAR_BIT*sizeof(T),sign_of_t<wrap<T>>>>)
-                );
-
-  STF_TYPE_IS( hierarchy_of_t<wrap<wrap<T>>>
-                , (scalar_<integral_<wrap<wrap<T>>,CHAR_BIT*sizeof(T),sign_of_t<wrap<wrap<T>>>>>)
                 );
 }

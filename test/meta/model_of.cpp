@@ -20,14 +20,3 @@ STF_CASE( "model_of of basic types is meta-identity")
   STF_TYPE_IS( model_of<float const>::apply<int>::type , int );
   STF_TYPE_IS( model_of<float const&>::apply<int>::type, int );
 }
-
-template<typename T> struct foo {};
-
-STF_CASE( "model_of of template types is template<_>")
-{
-  STF_TYPE_IS( model_of<foo<float>>::apply<int>::type       , foo<int> );
-  STF_TYPE_IS( model_of<foo<float>&>::apply<int>::type      , foo<int> );
-  STF_TYPE_IS( model_of<foo<float>&&>::apply<int>::type     , foo<int> );
-  STF_TYPE_IS( model_of<foo<float> const>::apply<int>::type , foo<int> );
-  STF_TYPE_IS( model_of<foo<float> const&>::apply<int>::type, foo<int> );
-}
