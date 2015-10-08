@@ -84,8 +84,25 @@ BOOST_DISPATCH_IMPLEMENTS(TAG, ::boost::dispatch::unspecified_<Site> const&, ...
   @param TAG  Fully qualified tag type to adapt
   @param NAME Callable object identifier
 **/
-#define BOOST_DISPATCH_FUNCTION_DEFINITION(TAG,NAME)                                                \
+#define BOOST_DISPATCH_CALLABLE_DEFINITION(TAG,NAME)                                                \
 static const boost::dispatch::functor<TAG> NAME = {}                                                \
+/**/
+
+/*!
+  @ingroup group-api
+
+  Generates a function from a @c TAG
+
+  @par Usage:
+
+  @param TAG  Fully qualified tag type to adapt
+  @param NAME Function object identifier
+**/
+#define BOOST_DISPATCH_FUNCTION_DEFINITION(TAG,NS,NAME)                                             \
+template<typename... T> auto NAME(T&&... args) -> decltype(NS::NAME(std::forward<T>(args)...))      \
+{                                                                                                   \
+  return NS::NAME(std::forward<T>(args)...);                                                        \
+}                                                                                                   \
 /**/
 
 #endif
