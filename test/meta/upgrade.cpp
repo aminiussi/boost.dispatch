@@ -80,18 +80,3 @@ STF_CASE("Upgrading double leads to double")
   STF_TYPE_IS( (upgrade_t<double,signed>)  , double );
   STF_TYPE_IS( (upgrade_t<double,unsigned>), double );
 }
-
-template<typename T> struct foo {};
-
-STF_CASE_TPL( "Upgrading sees through template layer"
-            , (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
-              (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
-              (float)(double)
-            )
-{
-  using u_t = upgrade_t<T>;
-
-  STF_TYPE_IS( upgrade_t<foo<T>>          , foo<u_t> );
-  STF_TYPE_IS( upgrade_t<foo<foo<T>>>     , foo<foo<u_t>> );
-  STF_TYPE_IS( upgrade_t<foo<foo<foo<T>>>>, foo<foo<foo<u_t>>> );
-}

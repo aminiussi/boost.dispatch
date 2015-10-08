@@ -38,13 +38,6 @@ namespace boost { namespace dispatch
       using type = T;
     };
 
-    // Specialize for all Template<Type> like class
-    template<template<class> class Template, typename Type>
-    struct value_of<Template<Type>>
-    {
-      using type = Type;
-    };
-
     /*!
       @ingroup group-extension
       @brief SFINAE-enabled extension point for meta::value_of with qualifiers

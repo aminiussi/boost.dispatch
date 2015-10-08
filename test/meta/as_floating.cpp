@@ -33,16 +33,3 @@ STF_CASE_TPL( "Generate floating from integral types"
   STF_TYPE_IS( (as_floating_t<T const>)  ,(make_floating_t<sizeof(T)>) );
   STF_TYPE_IS( (as_floating_t<T const&&>),(make_floating_t<sizeof(T)>) );
 }
-
-template<typename T> struct foo {};
-
-STF_CASE_TPL( "Generate floating from custom template types"
-            , (std::uint32_t)(std::uint64_t)(std::int32_t )(std::int64_t )(float)(double)
-            )
-{
-  STF_TYPE_IS( (as_floating_t<foo<foo<T>>>)        , foo<foo<as_floating_t<T>>>);
-  STF_TYPE_IS( (as_floating_t<foo<foo<T>>&>)       , foo<foo<as_floating_t<T>>>);
-  STF_TYPE_IS( (as_floating_t<foo<foo<T>>&&>)      , foo<foo<as_floating_t<T>>>);
-  STF_TYPE_IS( (as_floating_t<foo<foo<T>> const>)  , foo<foo<as_floating_t<T>>>);
-  STF_TYPE_IS( (as_floating_t<foo<foo<T>> const&&>), foo<foo<as_floating_t<T>>>);
-}

@@ -20,14 +20,3 @@ STF_CASE( "value_of_t of basic types is type itself")
   STF_TYPE_IS( value_of_t<float const>  , float const );
   STF_TYPE_IS( value_of_t<float const&> , float const&);
 }
-
-template<typename T> struct foo {};
-
-STF_CASE_TPL( "value_of_t of template types is template parameter", (int)(float)(char))
-{
-  STF_TYPE_IS( value_of_t<foo<T>>       , T );
-  STF_TYPE_IS( value_of_t<foo<T>&>      , T& );
-  STF_TYPE_IS( value_of_t<foo<T>&&>     , T&& );
-  STF_TYPE_IS( value_of_t<foo<T> const> , T const);
-  STF_TYPE_IS( value_of_t<foo<T> const&>, T const&);
-}

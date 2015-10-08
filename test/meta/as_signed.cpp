@@ -36,18 +36,3 @@ STF_CASE_TPL ( "Generate signed from unsigned types"
   STF_TYPE_IS( (as_signed_t<T const>)  ,(signed_t<T>) );
   STF_TYPE_IS( (as_signed_t<T const&&>),(signed_t<T>) );
 }
-
-template<typename T> struct foo {};
-
-STF_CASE_TPL ( "Generate signed from custom template types"
-                , (float)(double)(bool)
-                  (std::uint8_t)(std::uint16_t)(std::uint32_t)(std::uint64_t)
-                  (std::int8_t)(std::int16_t)(std::int32_t)(std::int64_t)
-                )
-{
-  STF_TYPE_IS( (as_signed_t<foo<foo<T>>>)        , foo<foo<as_signed_t<T>>>);
-  STF_TYPE_IS( (as_signed_t<foo<foo<T>>&>)       , foo<foo<as_signed_t<T>>>);
-  STF_TYPE_IS( (as_signed_t<foo<foo<T>>&&>)      , foo<foo<as_signed_t<T>>>);
-  STF_TYPE_IS( (as_signed_t<foo<foo<T>> const>)  , foo<foo<as_signed_t<T>>>);
-  STF_TYPE_IS( (as_signed_t<foo<foo<T>> const&&>), foo<foo<as_signed_t<T>>>);
-}

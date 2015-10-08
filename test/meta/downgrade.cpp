@@ -92,18 +92,3 @@ STF_CASE("Upgrading double leads to float")
   STF_TYPE_IS( (downgrade_t<double,signed>)  , float );
   STF_TYPE_IS( (downgrade_t<double,unsigned>), float );
 }
-
-template<typename T> struct foo {};
-
-STF_CASE_TPL( "Downgrading sees through template layer"
-            , (std::uint16_t)(std::uint32_t)(std::uint64_t)(std::uint64_t)
-              (std::int16_t)(std::int32_t)(std::int64_t)(std::int64_t)
-              (double)
-            )
-{
-  using u_t = downgrade_t<T>;
-
-  STF_TYPE_IS( downgrade_t<foo<T>>          , foo<u_t> );
-  STF_TYPE_IS( downgrade_t<foo<foo<T>>>     , foo<foo<u_t>> );
-  STF_TYPE_IS( downgrade_t<foo<foo<foo<T>>>>, foo<foo<foo<u_t>>> );
-}
