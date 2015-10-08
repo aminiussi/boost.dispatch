@@ -18,6 +18,7 @@
 #include <boost/dispatch/hierarchy/unspecified.hpp>
 #include <boost/dispatch/hierarchy/base.hpp>
 #include <boost/dispatch/hierarchy_of.hpp>
+#include <boost/dispatch/detail/auto_decltype.hpp>
 #include <boost/utility/result_of.hpp>
 #include <boost/config.hpp>
 #include <utility>
