@@ -19,6 +19,7 @@ namespace tutu { namespace titi
   namespace ext { BOOST_DISPATCH_FUNCTION_DECLARATION(tag,foo_); }
 
   BOOST_DISPATCH_CALLABLE_DEFINITION(tag::foo_,foo);
+  BOOST_DISPATCH_FUNCTION_DEFINITION(tag::foo_,foo_alias);
 } }
 
 #include "moc/arch/default/foo.hpp"

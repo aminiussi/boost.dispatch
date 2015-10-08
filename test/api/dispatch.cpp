@@ -25,6 +25,11 @@ STF_CASE( "dispatch works correctly")
   STF_EQUAL(tutu::titi::foo(4)    , -13.37f );
   STF_EQUAL(tutu::titi::foo(4ULL) , 44ULL   );
   STF_EQUAL(tutu::titi::foo(4.)   , 0.4     );
+
+  STF_EQUAL(tutu::titi::foo_alias('4')  , '#'     );
+  STF_EQUAL(tutu::titi::foo_alias(4)    , -13.37f );
+  STF_EQUAL(tutu::titi::foo_alias(4ULL) , 44ULL   );
+  STF_EQUAL(tutu::titi::foo_alias(4.)   , 0.4     );
 }
 
 STF_CASE( "dispatch works correctly using .on<cpu_>")

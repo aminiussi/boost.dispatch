@@ -98,10 +98,17 @@ static const boost::dispatch::functor<TAG> NAME = {}                            
   @param TAG  Fully qualified tag type to adapt
   @param NAME Function object identifier
 **/
-#define BOOST_DISPATCH_FUNCTION_DEFINITION(TAG,NS,NAME)                                             \
-template<typename... T> auto NAME(T&&... args) -> decltype(NS::NAME(std::forward<T>(args)...))      \
+#define BOOST_DISPATCH_FUNCTION_DEFINITION(TAG,NAME)                                                \
+template<typename... Args> BOOST_FORCEINLINE                                                        \
+auto NAME(Args&&... args)                                                                           \
+        -> decltype ( TAG::dispatch_to( boost::dispatch::default_site<TAG>()                        \
+                                      , boost::dispatch::hierarchy_of_t<Args>()...                  \
+                                      )( std::forward<Args>(args)...)                               \
+                    )                                                                               \
 {                                                                                                   \
-  return NS::NAME(std::forward<T>(args)...);                                                        \
+  return TAG::dispatch_to ( boost::dispatch::default_site<TAG>()                                    \
+                          , boost::dispatch::hierarchy_of_t<Args>()...                              \
+                          )( std::forward<Args>(args)...);                                          \
 }                                                                                                   \
 /**/
 
