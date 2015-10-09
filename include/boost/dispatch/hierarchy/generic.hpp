@@ -11,35 +11,34 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_DISPATCH_META_HIERARCHY_SCALAR_HPP_INCLUDED
-#define BOOST_DISPATCH_META_HIERARCHY_SCALAR_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_HIERARCHY_GENERIC_HPP_INCLUDED
+#define BOOST_DISPATCH_META_HIERARCHY_GENERIC_HPP_INCLUDED
 
 #include <boost/dispatch/hierarchy/unspecified.hpp>
-#include <boost/dispatch/hierarchy/generic.hpp>
-#include <boost/dispatch/property_of.hpp>
 
 namespace boost { namespace dispatch
 {
   /*!
     @ingroup group-hierarchy
-    @brief Scalar types hierarchy tag
+    @brief Generic types hierarchy tag
 
-    The scalar_ hierarchy represents types which values are stored in one or multiple general
-    purpose registers.
+    The generc_ hierarchy represents types which values are stored any kind of registers.
+    Its main use is to serve as a fall-back for function having similar code independently of the
+    underlying architecture.
 
     @tparam Hierarchy Type hierarchy
   **/
   template<typename Hierarchy>
-  struct scalar_ : scalar_<typename Hierarchy::parent>
+  struct generic_ : generic_<typename Hierarchy::parent>
   {
-    using parent = scalar_<typename Hierarchy::parent>;
+    using parent = generic_<typename Hierarchy::parent>;
   };
 
-  // When hitting unspecified_, behaves as a generic_ type
+  // TODO: When hitting unspecified_, devolves to higher order hierarchy before unspecified
   template<typename Type>
-  struct scalar_< unspecified_<Type> > : generic_<property_of_t<Type>>
+  struct generic_< unspecified_<Type> > : unspecified_<Type>
   {
-    using parent = generic_<property_of_t<Type>>;
+    using parent = unspecified_<Type>;
   };
 } }
 

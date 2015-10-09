@@ -47,9 +47,10 @@ STF_CASE( "Parenthood of bool hierarchy" )
 
 STF_CASE( "Parenthood of scalar_ hierarchy" )
 {
-  STF_TYPE_IS( scalar_<bool_<bool>>::parent        , scalar_<bool_<bool>::parent>        );
-  STF_TYPE_IS( scalar_<fundamental_<bool>>::parent , scalar_<fundamental_<bool>::parent> );
-  STF_TYPE_IS( scalar_<unspecified_<bool>>::parent , unspecified_<bool>                  );
+  STF_TYPE_IS( scalar_<bool_<bool>>::parent         , scalar_<bool_<bool>::parent>        );
+  STF_TYPE_IS( scalar_<fundamental_<bool>>::parent  , scalar_<fundamental_<bool>::parent> );
+  STF_TYPE_IS( scalar_<unspecified_<bool>>::parent  , generic_<bool_<bool>>               );
+  STF_TYPE_IS( generic_<unspecified_<bool>>::parent , unspecified_<bool>                  );
 }
 
 STF_CASE( "Parenthood of IEEE types hierarchy" )

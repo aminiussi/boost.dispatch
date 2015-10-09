@@ -17,12 +17,11 @@ struct foo {};
 
 STF_CASE( "hierarchy_of for random unspecified types")
 {
-  using T = foo;
-  STF_TYPE_IS( hierarchy_of_t<T>         , scalar_<unspecified_<T>> );
-  STF_TYPE_IS( hierarchy_of_t<T&>        , scalar_<unspecified_<T>> );
-  STF_TYPE_IS( hierarchy_of_t<T const>   , scalar_<unspecified_<T>> );
-  STF_TYPE_IS( hierarchy_of_t<T const&>  , scalar_<unspecified_<T>> );
-  STF_TYPE_IS( hierarchy_of_t<T&&>       , scalar_<unspecified_<T>> );
+  STF_TYPE_IS( hierarchy_of_t<foo>         , scalar_<unspecified_<foo>> );
+  STF_TYPE_IS( hierarchy_of_t<foo&>        , scalar_<unspecified_<foo>> );
+  STF_TYPE_IS( hierarchy_of_t<foo const>   , scalar_<unspecified_<foo>> );
+  STF_TYPE_IS( hierarchy_of_t<foo const&>  , scalar_<unspecified_<foo>> );
+  STF_TYPE_IS( hierarchy_of_t<foo&&>       , scalar_<unspecified_<foo>> );
 }
 
 STF_CASE( "hierarchy_of for void" )
@@ -50,7 +49,7 @@ STF_CASE_TPL( "hierarchy_of for integral types"
               (char)(short)(int)(long)(long long)
             )
 {
-  STF_TYPE_IS( hierarchy_of_t<T>
-                , (scalar_<integral_<T,CHAR_BIT*sizeof(T),sign_of_t<T>>>)
-                );
+  STF_TYPE_IS ( hierarchy_of_t<T>
+              , (scalar_<integral_<T,CHAR_BIT*sizeof(T),sign_of_t<T>>>)
+              );
 }
