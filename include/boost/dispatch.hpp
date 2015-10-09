@@ -14,10 +14,14 @@
 #ifndef BOOST_DISPATCH_HPP_INCLUDED
 #define BOOST_DISPATCH_HPP_INCLUDED
 
+#include <boost/dispatch/as.hpp>
 #include <boost/dispatch/config.hpp>
+#include <boost/dispatch/function.hpp>
 #include <boost/dispatch/hierarchy.hpp>
-#include <boost/dispatch/meta/introspection.hpp>
-#include <boost/dispatch/meta/transfer_qualifiers.hpp>
+#include <boost/dispatch/hierarchy_of.hpp>
+#include <boost/dispatch/meta.hpp>
+#include <boost/dispatch/models.hpp>
+#include <boost/dispatch/property_of.hpp>
 
 namespace boost { namespace dispatch
 {
