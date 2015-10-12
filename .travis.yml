@@ -47,14 +47,15 @@ matrix:
       compiler: clang
       env: TOOLSET=clang++
 
-before_script:
 # Install boost
+before_install:
   - bash ./script/travis/install_boost.sh
   - export BOOST_ROOT="$HOME/boost-trunk"
+
 # Prepare build
+before_script:
   - mkdir build
   - cd build
-# Perform build
   - cmake .. -DCMAKE_CXX_COMPILER=$TOOLSET
 
 # Build unit and run test
