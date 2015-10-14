@@ -60,5 +60,5 @@ before_script:
 
 # Build unit and run test
 script:
-  - make -j2 unit
-  - make -j2 test
+  - make unit
+  - make test
