@@ -16,14 +16,6 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-4.8']
-      env: CXX_STD=14 TOOLSET=g++-4.8
-
-    - os: linux
-      compiler: gcc
-      addons:
-        apt:
-          sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-4.9']
       env: CXX_STD=11 TOOLSET=g++-4.9
 
