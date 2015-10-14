@@ -79,10 +79,6 @@ matrix:
       compiler: clang
       env: CXX_STD=11 TOOLSET=clang++
 
-    - os: osx
-      compiler: clang
-      env: CXX_STD=14 TOOLSET=clang++
-
 # Install boost
 before_install:
   - bash ./script/travis/install_boost.sh
