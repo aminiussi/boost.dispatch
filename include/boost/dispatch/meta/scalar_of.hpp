@@ -19,7 +19,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-meta
+    @ingroup group-introspection
     @brief Compute the basic value type of an arbitrary type
 
     Retrieves the most embedded fundamental type of any given type, carrying over

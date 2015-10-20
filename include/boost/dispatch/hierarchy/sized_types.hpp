@@ -26,7 +26,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Sized type hierarchy tag
 
     Types classified as sized_type_ if their sizeof is exactly BitSize.
@@ -50,7 +50,7 @@ namespace boost { namespace dispatch
   };
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief 8 bits type hierarchy tag
 
     8 bits types are classified as type8_.
@@ -60,7 +60,7 @@ namespace boost { namespace dispatch
   template<typename T> using type8_ = sized_type_<T,8>;
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief 16 bits type hierarchy tag
 
     16 bits types are classified as type16_.
@@ -70,7 +70,7 @@ namespace boost { namespace dispatch
   template<typename T> using type16_ = sized_type_<T,16>;
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief 32 bits type hierarchy tag
 
     32 bits types are classified as type32_.
@@ -80,7 +80,7 @@ namespace boost { namespace dispatch
   template<typename T> using type32_ = sized_type_<T,32>;
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief 64 bits type hierarchy tag
 
     64 bits types are classified as type64_.

@@ -1,9 +1,6 @@
 //==================================================================================================
 /*!
   @file
-  @ingroup group-adapted
-
-  Adapt std::integral_constant to be hierarchizable
 
   @copyright 2015 NumScale SAS
 

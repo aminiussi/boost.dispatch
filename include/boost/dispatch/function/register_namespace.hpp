@@ -28,7 +28,7 @@ namespace boost { namespace dispatch
   namespace meta { struct adl_helper {}; }
 
   /*!
-    @ingroup group-api
+    @ingroup group-function
     @brief Error reporting utility dispatcher.
 
     Whenver a dispatchable function ends up with no suitable overloads, this dispatcher will cause
@@ -91,7 +91,7 @@ namespace boost { namespace dispatch
         dispatching ( Discriminant{}, Tag{}, default_site<Tag>{}
                     , ::boost::dispatch::hierarchy_of_t<Args&&>()...
                     )( std::forward<Args>(args)... )
-      );
+      )
       #endif
     };
   }
@@ -101,9 +101,8 @@ namespace boost { namespace dispatch
   using generic_dispatcher = detail::generic_dispatcher<meta::adl_helper,Tag>;
 } }
 
-// enlever namesapace NMESPACE de la macro
 /*!
-  @ingroup group-api
+  @ingroup group-function
 
   Make the current namespace able to house dispatchable function overloads and to use a @c FALLBAKC
   namespace if the current one fails to provide any viable overload.

@@ -16,7 +16,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-api
+    @ingroup group-function
     @brief Adaptable dispactch-enabled function object
 
     @tparam Tag
@@ -41,7 +41,6 @@ namespace boost { namespace dispatch
     }
 
     /*!
-      @ingroup group-api
       @brief Architectural target rebinding
 
       Creates an instance of functor which shares current functor's tag but

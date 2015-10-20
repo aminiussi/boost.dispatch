@@ -23,51 +23,67 @@
 #include <boost/dispatch/models.hpp>
 #include <boost/dispatch/property_of.hpp>
 
-namespace boost { namespace dispatch
+/// Main Boost namespace
+namespace boost
 {
-  namespace concept
+  /// Main Boost.Dispatch namespace
+  namespace dispatch
   {
     /*!
       @defgroup group-concept Concepts
       Concepts defined by the library
     **/
-  }
 
-  namespace detail
-  {
     /*!
-      @defgroup group-detail Implementation details
-      Implementation details related components
+      @defgroup group-api User API
+      User level library components
     **/
-  }
 
-  namespace ext
-  {
     /*!
-      @defgroup group-extension Extension points
-      Extension points for library components
+      @ingroup group-api
+      @defgroup group-hierarchy Hierarchy Functions and Traits
+      Utility for handling type hierarchies provided by the library
     **/
+
+    /*!
+      @ingroup group-api
+      @defgroup group-function Dispatchable Functions Utilities
+      Utilities for defining and overloading dispatchable functions
+    **/
+
+    /*!
+      @ingroup group-hierarchy
+      @defgroup group-tag Hierarchy Tags
+      Hierarchies tags provided by the library
+    **/
+
+    /*!
+      @ingroup group-api
+      @defgroup group-meta Meta-programming Utilities
+      Meta-programming related components
+    **/
+
+    /*!
+      @ingroup group-meta
+      @defgroup group-generation Type Generation Traits
+      Meta-programming related components
+    **/
+
+    /*!
+      @ingroup group-meta
+      @defgroup group-introspection Type Introspection Traits
+      Meta-programming related components
+    **/
+
+    /// Boost.Dispatch Extension points namespace
+    namespace ext
+    {
+      /*!
+        @defgroup group-extension Extension points
+        Extension points for library components
+      **/
+    }
   }
-
-  /*!
-    @defgroup group-api User API
-    User level library components
-  **/
-
-  /*!
-    @defgroup group-meta Meta-programming Utilities
-    Meta-programming related components
-  **/
-
-  /*!
-    @defgroup group-hierarchy Predefined Hierarchies
-    Type hierarchies provided by the library
-  **/
-
-  /*!
-    @defgroup group-adapted External adapters
-    Adaptation header for external libraries
-  **/
-} }
+}
 
 #endif

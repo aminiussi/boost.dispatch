@@ -20,7 +20,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-meta
+    @ingroup group-introspection
 
     @brief Recursive meta-model generator
 

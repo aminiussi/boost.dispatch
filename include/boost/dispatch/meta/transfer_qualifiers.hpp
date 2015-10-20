@@ -39,7 +39,7 @@ namespace boost { namespace dispatch
   }
 
   /*!
-    @ingroup group-meta
+    @ingroup group-generation
     @brief Transfer qualifiers between types
 
     Modify a type so it bears the same cref-qualifier than another type while following the

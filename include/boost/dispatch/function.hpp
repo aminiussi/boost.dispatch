@@ -2,7 +2,7 @@
 /*!
   @file
 
-  Gateway header to hierarchy types
+  Gateway header for dispatched function and callable object helpers
 
   @copyright 2015 NumScale SAS
 

@@ -34,7 +34,7 @@ namespace boost { namespace dispatch
   }
 
   /*!
-    @ingroup group-meta
+    @ingroup group-generation
     @brief Turn a type into an equivalent integer
 
     Converts any type which Primitive is Fundamental into a integral type with a compatible size

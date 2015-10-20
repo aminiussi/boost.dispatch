@@ -19,7 +19,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief floating type hierarchy tag
 
     Types are classified as floating_ if they behaves as one of the basic floating point types.

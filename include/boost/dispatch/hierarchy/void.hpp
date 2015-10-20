@@ -19,7 +19,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief void type hierarchy tag
 
     Types classified as void_ have properties similar to void

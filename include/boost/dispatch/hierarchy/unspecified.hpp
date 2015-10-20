@@ -19,7 +19,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Unspecified type hierarchy tag
 
     Types classified as unspecified_ provides no meaningful properties.

@@ -20,7 +20,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-meta
+    @ingroup group-introspection
     @brief Traits for detecting natural integral types
 
     Checks if a type @c T is a natural integral type, i.e an Integral type able to contain

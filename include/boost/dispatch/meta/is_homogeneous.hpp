@@ -79,7 +79,7 @@ namespace boost { namespace dispatch
   }
 
   /*!
-    @ingroup group-meta
+    @ingroup group-introspection
     @brief Detects homogeneous tuple
 
     For any given FusionSequence, checks if said sequence contains element of a single type.

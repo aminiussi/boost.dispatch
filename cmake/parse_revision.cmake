@@ -78,9 +78,9 @@ endif()
 
 parse_revision("${BOOST_DISPATCH_VERSION_STRING}" BOOST_DISPATCH_VERSION)
 
-set(nstest_release "(release)")
+set(boost_dispatch_release "(release)")
 if(BOOST_DISPATCH_VERSION_IS_PRERELEASE)
-  set(nstest_release "(pre-release)")
+  set(boost_dispatch_release "(pre-release)")
 endif()
 
-message(STATUS "[boost.dispatch] Configuring Boost.Dispatch version ${BOOST_DISPATCH_VERSION_STRING} ${nstest_release}")
+message(STATUS "[boost.dispatch] Configuring Boost.Dispatch version ${BOOST_DISPATCH_VERSION_STRING} ${boost_dispatch_release}")

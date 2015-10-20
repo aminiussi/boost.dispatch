@@ -20,7 +20,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-meta
+    @ingroup group-introspection
     @brief Apply meta-function to a type's Primitive type
 
     Apply a meta-function to the Primitive type of its input.

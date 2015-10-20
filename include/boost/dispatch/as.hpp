@@ -2,7 +2,7 @@
 /*!
   @file
 
-  Gateway header to hierarchy types
+  Type wrapper definition, hierarchy and helper function
 
   @copyright 2015 NumScale SAS
 
@@ -51,11 +51,13 @@ namespace boost { namespace dispatch
     return {};
   };
 
+#if !defined(DOXYGEN_ONLY)
   namespace detail
   {
     template<typename T> struct target_value            { using type = T; };
     template<typename T> struct target_value< as_<T> >  { using type = T; };
   }
+#endif
 
   /*!
     @ingroup group-meta
@@ -71,12 +73,16 @@ namespace boost { namespace dispatch
   template<typename T> using target_value = typename detail::target_value<T>::type;
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Type wrapper hierarchy.
 
     @tparam T Wrapped type hierarchy
   **/
-  template<typename T> struct target_ : target_< typename T::parent >
+  template<typename T>
+  struct  target_
+#if !defined(DOXYGEN_ONLY)
+        : target_< typename T::parent >
+#endif
   {
     /// Parent hierarchy
     using parent = target_< typename T::parent >;

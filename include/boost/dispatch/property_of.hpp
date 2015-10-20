@@ -2,7 +2,7 @@
 /*!
   @file
 
-  Defines the property_of metafunction
+  Defines the property_of meta-function
 
   @copyright 2015 NumScale SAS
 
@@ -21,29 +21,31 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-meta
+    @ingroup group-hierarchy
     @brief Retrieve the fundamental hierarchy of a Type
 
     For any type @c T, returns the hierarchy describing the fundamental properties of any given
     types. This Fundamental Hierarchy is computed by computing the hierarchy of the innermost
     embedded scalar type of @c T.
 
-    @tparam T     Type to categorize
-    @tparam ORigin
+    @tparam T       Type to categorize
+    @tparam Origin  Type to store inside the generated hierarchy type
 
     @par Models:
 
     @metafunction
-
-    @par Semantic:
-
   **/
   template<typename T, typename Origin = T>
-  struct property_of : ext::property_of < scalar_of_t<T>
-                                        , typename std::remove_reference<Origin>::type
-                                        >
+  struct property_of
+#if !defined(DOXYGEN_ONLY)
+       : ext::property_of<scalar_of_t<T>, typename std::remove_reference<Origin>::type>
+#endif
   {};
 
+  /*!
+    @ingroup group-hierarchy
+    Eager short-cut to boost::dispatch::property_of
+  **/
   template<typename T, typename Origin = T>
   using property_of_t = typename property_of<T,Origin>::type;
 } }

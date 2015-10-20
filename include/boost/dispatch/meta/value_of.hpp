@@ -25,7 +25,7 @@ namespace boost { namespace dispatch
   }
 
   /*!
-    @ingroup group-meta
+    @ingroup group-introspection
     @brief Underlying type evaluation
 
     Evaluates, for any given type @c T, the underlying type of @c T.
@@ -55,8 +55,7 @@ namespace boost { namespace dispatch
     meta::value_of can be specialized for user-defined types by either overloading or specializing
     (eventually through SFINAE) the ext::value_of and/or ext::value_of_cv classes
 
-    Specialization for value_of are provided for most of standard and
-    Boost types. See the @ref group-adapted page.
+    Specialization for value_of are provided for most of standard and Boost types.
 
     @tparam T Type to analyze
   **/

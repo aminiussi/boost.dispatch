@@ -19,7 +19,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-meta
+    @ingroup group-introspection
     @brief Primitive type computation
 
     For any given type @c T, returns the primitive type, i.e the most underlying type of @c T.

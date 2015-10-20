@@ -2,7 +2,7 @@
 /*!
   @file
 
-  Defines the arithmetic_ hierarchy
+  Defines the array_ hierarchy
 
   @copyright 2015 NumScale SAS
 
@@ -22,7 +22,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Array type hierarchy tag
 
     Types are classified as array_ if they represent a compound type with a static size,
@@ -31,17 +31,24 @@ namespace boost { namespace dispatch
     @tparam T Base hierarchy
     @tparam N Size of the classified array
   **/
-  template<typename T, typename N> struct array_ : array_<typename T::parent, N>
+  template<typename T, typename N>
+  struct  array_
+#if !defined(DOXYGEN_ONLY)
+        : array_<typename T::parent, N>
+#endif
   {
     /// Parent hierarchy of array_
     using parent = array_<typename T::parent, N>;
   };
 
+#if !defined(DOXYGEN_ONLY)
   template<typename T, typename N>
   struct  array_<unspecified_<T>,N> : bag_<property_of_t<T>, N>
   {
     using parent = bag_<property_of_t<T>, N>;
   };
+#endif
+
 } }
 
 #endif

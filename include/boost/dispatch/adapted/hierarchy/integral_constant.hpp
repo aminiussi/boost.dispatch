@@ -20,7 +20,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief integral constant type hierarchy tag
 
     Types are classified as constant_ if they are type embedding a integral constant.
@@ -30,16 +30,22 @@ namespace boost { namespace dispatch
 
     @tparam T Base hierarchy
   **/
-  template<typename T> struct constant_ : constant_<typename T::parent>
+  template<typename T>
+  struct  constant_
+#if !defined(DOXYGEN_ONLY)
+        : constant_<typename T::parent>
+#endif
   {
     using parent = constant_<typename T::parent>;
   };
 
+#if !defined(DOXYGEN_ONLY)
   template<typename T>
   struct  constant_< unspecified_<T> > : hierarchy_of< typename T::value_type >
   {
     using parent = hierarchy_of_t< typename T::value_type, T >;
   };
+#endif
 } }
 
 #endif

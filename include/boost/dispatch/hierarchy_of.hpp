@@ -20,27 +20,30 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-meta
+    @ingroup group-hierarchy
     @brief Retrieve the hierarchy of a Type
 
     For any type @c T, returns the hierarchy describing the properties of any given type.
     This Hierarchy can later be used to select functions implementation based on type properties.
 
-    @tparam T     Type to categorize
-    @tparam Origin
-
     @par Models:
 
     @metafunction
 
-    @par Semantic:
-
+    @tparam T       Type to categorize
+    @tparam Origin  Type to store inside the generated hierarchy type
   **/
   template<typename T, typename Origin = T>
-  struct hierarchy_of : detail::hierarchy_of<T, typename std::remove_reference<Origin>::type>
+  struct  hierarchy_of
+#if !defined(DOXYGEN_ONLY)
+        : detail::hierarchy_of<T, typename std::remove_reference<Origin>::type>
+#endif
   {};
 
-  /// EAger short-cur for hierarchy_of
+  /*!
+    @ingroup group-hierarchy
+    Eager short-cut to boost::dispatch::hierarchy_of
+  **/
   template<typename T, typename Origin = T>
   using hierarchy_of_t = typename hierarchy_of<T, Origin>::type;
 } }

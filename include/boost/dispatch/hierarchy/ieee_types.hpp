@@ -20,7 +20,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief IEEE-754 double type hierarchy tag
 
     Types are classified as double_ if they behaves as a double precision IEEE-754 type.
@@ -33,7 +33,7 @@ namespace boost { namespace dispatch
   };
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief IEEE-754 single type hierarchy tag
 
     Types are classified as single_ if they behaves as a single precision IEEE-754 type.
@@ -46,7 +46,7 @@ namespace boost { namespace dispatch
   };
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Long double type hierarchy tag
 
     Types are classified as long_double_ if they behaves as a long double type.

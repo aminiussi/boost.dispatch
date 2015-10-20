@@ -16,43 +16,17 @@
 
 #include <boost/config.hpp>
 
+// TODO : PR to Boost.config
 #if defined(__GNUC__)
 #define BOOST_RESTRICT __restrict__
 #elif defined(_MSC_VER)
 #define BOOST_RESTRICT __restrict
 #else
-/*!
-  @ingroup group-detail
-  @brief Mark a pointer or reference as restricted
-
-  This macro expands to a potential compiler specific parameters attribute
-  indicating that a given pointer or reference is not aliasing any other pointer
-  or reference.
-
-  @par Usage:
-
-  @code
-  void* BOOST_RESTRICT ptr = malloc(1337);
-  @endcode
-
-  @see BOOST_NO_RESTRICT_REFERENCES
-**/
 #define BOOST_RESTRICT
-
-/*!
-  @ingroup group-detail
-  @brief Notify of compiler's inability to provide restrict keyword
-**/
 #define BOOST_NO_RESTRICT
 #endif
 
-#if defined(BOOST_NO_RESTRICT) || defined(_MSC_VER) || defined(DOXYGEN_ONLY)
-/*!
-  @ingroup group-detail
-  @brief Notify of compiler's inability to support restrict keyword for reference
-
-  @see BOOST_RESTRICT
-**/
+#if defined(BOOST_NO_RESTRICT) || defined(_MSC_VER)
 #define BOOST_NO_RESTRICT_REFERENCES
 #endif
 

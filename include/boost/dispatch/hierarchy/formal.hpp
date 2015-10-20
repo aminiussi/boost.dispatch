@@ -19,7 +19,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Formal architecture hierarchy tag
 
     The formal_ hierarchy represents a 'virtual' hardware in which code transformation but

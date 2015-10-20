@@ -1,7 +1,7 @@
 PROJECT_NAME            = "Boost.Dispatch"
-PROJECT_BRIEF           = "Unit and Performances Testing"
+PROJECT_BRIEF           = "Tag-dispatching Made Easy"
 PROJECT_LOGO            =
-PROJECT_NUMBER          = "@BOOST_DISPATCH_VERSION_STRING@ @nstest_release@"
+PROJECT_NUMBER          = "@BOOST_DISPATCH_VERSION_STRING@ @boost_dispatch_release@"
 
 STRIP_FROM_PATH         = @Boost.Dispatch_SOURCE_DIR@/include
 BUILTIN_STL_SUPPORT     = YES
@@ -25,7 +25,7 @@ INPUT                   += @Boost.Dispatch_SOURCE_DIR@/doc
 FILE_PATTERNS           = *.md *.hpp
 RECURSIVE               = YES
 
-#EXCLUDE                = @Boost.Dispatch_SOURCE_DIR@/???
+EXCLUDE                 = @Boost.Dispatch_SOURCE_DIR@/include/boost/dispatch/detail/brigand.hpp
 
 EXAMPLE_PATH            = @Boost.Dispatch_SOURCE_DIR@/example
 #EXAMPLE_PATH           += @Boost.Dispatch_SOURCE_DIR@/test/unit

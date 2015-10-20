@@ -41,7 +41,7 @@ namespace boost { namespace dispatch
   }
 
   /*!
-    @ingroup group-meta
+    @ingroup group-generation
     @brief Turn a type into an equivalent unsigned type
 
     Converts any type which Primitive is Fundamental into a compatible unsigned type.

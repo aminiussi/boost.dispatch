@@ -27,7 +27,7 @@ namespace boost { namespace dispatch
   }
 
   /*!
-    @ingroup group-meta
+    @ingroup group-generation
     @brief Apply sign to given type
 
     Transforms any type @c T into a corresponding type with specified sign @c Sign.
@@ -37,6 +37,10 @@ namespace boost { namespace dispatch
   **/
   template<typename T,typename Sign> struct apply_sign : detail::apply_sign<T,Sign> {};
 
+  /*!
+    @ingroup group-generation
+    Eager short-cut to boost::dispatch::apply_sign
+  **/
   template<typename T,typename Sign> using apply_sign_t = typename apply_sign<T,Sign>::type;
 } }
 

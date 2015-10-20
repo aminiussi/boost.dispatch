@@ -34,7 +34,7 @@ namespace boost { namespace dispatch
   }
 
   /*!
-    @ingroup group-meta
+    @ingroup group-introspection
     @brief Return sign of a type
 
     If a type @c T can contains value with a sign (i.e signed integers and floating points-like

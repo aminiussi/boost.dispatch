@@ -32,7 +32,7 @@ namespace boost { namespace dispatch
   }
 
   /*!
-    @ingroup group-meta
+    @ingroup group-generation
     @brief Turn a type into an equivalent floating point type
 
     Converts any type which Primitive is Fundamental into a floating point type with a compatible

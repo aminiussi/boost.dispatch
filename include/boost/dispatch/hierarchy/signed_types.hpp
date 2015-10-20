@@ -22,7 +22,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Signed types hierarchy tag
 
     Types are classified as signed_type_ if they have the proper sign.
@@ -52,7 +52,7 @@ namespace boost { namespace dispatch
   };
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief signed type hierarchy tag
 
     Types are classified as signed_ if they behaves as one of the signed types.
@@ -62,7 +62,7 @@ namespace boost { namespace dispatch
   template<typename T> using signed_ = signed_type_<T,signed>;
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief unsigned type hierarchy tag
 
     Types are classified as unsigned_ if they behaves as one of the unsigned types.
@@ -72,7 +72,7 @@ namespace boost { namespace dispatch
   template<typename T> using unsigned_ = signed_type_<T,unsigned>;
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Signed types hierarchy tag
 
     Types are classified as signed_type_ if they have the proper sign.
@@ -87,7 +87,7 @@ namespace boost { namespace dispatch
   };
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief unsigned integral type hierarchy tag
 
     Types are classified as int_ if they behaves as one of the unsigned integral types.
@@ -97,7 +97,7 @@ namespace boost { namespace dispatch
   template<typename T> using uint_  = signed_integral_<T,unsigned>;
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief signed integral type hierarchy tag
 
     Types are classified as int_ if they behaves as one of the signed integral types.

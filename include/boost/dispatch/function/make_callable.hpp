@@ -20,7 +20,7 @@
 #include <boost/dispatch/detail/auto_decltype.hpp>
 
 /*!
-  @ingroup group-api
+  @ingroup group-function
 
   Generates the boilerplate code for adapting a @c TAG type as a Boost.Dispatch callable
   object
@@ -40,7 +40,7 @@ using parent = PARENT                                                           
 /**/
 
 /*!
-  @ingroup group-api
+  @ingroup group-function
 
   Generates the boilerplate code for generating a @c TAG type as
   a Boost.Dispatch callable object
@@ -55,7 +55,7 @@ struct TAG : PARENT { BOOST_DISPATCH_MAKE_CALLABLE(NS,TAG,PARENT); }            
 /**/
 
 /*!
-  @ingroup group-api
+  @ingroup group-function
 
   Generates the boilerplate code for defining the dispatching function for a given @c TAG
 
@@ -75,7 +75,7 @@ BOOST_DISPATCH_IMPLEMENTS(TAG, ::boost::dispatch::unspecified_<Site> const&, ...
 /**/
 
 /*!
-  @ingroup group-api
+  @ingroup group-function
 
   Generates a callable object from a @c TAG
 
@@ -89,7 +89,7 @@ static const boost::dispatch::functor<TAG> NAME = {}                            
 /**/
 
 /*!
-  @ingroup group-api
+  @ingroup group-function
 
   Generates a function from a @c TAG
 

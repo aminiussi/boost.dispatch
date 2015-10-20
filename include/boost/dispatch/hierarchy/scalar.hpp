@@ -21,7 +21,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Scalar types hierarchy tag
 
     The scalar_ hierarchy represents types which values are stored in one or multiple general
@@ -30,17 +30,22 @@ namespace boost { namespace dispatch
     @tparam Hierarchy Type hierarchy
   **/
   template<typename Hierarchy>
-  struct scalar_ : scalar_<typename Hierarchy::parent>
+  struct  scalar_
+#if !defined(DOXYGEN_ONLY)
+        : scalar_<typename Hierarchy::parent>
+#endif
   {
     using parent = scalar_<typename Hierarchy::parent>;
   };
 
+#if !defined(DOXYGEN_ONLY)
   // When hitting unspecified_, behaves as a generic_ type
   template<typename Type>
   struct scalar_< unspecified_<Type> > : generic_<property_of_t<Type>>
   {
     using parent = generic_<property_of_t<Type>>;
   };
+#endif
 } }
 
 #endif

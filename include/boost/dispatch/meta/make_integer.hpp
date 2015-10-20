@@ -82,7 +82,7 @@ namespace boost { namespace dispatch
   }
 
   /*!
-    @ingroup group-meta
+    @ingroup group-generation
     @brief Generate an integer type of a given size and sign
 
     For any given Size corresponding to a valid integer type and an optional Sign,

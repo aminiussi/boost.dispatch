@@ -2,7 +2,7 @@
 /*!
   @file
 
-  Gateway header to hierarchy types
+  Gateway header to all meta-programming helpers
 
   @copyright 2015 NumScale SAS
 

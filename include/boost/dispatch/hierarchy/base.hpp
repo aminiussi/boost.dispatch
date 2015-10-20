@@ -17,7 +17,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Root type hierarchy tag
 
     The type_ hierarchy classify type related informations.
@@ -29,7 +29,7 @@ namespace boost { namespace dispatch
   };
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Root function hierarchy tag
 
     The function_ hierarchy classify function related informations.

@@ -22,7 +22,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Tuple type hierarchy tag
 
     Types are classified as tuple_ if they represent a compound type models the FusionSequence
@@ -31,14 +31,15 @@ namespace boost { namespace dispatch
     @tparam T Base type
     @tparam N Size of the classified tuple
   **/
-  template<typename T, typename N> struct tuple_ : unspecified_<T>
+  template<typename T, typename N>
+  struct  tuple_ : unspecified_<T>
   {
     /// tuple_ parent hierarchy type
     using parent = unspecified_<T>;
   };
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Homogeneous tuple type hierarchy tag
 
     Types are classified as bag_ if they represent a compound type that models the FusionSequence
@@ -49,16 +50,22 @@ namespace boost { namespace dispatch
     @tparam T Base hierarchy
     @tparam N Size of the classified bag
   **/
-  template<typename T, typename N> struct bag_ : bag_<typename T::parent, N>
+  template<typename T, typename N>
+  struct  bag_
+#if !defined(DOXYGEN_ONLY)
+        : bag_<typename T::parent, N>
+#endif
   {
     /// bag_ parent hierarchy type
     using parent = bag_<typename T::parent, N>;
   };
 
+#if !defined(DOXYGEN_ONLY)
   template<typename T, typename N> struct bag_<unspecified_<T>,N> : tuple_<T,N>
   {
     using parent = tuple_<T,N>;
   };
+#endif
 } }
 
 #endif

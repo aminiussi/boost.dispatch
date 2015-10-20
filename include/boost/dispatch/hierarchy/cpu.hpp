@@ -19,7 +19,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Basic architecture hierarchy tag
 
     The cpu_ hierarchy represents hardware with no specificities. Functions defined on cpu_

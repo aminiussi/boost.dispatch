@@ -19,7 +19,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Fundamental type hierarchy tag
 
     Types classified as fundamental_ have similar properties to Fundamental C++ types, i.e

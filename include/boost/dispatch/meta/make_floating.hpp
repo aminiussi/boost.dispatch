@@ -44,7 +44,7 @@ namespace boost { namespace dispatch
   }
 
   /*!
-    @ingroup group-meta
+    @ingroup group-generation
     @brief Generate a floating point type of a given size
 
     For any given Size corresponding to a valid floating point type, return said type optionally

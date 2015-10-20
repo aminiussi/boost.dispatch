@@ -15,7 +15,7 @@
 #define BOOST_DISPATCH_HIERARCHY_DEFAULT_SITE_HPP_INCLUDED
 
 /*!
-  @ingroup group-api
+  @ingroup group-hierarchy
   @brief Customizable default architecture
 
   BOOST_DISPATCH_DEFAULT_SITE is to be defined with a proper architectural hierarchy to be used as
@@ -48,7 +48,7 @@ namespace boost { namespace dispatch
   }
 
   /*!
-    @ingroup group-api
+    @ingroup group-hierarchy
     @brief Preferred architecture tag
 
     For any function Tag, returns the hierarchy of the preferred architecture this function should

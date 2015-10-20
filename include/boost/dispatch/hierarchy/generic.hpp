@@ -19,7 +19,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Generic types hierarchy tag
 
     The generc_ hierarchy represents types which values are stored any kind of registers.
@@ -29,17 +29,22 @@ namespace boost { namespace dispatch
     @tparam Hierarchy Type hierarchy
   **/
   template<typename Hierarchy>
-  struct generic_ : generic_<typename Hierarchy::parent>
+  struct  generic_
+#if !defined(DOXYGEN_ONLY)
+        : generic_<typename Hierarchy::parent>
+#endif
   {
     using parent = generic_<typename Hierarchy::parent>;
   };
 
+#if !defined(DOXYGEN_ONLY)
   // TODO: When hitting unspecified_, devolves to higher order hierarchy before unspecified
   template<typename Type>
   struct generic_< unspecified_<Type> > : unspecified_<Type>
   {
     using parent = unspecified_<Type>;
   };
+#endif
 } }
 
 #endif

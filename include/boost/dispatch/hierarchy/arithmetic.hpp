@@ -19,7 +19,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief arithmetic type hierarchy tag
 
     Types are classified as arithmetic_ if the built-in arithmetic operators (+, -, *, /) are

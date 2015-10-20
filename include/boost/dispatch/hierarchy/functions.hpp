@@ -19,7 +19,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Abstract function hierarchy tag
 
     Function object classified as abstract_ if they represent higher-order functions
@@ -32,7 +32,7 @@ namespace boost { namespace dispatch
   };
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Elementwise function hierarchy tag
 
     Function object classified as elementwise_ if they can be used as argument to the map
@@ -46,7 +46,7 @@ namespace boost { namespace dispatch
   };
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Constant value function hierarchy tag
 
     Function object classified as constant_value if they evaluate to a value independant of their
@@ -60,7 +60,7 @@ namespace boost { namespace dispatch
   };
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Reductive function hierarchy tag
 
     Function object classified as reduction_ if they can be used as argument to the fold
@@ -77,7 +77,7 @@ namespace boost { namespace dispatch
   };
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Cumulative function hierarchy tag
 
     Function object classified as cumulative_ if they can be used as argument to the scan
@@ -94,7 +94,7 @@ namespace boost { namespace dispatch
   };
 
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Multi-return function hierarchy tag
 
     Function object classified as tieable_ if they may return multiple values as a tie expression.

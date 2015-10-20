@@ -19,7 +19,7 @@
 namespace boost { namespace dispatch
 {
   /*!
-    @ingroup group-hierarchy
+    @ingroup group-tag
     @brief Boolean type hierarchy tag
 
     Types classified as bool_ have properties similar to bool
