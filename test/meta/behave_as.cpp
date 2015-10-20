@@ -6,7 +6,7 @@
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 */
 //==================================================================================================
-#include <boost/dispatch/meta/introspection/behave_as.hpp>
+#include <boost/dispatch/meta/behave_as.hpp>
 #include <boost/dispatch/detail/brigand.hpp>
 #include <type_traits>
 #include <stf.hpp>

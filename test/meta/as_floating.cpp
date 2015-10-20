@@ -6,8 +6,8 @@
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 */
 //==================================================================================================
-#include <boost/dispatch/meta/generation/as_floating.hpp>
-#include <boost/dispatch/meta/generation/make_floating.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/dispatch/meta/make_floating.hpp>
 #include <cstdint>
 
 #include <stf.hpp>

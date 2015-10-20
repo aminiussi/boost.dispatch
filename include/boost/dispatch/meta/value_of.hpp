@@ -74,6 +74,6 @@ namespace boost { namespace dispatch
   template<typename T> using value_of_t = typename value_of<T>::type;
 } }
 
-#include <boost/dispatch/meta/introspection/detail/value_of.hpp>
+#include <boost/dispatch/detail/value_of.hpp>
 
 #endif

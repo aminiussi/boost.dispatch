@@ -8,7 +8,7 @@
 //==================================================================================================
 #include <boost/dispatch/hierarchy.hpp>
 #include <boost/dispatch/adapted/std/array.hpp>
-#include <boost/dispatch/meta/introspection/sign_of.hpp>
+#include <boost/dispatch/meta/sign_of.hpp>
 #include <cstdint>
 #include <cstddef>
 #include <array>

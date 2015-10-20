@@ -6,7 +6,7 @@
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 */
 //==================================================================================================
-#include <boost/dispatch/meta/introspection/factory_of.hpp>
+#include <boost/dispatch/meta/factory_of.hpp>
 
 #include <stf.hpp>
 

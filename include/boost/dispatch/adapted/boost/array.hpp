@@ -16,8 +16,8 @@
 #define BOOST_DISPATCH_ADAPTED_BOOST_ARRAY_HPP_INCLUDED
 
 #include <boost/array.hpp>
-#include <boost/dispatch/meta/introspection/value_of.hpp>
-#include <boost/dispatch/meta/introspection/model_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/adapted/hierarchy/array.hpp>
 #include <boost/dispatch/hierarchy_of.hpp>
 

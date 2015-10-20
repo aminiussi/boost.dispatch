@@ -14,7 +14,7 @@
 #ifndef BOOST_DISPATCH_PROPERTY_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_PROPERTY_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/introspection/scalar_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/detail/property_of.hpp>
 #include <type_traits>
 

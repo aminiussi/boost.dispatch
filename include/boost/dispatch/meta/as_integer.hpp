@@ -14,10 +14,10 @@
 #ifndef BOOST_DISPATCH_META_GENERATION_AS_INTEGER_HPP_INCLUDED
 #define BOOST_DISPATCH_META_GENERATION_AS_INTEGER_HPP_INCLUDED
 
-#include <boost/dispatch/meta/introspection/sign_of.hpp>
-#include <boost/dispatch/meta/introspection/factory_of.hpp>
-#include <boost/dispatch/meta/introspection/primitive_of.hpp>
-#include <boost/dispatch/meta/generation/make_integer.hpp>
+#include <boost/dispatch/meta/sign_of.hpp>
+#include <boost/dispatch/meta/factory_of.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/dispatch/meta/make_integer.hpp>
 #include <type_traits>
 
 namespace boost { namespace dispatch

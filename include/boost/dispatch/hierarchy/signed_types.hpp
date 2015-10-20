@@ -15,7 +15,7 @@
 #define BOOST_DISPATCH_HIERARCHY_SIGNED_TYPES_HPP_INCLUDED
 
 #include <boost/dispatch/hierarchy/integer.hpp>
-#include <boost/dispatch/meta/introspection/behave_as.hpp>
+#include <boost/dispatch/meta/behave_as.hpp>
 #include <boost/dispatch/detail/brigand.hpp>
 #include <type_traits>
 

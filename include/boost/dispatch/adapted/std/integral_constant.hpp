@@ -15,8 +15,8 @@
 #ifndef BOOST_DISPATCH_ADAPTED_STD_INTEGRAL_CONSTANT_HPP_INCLUDED
 #define BOOST_DISPATCH_ADAPTED_STD_INTEGRAL_CONSTANT_HPP_INCLUDED
 
-#include <boost/dispatch/meta/introspection/value_of.hpp>
-#include <boost/dispatch/meta/introspection/model_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/adapted/hierarchy/integral_constant.hpp>
 #include <type_traits>
 

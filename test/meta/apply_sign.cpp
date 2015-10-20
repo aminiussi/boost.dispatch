@@ -6,9 +6,9 @@
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 */
 //==================================================================================================
-#include <boost/dispatch/meta/generation/apply_sign.hpp>
-#include <boost/dispatch/meta/generation/as_unsigned.hpp>
-#include <boost/dispatch/meta/generation/as_signed.hpp>
+#include <boost/dispatch/meta/apply_sign.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
+#include <boost/dispatch/meta/as_signed.hpp>
 #include <cstdint>
 
 #include <stf.hpp>

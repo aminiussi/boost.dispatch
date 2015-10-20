@@ -20,7 +20,7 @@
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/dispatch/detail/hierarchy_of.hpp>
 #include <boost/dispatch/adapted/hierarchy/tuple.hpp>
-#include <boost/dispatch/meta/introspection/is_homogeneous.hpp>
+#include <boost/dispatch/meta/is_homogeneous.hpp>
 #include <type_traits>
 
 namespace boost { namespace dispatch

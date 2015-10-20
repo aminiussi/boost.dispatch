@@ -7,10 +7,10 @@
 */
 //==================================================================================================
 #include <boost/dispatch/adapted/std/integral_constant.hpp>
-#include <boost/dispatch/meta/introspection/factory_of.hpp>
-#include <boost/dispatch/meta/introspection/model_of.hpp>
-#include <boost/dispatch/meta/introspection/value_of.hpp>
-#include <boost/dispatch/meta/introspection/primitive_of.hpp>
+#include <boost/dispatch/meta/factory_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
 #include <type_traits>
 
 #include <stf.hpp>

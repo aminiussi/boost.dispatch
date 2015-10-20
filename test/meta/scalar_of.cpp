@@ -6,7 +6,7 @@
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 */
 //==================================================================================================
-#include <boost/dispatch/meta/introspection/scalar_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 #include <cstdint>
 #include <stf.hpp>
 

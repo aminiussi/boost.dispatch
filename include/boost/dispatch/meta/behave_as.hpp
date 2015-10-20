@@ -14,7 +14,7 @@
 #ifndef BOOST_DISPATCH_META_INTROSPECTION_BEHAVE_AS_HPP_INCLUDED
 #define BOOST_DISPATCH_META_INTROSPECTION_BEHAVE_AS_HPP_INCLUDED
 
-#include <boost/dispatch/meta/introspection/primitive_of.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/dispatch/detail/brigand.hpp>
 
 namespace boost { namespace dispatch

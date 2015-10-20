@@ -6,8 +6,8 @@
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 */
 //==================================================================================================
-#include <boost/dispatch/meta/generation/upgrade.hpp>
-#include <boost/dispatch/meta/introspection/sign_of.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/dispatch/meta/sign_of.hpp>
 #include <type_traits>
 #include <cstdint>
 

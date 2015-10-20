@@ -19,7 +19,7 @@
 #include <boost/fusion/include/std_tuple.hpp>
 #include <boost/dispatch/detail/hierarchy_of.hpp>
 #include <boost/dispatch/adapted/hierarchy/tuple.hpp>
-#include <boost/dispatch/meta/introspection/is_homogeneous.hpp>
+#include <boost/dispatch/meta/is_homogeneous.hpp>
 
 namespace boost { namespace dispatch
 {

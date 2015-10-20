@@ -14,9 +14,9 @@
 #ifndef BOOST_DISPATCH_META_GENERATION_AS_SIGNED_HPP_INCLUDED
 #define BOOST_DISPATCH_META_GENERATION_AS_SIGNED_HPP_INCLUDED
 
-#include <boost/dispatch/meta/introspection/factory_of.hpp>
-#include <boost/dispatch/meta/introspection/primitive_of.hpp>
-#include <boost/dispatch/meta/introspection/is_natural.hpp>
+#include <boost/dispatch/meta/factory_of.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/dispatch/meta/is_natural.hpp>
 #include <type_traits>
 
 namespace boost { namespace dispatch

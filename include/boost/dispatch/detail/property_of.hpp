@@ -14,7 +14,7 @@
 #ifndef BOOST_DISPATCH_DETAIL_PROPERTY_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_DETAIL_PROPERTY_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/introspection/sign_of.hpp>
+#include <boost/dispatch/meta/sign_of.hpp>
 #include <boost/dispatch/hierarchy/integer_types.hpp>
 #include <boost/dispatch/hierarchy/unspecified.hpp>
 #include <boost/dispatch/hierarchy/ieee_types.hpp>

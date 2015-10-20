@@ -15,8 +15,8 @@
 #define BOOST_DISPATCH_AS_HPP_INCLUDED
 
 #include <boost/dispatch/hierarchy/unspecified.hpp>
-#include <boost/dispatch/meta/introspection/value_of.hpp>
-#include <boost/dispatch/meta/introspection/model_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/hierarchy_of.hpp>
 #include <boost/core/ignore_unused.hpp>
 

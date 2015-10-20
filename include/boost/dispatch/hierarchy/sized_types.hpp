@@ -17,8 +17,8 @@
 #include <boost/dispatch/hierarchy/integer.hpp>
 #include <boost/dispatch/hierarchy/floating.hpp>
 #include <boost/dispatch/hierarchy/signed_types.hpp>
-#include <boost/dispatch/meta/introspection/sign_of.hpp>
-#include <boost/dispatch/meta/introspection/behave_as.hpp>
+#include <boost/dispatch/meta/sign_of.hpp>
+#include <boost/dispatch/meta/behave_as.hpp>
 #include <type_traits>
 #include <climits>
 #include <cstddef>
