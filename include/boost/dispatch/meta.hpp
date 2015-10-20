@@ -16,6 +16,5 @@
 
 #include <boost/dispatch/meta/generation.hpp>
 #include <boost/dispatch/meta/introspection.hpp>
-#include <boost/dispatch/meta/enable_if_type.hpp>
 
 #endif
