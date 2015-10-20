@@ -16,9 +16,6 @@
 
 namespace boost { namespace dispatch
 {
-  // Tag used to detect if a type is a hierarchy
-  namespace detail { struct hierarchy_tag {}; }
-
   /*!
     @ingroup group-hierarchy
     @brief Root type hierarchy tag
@@ -28,7 +25,7 @@ namespace boost { namespace dispatch
   template<typename T> struct type_
   {
     using parent        =  type_;
-    using hierarchy_tag =  detail::hierarchy_tag;
+    using hierarchy_tag =  void;
   };
 
   /*!
@@ -40,7 +37,7 @@ namespace boost { namespace dispatch
   template<typename T> struct function_
   {
     using parent        =  function_;
-    using hierarchy_tag =  detail::hierarchy_tag;
+    using hierarchy_tag =  void;
   };
 } }
 

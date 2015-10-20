@@ -14,7 +14,6 @@
 #ifndef BOOST_DISPATCH_DETAIL_HIERARCHY_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_DETAIL_HIERARCHY_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/enable_if_type.hpp>
 #include <boost/dispatch/hierarchy/scalar.hpp>
 #include <boost/dispatch/property_of.hpp>
 #include <type_traits>
@@ -43,7 +42,7 @@ namespace boost { namespace dispatch { namespace ext
 
   // hierarchy_of on Hierarchy returns the Hierarchy
   template<typename T, typename Origin>
-  struct  hierarchy_of<T, Origin, typename enable_if_type<typename T::hierarchy_tag>::type>
+  struct  hierarchy_of<T, Origin, typename T::hierarchy_tag>
   {
     using type = T;
   };
