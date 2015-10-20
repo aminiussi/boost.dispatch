@@ -14,7 +14,7 @@
 #ifndef BOOST_DISPATCH_META_GENERATION_UPGRADE_HPP_INCLUDED
 #define BOOST_DISPATCH_META_GENERATION_UPGRADE_HPP_INCLUDED
 
-#include <boost/dispatch/meta/detail/updowngrade.hpp>
+#include <boost/dispatch/detail/updowngrade.hpp>
 #include <boost/dispatch/detail/brigand.hpp>
 #include <cstdint>
 
