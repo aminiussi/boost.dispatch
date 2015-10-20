@@ -7,6 +7,7 @@
 */
 //==================================================================================================
 #include <boost/dispatch/hierarchy_of.hpp>
+#include <boost/dispatch/hierarchy.hpp>
 #include <cstdint>
 #include <cstddef>
 
@@ -14,6 +15,13 @@
 
 using namespace boost::dispatch;
 struct foo {};
+
+STF_CASE( "hierarchy_of for hierarchies" )
+{
+  STF_TYPE_IS( hierarchy_of_t<type_<void>>    , type_<void>     );
+  STF_TYPE_IS( hierarchy_of_t<function_<void>>, function_<void> );
+  STF_TYPE_IS( hierarchy_of_t<cpu_>           , cpu_            );
+}
 
 STF_CASE( "hierarchy_of for random unspecified types")
 {
