@@ -16,6 +16,8 @@ STF_CASE( "Generate raw floating point types")
 {
   STF_TYPE_IS( (make_floating_t<8>) , double );
   STF_TYPE_IS( (make_floating_t<4>) , float  );
+  STF_TYPE_IS( (make_floating_t<2>) , float  );
+  STF_TYPE_IS( (make_floating_t<1>) , float  );
 }
 
 using ptr_t = std::add_pointer<brigand::_1>;
@@ -24,4 +26,6 @@ STF_CASE( "Generate transformed floating point types")
 {
   STF_TYPE_IS( (make_floating_t<8,ptr_t>) , double* );
   STF_TYPE_IS( (make_floating_t<4,ptr_t>) , float*  );
+  STF_TYPE_IS( (make_floating_t<2,ptr_t>) , float*  );
+  STF_TYPE_IS( (make_floating_t<1,ptr_t>) , float*  );
 }

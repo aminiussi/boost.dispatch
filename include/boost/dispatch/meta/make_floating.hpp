@@ -24,22 +24,16 @@ namespace boost { namespace dispatch
     template< std::size_t Size, typename Transform>
     struct  make_floating
     {
-      static_assert ( Size == sizeof(float) || Size == sizeof(double)
+      static_assert ( Size <= sizeof(double)
                     , "boost::dispatch::make_floating: can't generate type of given Size"
                     );
-      using type = brigand::no_such_type_;
+      using type = brigand::apply<Transform,float>;
     };
 
     template<typename Transform>
     struct make_floating<sizeof(double),Transform>
     {
       using type = brigand::apply<Transform,double>;
-    };
-
-    template<typename Transform>
-    struct make_floating<sizeof(float),Transform>
-    {
-      using type = brigand::apply<Transform,float>;
     };
   }
 
