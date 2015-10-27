@@ -23,7 +23,7 @@ STF_CASE_TPL( "Generate floating from floating types", STF_IEEE_TYPES )
   STF_TYPE_IS( (as_floating_t<T const&>), T );
 }
 
-STF_CASE_TPL( "Generate floating from integral types", STF_ALL_INTEGRAL_TYPES )
+STF_CASE_TPL( "Generate floating from integral types", STF_INTEGRAL_TYPES )
 {
   STF_TYPE_IS( (as_floating_t<T>)        ,(make_floating_t<sizeof(T)>) );
   STF_TYPE_IS( (as_floating_t<T&>)       ,(make_floating_t<sizeof(T)>) );
