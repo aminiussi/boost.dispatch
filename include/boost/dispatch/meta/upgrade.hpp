@@ -32,7 +32,8 @@ namespace boost { namespace dispatch
                                     >;
 
     template<typename T,typename Sign>
-    struct upgrade : boost::dispatch::detail::updowngrade<T,Sign,upgrade_map> {};
+    struct upgrade : boost::dispatch::detail::updowngrade<T, Sign,upgrade_map,true>
+    {};
 
     template<typename T,typename Sign>
     struct upgrade<T&,Sign> : boost::dispatch::detail::upgrade<T,Sign> {};
@@ -42,12 +43,6 @@ namespace boost { namespace dispatch
 
     template<typename T,typename Sign>
     struct upgrade<T const,Sign> : boost::dispatch::detail::upgrade<T,Sign> {};
-
-    // sizeof(bool) is non-standard, so we can't just map its upgrade to (un)signed short
-    template<typename Sign>
-    struct  upgrade<bool,Sign>
-          : boost::dispatch::detail::upgrade<boost::dispatch::make_integer_t<sizeof(bool)>,Sign>
-    {};
   }
 
   template<typename T,typename Sign = sign_of_t<T>>

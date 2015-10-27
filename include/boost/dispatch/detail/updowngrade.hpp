@@ -18,24 +18,41 @@
 #include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/dispatch/meta/sign_of.hpp>
 #include <boost/dispatch/meta/make_integer.hpp>
-#include <boost/dispatch/meta/as_unsigned.hpp>
 #include <boost/dispatch/meta/apply_sign.hpp>
 #include <boost/dispatch/detail/brigand.hpp>
+#include <type_traits>
 
 namespace boost { namespace dispatch { namespace detail
 {
-  template<typename T,typename Sign,typename Map> struct updowngrade
+  template<typename T, typename Map, typename Sign, bool Direction, bool IsReal> struct fetch
+  {
+    using type = brigand::at<Map,T>;
+  };
+
+  template<typename T, typename Map, typename Sign, bool Direction>
+  struct fetch<T,Map,Sign,Direction,false>
+  {
+    // Normalize T
+    using base = dispatch::make_integer_t<sizeof(T),unsigned>;
+    using found = brigand::at<Map,base>;
+    using type  = boost::dispatch::apply_sign_t<found,Sign>;
+  };
+
+  template<typename Map, typename Sign> struct fetch<bool,Map,Sign,false,false>
+  {
+    using type = brigand::at<Map,bool>;
+  };
+
+  template<typename T,typename Sign,typename Map, bool Direction> struct updowngrade
   {
     // Decompose in factory/primitive
     using f_t = boost::dispatch::factory_of<T>;
     using p_t = boost::dispatch::primitive_of_t<T>;
 
-    // Use the unsigned the primitive to limit the map's size
-    using b_t  = boost::dispatch::as_unsigned_t<p_t>;
-    using db_t = brigand::at<Map,b_t>;
+    // Fetch from a normalized pool of types if requried by the Direction of the transformation
+    using d_t = typename fetch<p_t,Map,Sign,Direction,std::is_floating_point<p_t>::value>::type;
 
-    // Reapply sign and reconstruct
-    using d_t  = boost::dispatch::apply_sign_t<db_t,Sign>;
+    // Reconstruct
     using type = typename f_t::template apply<d_t>::type;
   };
 } } }

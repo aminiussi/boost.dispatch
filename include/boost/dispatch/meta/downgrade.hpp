@@ -33,7 +33,8 @@ namespace boost { namespace dispatch
                                       >;
 
     template<typename T,typename Sign>
-    struct downgrade : boost::dispatch::detail::updowngrade<T,Sign,downgrade_map> {};
+    struct downgrade : boost::dispatch::detail::updowngrade<T,Sign,downgrade_map,false>
+    {};
 
     template<typename T,typename Sign>
     struct downgrade<T&,Sign> : boost::dispatch::detail::downgrade<T,Sign> {};
