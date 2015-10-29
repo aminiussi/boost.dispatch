@@ -93,4 +93,4 @@ before_script:
 # Build unit and run test
 script:
   - make unit
-  - make test
+  - ctest -D Experimental

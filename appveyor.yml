@@ -58,7 +58,6 @@ after_build:
 build_script:
  - cd c:\sources\boost.dispatch\build
  - cmake --build . --config Release --target unit
- - cmake --build . --config Debug   --target unit
 
 # scripts to run before tests
 before_test:
@@ -69,8 +68,7 @@ after_test:
 # to run your custom scripts instead of automatic tests
 test_script:
  - cd c:\sources\boost.dispatch\build
- - cmd: ctest -C Debug -VV
- - cmd: ctest -C Release -VV
+ - cmd: ctest -C Release -D Experimental
 
 
 

@@ -59,7 +59,8 @@ add_custom_target(tests)
 add_custom_target(unit)
 
 include(coverage)
-enable_testing()
+include( CTest )
+
 enable_coverage(boost.dispatch)
 add_dependencies(tests unit)
 
