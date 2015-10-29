@@ -35,21 +35,25 @@ endif()
 if(CMAKE_PROJECT_NAME STREQUAL Boost.Dispatch)
   set(OS ${CMAKE_SYSTEM_NAME})
 
-  string(TOLOWER ${CMAKE_CXX_COMPILER_ID} COMPILER)
-  string(REGEX REPLACE "([0-9]+)\\.([0-9]+).*" "\\1" VERSION_MAJOR "${CMAKE_CXX_COMPILER_VERSION}")
-  string(REGEX REPLACE "([0-9]+)\\.([0-9]+).*" "\\2" VERSION_MINOR "${CMAKE_CXX_COMPILER_VERSION}")
-
-  # Compiler version is that of cl.exe, we convert it to MSVC
-  if(MSVC AND VERSION_MAJOR)
-    math(EXPR VERSION_MAJOR "${VERSION_MAJOR} - 6")
-  endif()
-
-  if(VERSION_MINOR)
-    set(VERSION ${VERSION_MAJOR}.${VERSION_MINOR})
+  if($ENV{TOOLSET})
+    set(COMPILER "$ENV{TOOLSET}-std=c++$ENV{CXX_STD}")
   else()
-    set(VERSION ${VERSION_MAJOR})
+    string(TOLOWER ${CMAKE_CXX_COMPILER_ID} COMPILER)
+    string(REGEX REPLACE "([0-9]+)\\.([0-9]+).*" "\\1" VERSION_MAJOR "${CMAKE_CXX_COMPILER_VERSION}")
+    string(REGEX REPLACE "([0-9]+)\\.([0-9]+).*" "\\2" VERSION_MINOR "${CMAKE_CXX_COMPILER_VERSION}")
+
+    # Compiler version is that of cl.exe, we convert it to MSVC
+    if(MSVC AND VERSION_MAJOR)
+      math(EXPR VERSION_MAJOR "${VERSION_MAJOR} - 6")
+    endif()
+
+    if(VERSION_MINOR)
+      set(VERSION ${VERSION_MAJOR}.${VERSION_MINOR})
+    else()
+      set(VERSION ${VERSION_MAJOR})
+    endif()
+    set(COMPILER "${COMPILER}${VERSION}")
   endif()
-  set(COMPILER "${COMPILER}${VERSION}")
 
   set(BUILDNAME "${OS}-${COMPILER}")
   file(WRITE ${PROJECT_BINARY_DIR}/CTestConfigData.cmake "set(BUILDNAME ${BUILDNAME})\nset(CTEST_USE_LAUNCHERS ${CTEST_USE_LAUNCHERS})")
