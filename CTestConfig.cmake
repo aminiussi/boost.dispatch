@@ -35,7 +35,9 @@ endif()
 if(CMAKE_PROJECT_NAME STREQUAL Boost.Dispatch)
   set(OS ${CMAKE_SYSTEM_NAME})
 
-  if(${TOOLSET})
+  message(STATUS "Check for toolset: ${TOOLSET}")
+
+  if(TOOLSET)
     set(COMPILER "${TOOLSET}-std=c++${CXX_STD}")
   else()
     string(TOLOWER ${CMAKE_CXX_COMPILER_ID} COMPILER)
