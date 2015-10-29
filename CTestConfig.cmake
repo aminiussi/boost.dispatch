@@ -20,24 +20,14 @@ else()
   get_filename_component(SOURCE_DIRECTORY ${CTEST_SOURCE_DIRECTORY} ABSOLUTE)
 endif()
 
-#set(CTEST_MEMORYCHECK_SUPPRESSIONS_FILE ${SOURCE_DIRECTORY}/valgrind.supp)
-#list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "You are using gcc version \".*\"")
-#list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "[0-9]+ shortened to [0-9]+")
-#list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION ".*anonymous.* may be used uninitialized in this function")
-#list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "The ABI for passing parameters with [0-9]+-byte alignment has changed")
-#list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "GCC vector passed by reference: non-standard ABI extension with no compatibility guarantee")
-
-# Note: In order to have CTest ignore these limits and not truncate the test
-#       output, the string "CTEST_FULL_OUTPUT" has to be output by the test
-#       (e.g., as first line of the test output to stdout).
-# See:  http://public.kitware.com/pipermail/cdash/2009-November/000589.html
-#set(CTEST_CUSTOM_MAXIMUM_FAILED_TEST_OUTPUT_SIZE "1048576")
-#set(CTEST_CUSTOM_MAXIMUM_PASSED_TEST_OUTPUT_SIZE "102400")
-
 # SITE is host name
-execute_process(COMMAND hostname OUTPUT_VARIABLE HOST OUTPUT_STRIP_TRAILING_WHITESPACE)
-string(REGEX REPLACE "\\.(local|home)$" "" HOST ${HOST})
-string(TOLOWER ${HOST} SITE)
+if( $ENV{TRAVIS_JOB_NUMBER} )
+  set(SITE "travis-$ENV{TRAVIS_JOB_NUMBER}")
+else()
+  execute_process(COMMAND hostname OUTPUT_VARIABLE HOST OUTPUT_STRIP_TRAILING_WHITESPACE)
+  string(REGEX REPLACE "\\.(local|home)$" "" HOST ${HOST})
+  string(TOLOWER ${HOST} SITE)
+endif()
 
 # BUILDNAME is generated from OS, architecture, compiler and SIMD level (in-project only)
 if(CMAKE_PROJECT_NAME STREQUAL Boost.Dispatch)
@@ -69,23 +59,16 @@ else()
   include(${PROJECT_BINARY_DIR}/CTestConfigData.cmake)
 endif()
 
-# We add branch tag if necessary
+# We add commit tag
 find_package(Git QUIET)
 if(GIT_EXECUTABLE)
-  execute_process(COMMAND ${GIT_EXECUTABLE} symbolic-ref HEAD
+  execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
                   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
                   OUTPUT_VARIABLE BRANCH OUTPUT_STRIP_TRAILING_WHITESPACE
                   RESULT_VARIABLE BRANCH_RESULT ERROR_QUIET
                  )
-  if(NOT BRANCH_RESULT)
-   string(REGEX REPLACE "^.+/([^/]+)$" "\\1" BRANCH ${BRANCH})
-  else()
-    set(BRANCH "dirty")
-  endif()
 
-  if(NOT BRANCH STREQUAL "master")
-    set(BUILDNAME "${BUILDNAME}-${BRANCH}")
-  endif()
+  set(BUILDNAME "${BUILDNAME}-commit:${BRANCH}@${SITE}")
 endif()
 
 set(CTEST_SITE ${SITE})
