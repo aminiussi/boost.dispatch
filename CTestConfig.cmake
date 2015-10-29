@@ -23,6 +23,8 @@ endif()
 # SITE is host name
 if( $ENV{TRAVIS_JOB_NUMBER} )
   set(SITE "travis-$ENV{TRAVIS_JOB_NUMBER}")
+elseif( $ENV{APPVEYOR_BUILD_ID})
+  set(SITE "appveyor-$ENV{APPVEYOR_BUILD_ID}")
 else()
   execute_process(COMMAND hostname OUTPUT_VARIABLE HOST OUTPUT_STRIP_TRAILING_WHITESPACE)
   string(REGEX REPLACE "\\.(local|home)$" "" HOST ${HOST})
