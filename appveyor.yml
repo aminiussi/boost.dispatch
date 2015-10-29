@@ -1,12 +1,10 @@
-# Notes:
-#   - Minimal appveyor.yml file is an empty file. All sections are optional.
-#   - Indent each level of configuration with 2 spaces. Do not use tabs!
-#   - All section names are case-sensitive.
-#   - Section names should be unique on each level.
-
-#---------------------------------#
-#      general configuration      #
-#---------------------------------#
+##==================================================================================================
+##                 Copyright 2015   NumScale SAS
+##
+##                   Distributed under the Boost Software License, Version 1.0.
+##                        See accompanying file LICENSE.txt or copy at
+##                            http://www.boost.org/LICENSE_1_0.txt
+##==================================================================================================
 
 # version format
 version: 1.0.{build}
