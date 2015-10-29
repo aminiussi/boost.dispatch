@@ -95,7 +95,7 @@ before_install:
 before_script:
   - mkdir build
   - cd build
-  - cmake .. -DCMAKE_CXX_COMPILER=$TOOLSET -DCXX_STD=$CXX_STD
+  - cmake .. -DCMAKE_CXX_COMPILER=$TOOLSET -DCXX_STD=$CXX_STD -DTOOLSET=$TOOLSET
 
 # Build unit and run test
 script:
