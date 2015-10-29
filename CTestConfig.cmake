@@ -68,7 +68,7 @@ if(GIT_EXECUTABLE)
                   RESULT_VARIABLE BRANCH_RESULT ERROR_QUIET
                  )
 
-  set(BUILDNAME "${BUILDNAME}-commit:${BRANCH}@${SITE}")
+  set(BUILDNAME "${BUILDNAME}:${BRANCH}")
 endif()
 
 set(CTEST_SITE ${SITE})
