@@ -12,6 +12,7 @@ set ( SOURCES
       boost_array.cpp
       boost_fusion.cpp
       parent.cpp
+      pointer.cpp
       std_array.cpp
       std_integral_constant.cpp
       std_tuple.cpp
