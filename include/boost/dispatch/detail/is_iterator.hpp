@@ -7,8 +7,8 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_DISPATCH_META_INTROSPECTION_DETAIL_IS_ITERATOR_HPP_INCLUDED
-#define BOOST_DISPATCH_META_INTROSPECTION_DETAIL_IS_ITERATOR_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_DETAIL_IS_ITERATOR_HPP_INCLUDED
+#define BOOST_DISPATCH_META_DETAIL_IS_ITERATOR_HPP_INCLUDED
 
 #include <boost/dispatch/detail/brigand.hpp>
 #include <boost/dispatch/detail/is_pointer.hpp>
@@ -16,11 +16,11 @@
 
 namespace boost { namespace dispatch { namespace detail
 {
-  template<typename T, typename EnableIf = void > struct is_iterator : is_pointer<T> {};
+  template<typename T, typename EnableIf = void > struct is_iterator : brigand::false_ {};
 
   template<typename T>
   struct is_iterator<T, typename boost::enable_if_has_type<typename T::iterator_category>::type>
-       : brigand::false_
+       : brigand::true_
   {};
 } } }
 

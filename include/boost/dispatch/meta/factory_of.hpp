@@ -11,8 +11,8 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_DISPATCH_META_INTROSPECTION_FACTORY_OF_HPP_INCLUDED
-#define BOOST_DISPATCH_META_INTROSPECTION_FACTORY_OF_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_FACTORY_OF_HPP_INCLUDED
+#define BOOST_DISPATCH_META_FACTORY_OF_HPP_INCLUDED
 
 #include <boost/dispatch/detail/factory_of.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>

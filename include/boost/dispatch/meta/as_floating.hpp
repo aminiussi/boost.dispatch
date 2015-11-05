@@ -11,8 +11,8 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_DISPATCH_META_GENERATION_AS_FLOATING_HPP_INCLUDED
-#define BOOST_DISPATCH_META_GENERATION_AS_FLOATING_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_AS_FLOATING_HPP_INCLUDED
+#define BOOST_DISPATCH_META_AS_FLOATING_HPP_INCLUDED
 
 #include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>

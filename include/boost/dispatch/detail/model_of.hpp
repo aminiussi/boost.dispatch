@@ -11,8 +11,8 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_DISPATCH_META_INTROSPECTION_DETAIL_MODEL_OF_HPP_INCLUDED
-#define BOOST_DISPATCH_META_INTROSPECTION_DETAIL_MODEL_OF_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_DETAIL_MODEL_OF_HPP_INCLUDED
+#define BOOST_DISPATCH_META_DETAIL_MODEL_OF_HPP_INCLUDED
 
 namespace boost { namespace dispatch { namespace ext
 {

@@ -11,8 +11,8 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_DISPATCH_META_GENERATION_APPLY_SIGN_HPP_INCLUDED
-#define BOOST_DISPATCH_META_GENERATION_APPLY_SIGN_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_APPLY_SIGN_HPP_INCLUDED
+#define BOOST_DISPATCH_META_APPLY_SIGN_HPP_INCLUDED
 
 #include <boost/dispatch/meta/as_unsigned.hpp>
 #include <boost/dispatch/meta/as_signed.hpp>

@@ -11,8 +11,8 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_DISPATCH_META_INTROSPECTION_MODEL_OF_HPP_INCLUDED
-#define BOOST_DISPATCH_META_INTROSPECTION_MODEL_OF_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_MODEL_OF_HPP_INCLUDED
+#define BOOST_DISPATCH_META_MODEL_OF_HPP_INCLUDED
 
 #include <boost/dispatch/detail/model_of.hpp>
 

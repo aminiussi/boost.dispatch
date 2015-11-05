@@ -11,8 +11,8 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_DISPATCH_META_INTROSPECTION_PRIMITIVE_OF_HPP_INCLUDED
-#define BOOST_DISPATCH_META_INTROSPECTION_PRIMITIVE_OF_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_PRIMITIVE_OF_HPP_INCLUDED
+#define BOOST_DISPATCH_META_PRIMITIVE_OF_HPP_INCLUDED
 
 #include <boost/dispatch/detail/primitive_of.hpp>
 

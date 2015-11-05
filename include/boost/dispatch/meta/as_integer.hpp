@@ -11,8 +11,8 @@
 
 **/
 //==================================================================================================
-#ifndef BOOST_DISPATCH_META_GENERATION_AS_INTEGER_HPP_INCLUDED
-#define BOOST_DISPATCH_META_GENERATION_AS_INTEGER_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_AS_INTEGER_HPP_INCLUDED
+#define BOOST_DISPATCH_META_AS_INTEGER_HPP_INCLUDED
 
 #include <boost/dispatch/meta/sign_of.hpp>
 #include <boost/dispatch/meta/factory_of.hpp>
