@@ -11,6 +11,7 @@ add_definitions(-DBOOST_ENABLE_ASSERT_HANDLER)
 set ( SOURCES
       boost_array.cpp
       boost_fusion.cpp
+      iterator.cpp
       parent.cpp
       pointer.cpp
       std_array.cpp

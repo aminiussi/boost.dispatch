@@ -8,11 +8,34 @@
 //==================================================================================================
 #include <boost/dispatch/hierarchy.hpp>
 #include <boost/dispatch/adapted/std/array.hpp>
+#include <boost/dispatch/adapted/hierarchy/tuple.hpp>
+#include <boost/dispatch/adapted/hierarchy/pointer.hpp>
 #include <cstdint>
 #include <cstddef>
 #include <array>
 
 #include <stf.hpp>
+
+STF_CASE ( "Parenthood of pointer and iterator hierarchies" )
+{
+  using namespace boost::dispatch;
+
+  STF_TYPE_IS ( typename pointer_<unspecified_<float*>>::parent
+              , random_access_iterator_<scalar_<single_<float*>>>
+              );
+
+  STF_TYPE_IS ( typename random_access_iterator_<unspecified_<float*>>::parent
+              , bidirectional_iterator_<scalar_<single_<float*>>>
+              );
+
+  STF_TYPE_IS ( typename bidirectional_iterator_<unspecified_<float*>>::parent
+              , forward_iterator_<scalar_<single_<float*>>>
+              );
+
+  STF_TYPE_IS ( typename forward_iterator_<unspecified_<float*>>::parent
+              , input_iterator_<scalar_<single_<float*>>>
+              );
+}
 
 STF_CASE ( "Parenthood of tuple types hierarchy" )
 {

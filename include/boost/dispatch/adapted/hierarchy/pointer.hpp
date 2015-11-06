@@ -14,7 +14,10 @@
 #ifndef BOOST_DISPATCH_ADAPTED_HIERARCHY_POINTER_HPP_INCLUDED
 #define BOOST_DISPATCH_ADAPTED_HIERARCHY_POINTER_HPP_INCLUDED
 
+#include <boost/dispatch/adapted/hierarchy/iterator.hpp>
 #include <boost/dispatch/hierarchy/unspecified.hpp>
+#include <boost/dispatch/hierarchy_of.hpp>
+#include <boost/pointee.hpp>
 
 namespace boost { namespace dispatch
 {
@@ -32,9 +35,12 @@ namespace boost { namespace dispatch
     using parent = pointer_<typename T::parent>;
   };
 
-  template<typename T> struct pointer_<unspecified_<T>> : unspecified_<T>
+
+  template<typename T>
+  struct  pointer_<unspecified_<T>>
+        : random_access_iterator_<hierarchy_of_t<typename boost::pointee<T>::type,T>>
   {
-    using parent = unspecified_<T>;
+    using parent = random_access_iterator_<hierarchy_of_t<typename boost::pointee<T>::type,T>>;
   };
 } }
 
