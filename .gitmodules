@@ -1,4 +1,4 @@
 [submodule "doc/html"]
 	path = doc/html
-	url = https://github.com/jfalcou/boost.dispatch.git
+	url = https://github.com/NumScale/boost.dispatch.git
 	branch = gh-pages
