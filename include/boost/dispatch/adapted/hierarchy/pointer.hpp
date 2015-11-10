@@ -42,6 +42,28 @@ namespace boost { namespace dispatch
   {
     using parent = random_access_iterator_<hierarchy_of_t<typename boost::pointee<T>::type,T>>;
   };
+
+  /*
+    This breaks the infinite recursive inheritance
+    Example:
+
+      with T = float**;
+
+      1. Goes into: pointer_<unspecified_<T>>
+      2. Then: hierarchy_of_t<typename boost::pointee<T>::type, T>> == pointer_<...<T>>;
+      3. Then: ...<T> will be unspecified<T> after some iterations
+      4. This will go into: pointer_<unspecified_<T>> again (and T is still float**)
+      5. Because of the point 4., this will goes back to point 1. which will end up into infinite
+         meta recursion.
+
+    The class below is here to break that loop. Maybe there is a better way? FIXME
+   */
+
+  template<typename T>
+  struct pointer_<pointer_<T>>
+  {
+    using parent = pointer_<T>;
+  };
 } }
 
 #endif
