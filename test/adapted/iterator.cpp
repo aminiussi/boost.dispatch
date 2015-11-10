@@ -37,33 +37,33 @@ STF_CASE_TPL( "value_of of Container<T>::const_iterator is T"
             , (std::vector<float>)(std::list<float>)(std::forward_list<float>)
             )
 {
-  STF_TYPE_IS( (value_of_t<T::const_iterator>)        , float );
-  STF_TYPE_IS( (value_of_t<T::const_iterator const>)  , float const );
-  STF_TYPE_IS( (value_of_t<T::const_iterator&>)       , float& );
-  STF_TYPE_IS( (value_of_t<T::const_iterator const&>) , float const& );
-  STF_TYPE_IS( (value_of_t<T::const_iterator&&>)      , float&& );
+  STF_TYPE_IS( (value_of_t<typename T::const_iterator>)        , float );
+  STF_TYPE_IS( (value_of_t<typename T::const_iterator const>)  , float const );
+  STF_TYPE_IS( (value_of_t<typename T::const_iterator&>)       , float& );
+  STF_TYPE_IS( (value_of_t<typename T::const_iterator const&>) , float const& );
+  STF_TYPE_IS( (value_of_t<typename T::const_iterator&&>)      , float&& );
 }
 
 STF_CASE_TPL( "value_of of Container<T>::reverse_iterator is T"
             , (std::vector<float>)(std::list<float>)
             )
 {
-  STF_TYPE_IS( (value_of_t<T::reverse_iterator>)        , float );
-  STF_TYPE_IS( (value_of_t<T::reverse_iterator const>)  , float const );
-  STF_TYPE_IS( (value_of_t<T::reverse_iterator&>)       , float& );
-  STF_TYPE_IS( (value_of_t<T::reverse_iterator const&>) , float const& );
-  STF_TYPE_IS( (value_of_t<T::reverse_iterator&&>)      , float&& );
+  STF_TYPE_IS( (value_of_t<typename T::reverse_iterator>)        , float );
+  STF_TYPE_IS( (value_of_t<typename T::reverse_iterator const>)  , float const );
+  STF_TYPE_IS( (value_of_t<typename T::reverse_iterator&>)       , float& );
+  STF_TYPE_IS( (value_of_t<typename T::reverse_iterator const&>) , float const& );
+  STF_TYPE_IS( (value_of_t<typename T::reverse_iterator&&>)      , float&& );
 }
 
 STF_CASE_TPL( "value_of of Container<T>::const_reverse_iterator is T"
             , (std::vector<float>)(std::list<float>)
             )
 {
-  STF_TYPE_IS( (value_of_t<T::const_reverse_iterator>)        , float );
-  STF_TYPE_IS( (value_of_t<T::const_reverse_iterator const>)  , float const );
-  STF_TYPE_IS( (value_of_t<T::const_reverse_iterator&>)       , float& );
-  STF_TYPE_IS( (value_of_t<T::const_reverse_iterator const&>) , float const& );
-  STF_TYPE_IS( (value_of_t<T::const_reverse_iterator&&>)      , float&& );
+  STF_TYPE_IS( (value_of_t<typename T::const_reverse_iterator>)        , float );
+  STF_TYPE_IS( (value_of_t<typename T::const_reverse_iterator const>)  , float const );
+  STF_TYPE_IS( (value_of_t<typename T::const_reverse_iterator&>)       , float& );
+  STF_TYPE_IS( (value_of_t<typename T::const_reverse_iterator const&>) , float const& );
+  STF_TYPE_IS( (value_of_t<typename T::const_reverse_iterator&&>)      , float&& );
 }
 
 STF_CASE_TPL( "primitive_of of Container<T>::iterator is T"
@@ -84,33 +84,33 @@ STF_CASE_TPL( "primitive_of of Container<T>::const_iterator is T"
             , (std::vector<float>)(std::list<float>)(std::forward_list<float>)
             )
 {
-  STF_TYPE_IS( (primitive_of_t<T::const_iterator>)        , float );
-  STF_TYPE_IS( (primitive_of_t<T::const_iterator const>)  , float const );
-  STF_TYPE_IS( (primitive_of_t<T::const_iterator&>)       , float& );
-  STF_TYPE_IS( (primitive_of_t<T::const_iterator const&>) , float const& );
-  STF_TYPE_IS( (primitive_of_t<T::const_iterator&&>)      , float&& );
+  STF_TYPE_IS( (primitive_of_t<typename T::const_iterator>)        , float );
+  STF_TYPE_IS( (primitive_of_t<typename T::const_iterator const>)  , float const );
+  STF_TYPE_IS( (primitive_of_t<typename T::const_iterator&>)       , float& );
+  STF_TYPE_IS( (primitive_of_t<typename T::const_iterator const&>) , float const& );
+  STF_TYPE_IS( (primitive_of_t<typename T::const_iterator&&>)      , float&& );
 }
 
 STF_CASE_TPL( "primitive_of of Container<T>::reverse_iterator is T"
             , (std::vector<float>)(std::list<float>)
             )
 {
-  STF_TYPE_IS( (primitive_of_t<T::reverse_iterator>)        , float );
-  STF_TYPE_IS( (primitive_of_t<T::reverse_iterator const>)  , float const );
-  STF_TYPE_IS( (primitive_of_t<T::reverse_iterator&>)       , float& );
-  STF_TYPE_IS( (primitive_of_t<T::reverse_iterator const&>) , float const& );
-  STF_TYPE_IS( (primitive_of_t<T::reverse_iterator&&>)      , float&& );
+  STF_TYPE_IS( (primitive_of_t<typename T::reverse_iterator>)        , float );
+  STF_TYPE_IS( (primitive_of_t<typename T::reverse_iterator const>)  , float const );
+  STF_TYPE_IS( (primitive_of_t<typename T::reverse_iterator&>)       , float& );
+  STF_TYPE_IS( (primitive_of_t<typename T::reverse_iterator const&>) , float const& );
+  STF_TYPE_IS( (primitive_of_t<typename T::reverse_iterator&&>)      , float&& );
 }
 
 STF_CASE_TPL( "primitive_of of Container<T>::const_reverse_iterator is T"
             , (std::vector<float>)(std::list<float>)
             )
 {
-  STF_TYPE_IS( (primitive_of_t<T::const_reverse_iterator>)        , float );
-  STF_TYPE_IS( (primitive_of_t<T::const_reverse_iterator const>)  , float const );
-  STF_TYPE_IS( (primitive_of_t<T::const_reverse_iterator&>)       , float& );
-  STF_TYPE_IS( (primitive_of_t<T::const_reverse_iterator const&>) , float const& );
-  STF_TYPE_IS( (primitive_of_t<T::const_reverse_iterator&&>)      , float&& );
+  STF_TYPE_IS( (primitive_of_t<typename T::const_reverse_iterator>)        , float );
+  STF_TYPE_IS( (primitive_of_t<typename T::const_reverse_iterator const>)  , float const );
+  STF_TYPE_IS( (primitive_of_t<typename T::const_reverse_iterator&>)       , float& );
+  STF_TYPE_IS( (primitive_of_t<typename T::const_reverse_iterator const&>) , float const& );
+  STF_TYPE_IS( (primitive_of_t<typename T::const_reverse_iterator&&>)      , float&& );
 }
 
 STF_CASE_TPL( "property_of over Container<T>::??_iterator is property_of T"
