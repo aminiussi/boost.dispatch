@@ -42,8 +42,8 @@ STF_CASE( "hierarchy_of over boost::fusion::vector<T...>")
                 )
               );
 
-  STF_TYPE_IS ( (hierarchy_of_t<boost::fusion::vector<int,void*,char,std::size_t*,float[4]>>)
-              , ( tuple_< boost::fusion::vector<int,void*,char,std::size_t*,float[4]>
+  STF_TYPE_IS ( (hierarchy_of_t<boost::fusion::vector<int,void*,char,std::size_t*,float*>>)
+              , ( tuple_< boost::fusion::vector<int,void*,char,std::size_t*,float*>
                         , std::integral_constant<std::size_t, 5u>
                         >
                 )
