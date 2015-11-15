@@ -16,8 +16,8 @@
 
 #include <boost/dispatch/adapted/hierarchy/iterator.hpp>
 #include <boost/dispatch/hierarchy/unspecified.hpp>
+#include <boost/dispatch/meta/remove_pointers.hpp>
 #include <boost/dispatch/hierarchy_of.hpp>
-#include <boost/pointee.hpp>
 
 namespace boost { namespace dispatch
 {
@@ -28,41 +28,26 @@ namespace boost { namespace dispatch
     Types classified as pointer_ have properties similar to pointer, i.e provides operators
     for dereferencing and pointer arithmetic.
 
-    @tparam T Base hierarchy
+    @tparam T     Base hierarchy
+    @tparam Level Number of indirections required to access the pointed value
   **/
-  template<class T> struct pointer_ : pointer_< typename T::parent >
+  template<typename T, std::size_t Level = 1>
+  struct pointer_ : pointer_< typename T::parent, Level >
   {
-    using parent = pointer_<typename T::parent>;
+    using parent = pointer_<typename T::parent, Level>;
   };
 
-
   template<typename T>
-  struct  pointer_<unspecified_<T>>
-        : random_access_iterator_<hierarchy_of_t<typename boost::pointee<T>::type,T>>
+  struct  pointer_<unspecified_<T>, 1>
+        : random_access_iterator_<hierarchy_of_t<typename remove_pointers<T>::type,T>>
   {
-    using parent = random_access_iterator_<hierarchy_of_t<typename boost::pointee<T>::type,T>>;
+    using parent = random_access_iterator_<hierarchy_of_t<typename remove_pointers<T>::type,T>>;
   };
 
-  /*
-    This breaks the infinite recursive inheritance
-    Example:
-
-      with T = float**;
-
-      1. Goes into: pointer_<unspecified_<T>>
-      2. Then: hierarchy_of_t<typename boost::pointee<T>::type, T>> == pointer_<...<T>>;
-      3. Then: ...<T> will be unspecified<T> after some iterations
-      4. This will go into: pointer_<unspecified_<T>> again (and T is still float**)
-      5. Because of the point 4., this will goes back to point 1. which will end up into infinite
-         meta recursion.
-
-    The class below is here to break that loop. Maybe there is a better way? FIXME
-   */
-
-  template<typename T>
-  struct pointer_<pointer_<T>>
+  template<typename T, std::size_t Level>
+  struct pointer_<unspecified_<T>, Level> : unspecified_<T>
   {
-    using parent = pointer_<T>;
+    using parent = unspecified_<T>;
   };
 } }
 

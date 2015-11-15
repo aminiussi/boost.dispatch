@@ -69,8 +69,9 @@ STF_CASE( "property_of over T*")
   STF_TYPE_IS( (property_of_t<float***>), (single_<float***>));
 }
 
-STF_CASE( "hierarchy_of over T*")
+STF_CASE( "hierarchy_of over T{*}")
 {
-  STF_TYPE_IS (hierarchy_of_t<float*> , pointer_<scalar_<single_<float*>>>            );
-  STF_TYPE_IS (hierarchy_of_t<float**>, pointer_<pointer_< scalar_<single_<float**>>>>);
+  STF_TYPE_IS (hierarchy_of_t<float*> , (pointer_<scalar_<single_<float* >>, 1>) );
+  STF_TYPE_IS (hierarchy_of_t<float**>, (pointer_<scalar_<single_<float**>>, 2>) );
+  STF_TYPE_IS (hierarchy_of_t<float*****>, (pointer_<scalar_<single_<float*****>>, 5>) );
 }
