@@ -23,7 +23,6 @@ os: Windows Server 2012
 matrix:
   fast_finish: true     # set this flag to immediately finish build once one of the jobs fails.
 
-
 #---------------------------------#
 #       build configuration       #
 #---------------------------------#
@@ -45,10 +44,14 @@ build:
 
 # scripts to run before build
 before_build:
+  - cd c:\sources\
+  - appveyor DownloadFile "http://www.numscale.com/boost-trunk.tar.gz" -FileName "C:\sources\boost-trunk.tar.gz"
+  - 7z e C:\sources\boost-trunk.tar.gz
+  - 7z x C:\sources\boost-trunk.tar
   - cd c:\sources\boost.dispatch
   - md build
   - cd build
-  - cmake -G"Visual Studio 12 2013 Win64" -DBOOST_ROOT="C:\Libraries\boost_1_59_0" ..
+  - cmake -G"Visual Studio 12 2013 Win64" -DBOOST_ROOT="C:\sources\boost-trunk"  ..
 
 # scripts to run after build
 after_build:
@@ -67,6 +70,3 @@ after_test:
 test_script:
  - cd c:\sources\boost.dispatch\build
  - cmd: ctest -C Release -D Experimental
-
-
-
