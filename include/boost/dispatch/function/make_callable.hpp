@@ -66,9 +66,11 @@ struct TAG : PARENT { BOOST_DISPATCH_MAKE_CALLABLE(NS,TAG,PARENT); }            
 **/
 #define BOOST_DISPATCH_FUNCTION_DECLARATION(NAMESPACE,TAG)                                          \
 template<typename... Specifications> struct impl_##TAG;                                             \
-template<typename Site>                                                                             \
-inline generic_dispatcher<NAMESPACE::TAG>                                                           \
-BOOST_DISPATCH_IMPLEMENTS(TAG, ::boost::dispatch::unspecified_<Site> const&, ... )                  \
+template<typename Site, typename... Ts>                                                             \
+BOOST_FORCEINLINE generic_dispatcher<NAMESPACE::TAG>                                                \
+BOOST_DISPATCH_IMPLEMENTS ( TAG , ::boost::dispatch::unspecified_<Site> const&                      \
+                                , ::boost::dispatch::unknown_<Ts> const&...                         \
+                          )                                                                         \
 {                                                                                                   \
   return {};                                                                                        \
 }                                                                                                   \
