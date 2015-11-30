@@ -18,14 +18,25 @@ namespace boost { namespace dispatch
 {
   /*!
     @ingroup group-tag
+    @brief Root hierarchy tag
+
+    The unknown_ hierarchy classify everything and is used as a top hierarchy
+  **/
+  template<typename T> struct unknown_
+  {
+    using parent        =  unknown_;
+    using hierarchy_tag =  void;
+  };
+
+  /*!
+    @ingroup group-tag
     @brief Root type hierarchy tag
 
     The type_ hierarchy classify type related informations.
   **/
-  template<typename T> struct type_
+  template<typename T> struct type_ : unknown_<T>
   {
-    using parent        =  type_;
-    using hierarchy_tag =  void;
+    using parent        =  unknown_<T>;
   };
 
   /*!
@@ -34,10 +45,9 @@ namespace boost { namespace dispatch
 
     The function_ hierarchy classify function related informations.
   **/
-  template<typename T> struct function_
+  template<typename T> struct function_ : unknown_<T>
   {
-    using parent        =  function_;
-    using hierarchy_tag =  void;
+    using parent        =  unknown_<T>;
   };
 } }
 

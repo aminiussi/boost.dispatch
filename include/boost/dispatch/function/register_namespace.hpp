@@ -112,10 +112,11 @@ namespace boost { namespace dispatch
 #define BOOST_DISPATCH_REGISTER_NAMESPACE(FALLBACK)                                                 \
 struct adl_helper {};                                                                               \
                                                                                                     \
-template<typename Tag, typename Site>                                                               \
-inline FALLBACK::generic_dispatcher<Tag>                                                            \
+template<typename Tag, typename Site, typename... Ts>                                               \
+BOOST_FORCEINLINE FALLBACK::generic_dispatcher<Tag>                                                 \
 dispatching ( adl_helper const&, ::boost::dispatch::function_<Tag> const&                           \
-            , ::boost::dispatch::unspecified_<Site> const&, ...                                     \
+            , ::boost::dispatch::unspecified_<Site> const&                                          \
+            , ::boost::dispatch::unknown_<Ts> const&...                                             \
             )                                                                                       \
 {                                                                                                   \
   return {};                                                                                        \
