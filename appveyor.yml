@@ -44,14 +44,14 @@ build:
 
 # scripts to run before build
 before_build:
-  - cd c:\sources\
-  - appveyor DownloadFile "http://www.numscale.com/boost-trunk.tar.gz" -FileName "C:\sources\boost-trunk.tar.gz"
-  - 7z e C:\sources\boost-trunk.tar.gz
-  - 7z x C:\sources\boost-trunk.tar
-  - cd c:\sources\boost.dispatch
-  - md build
-  - cd build
-  - cmake -G"Visual Studio 12 2013 Win64" -DBOOST_ROOT="C:\sources\boost-trunk"  ..
+ - cd c:\sources\
+ - appveyor DownloadFile "http://www.numscale.com/boost-trunk.tar.gz" -FileName "C:\sources\boost-trunk.tar.gz"
+ - 7z e C:\sources\boost-trunk.tar.gz
+ - 7z x C:\sources\boost-trunk.tar
+ - cd c:\sources\boost.dispatch
+ - md build
+ - cd build
+ - cmake -G"Visual Studio 12 2013 Win64" -DBOOST_ROOT="C:\sources\boost-trunk"  ..
 
 # scripts to run after build
 after_build:
