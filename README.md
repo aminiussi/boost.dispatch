@@ -65,13 +65,14 @@ COMING SOON
 
 ## More informations
 
-* Repository    : https://github.com/jfalcou/boost.dispatch
-* Documentation : http://jfalcou.github.io/boost.dispatch
+* Repository    : https://github.com/numscale/boost.dispatch
+* Documentation : http://numscale.github.io/boost.dispatch
 
 ## Continuous Integration
 
 | Platform & Compiler | `master`| `develop`|
 |---------------------|---------|----------|
-| Linux clang & g++   | [![Build Status](https://travis-ci.org/jfalcou/boost.dispatch.png?branch=master)](https://travis-ci.org/jfalcou/boost.dispatch) | [![Build Status](https://travis-ci.org/jfalcou/boost.dispatch.png?branch=develop)](https://travis-ci.org/jfalcou/boost.dispatch) |
-| OS X   clang    | [![Build Status](https://travis-ci.org/jfalcou/boost.dispatch.png?branch=master)](https://travis-ci.org/jfalcou/boost.dispatch) | [![Build Status](https://travis-ci.org/jfalcou/boost.dispatch.png?branch=develop)](https://travis-ci.org/jfalcou/boost.dispatch) |
-| Windows  MSVC 2012 | [![Build status](https://ci.appveyor.com/api/projects/status/od5x8urfct3l52a6/branch/master?svg=true)](https://ci.appveyor.com/project/jfalcou/boost-dispatch/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/od5x8urfct3l52a6/branch/develop?svg=true)](https://ci.appveyor.com/project/jfalcou/boost-dispatch/branch/develop) |
+| Linux clang & g++   | [![Build Status](https://travis-ci.org/NumScale/boost.dispatch.png?branch=master)](https://travis-ci.org/NumScale/boost.dispatch) | [![Build Status](https://travis-ci.org/NumScale/boost.dispatch.png?branch=develop)](https://travis-ci.org/NumScale/boost.dispatch) |
+| OS X   clang    | [![Build Status](https://travis-ci.org/NumScale/boost.dispatch.png?branch=master)](https://travis-ci.org/NumScale/boost.dispatch) | [![Build Status](https://travis-ci.org/NumScale/boost.dispatch.png?branch=develop)](https://travis-ci.org/NumScale/boost.dispatch) |
+| Windows  MSVC 2012 | [![Build status](https://ci.appveyor.com/api/projects/status/yicpfgknyik3ebia/branch/master?svg=true)](https://ci.appveyor.com/project/jfalcou/boost-dispatch-jiqr0/branch/master)
+ | [![Build status](https://ci.appveyor.com/api/projects/status/yicpfgknyik3ebia/branch/develop?svg=true)](https://ci.appveyor.com/project/jfalcou/boost-dispatch-jiqr0/branch/develop) |

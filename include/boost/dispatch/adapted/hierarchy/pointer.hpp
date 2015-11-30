@@ -14,7 +14,10 @@
 #ifndef BOOST_DISPATCH_ADAPTED_HIERARCHY_POINTER_HPP_INCLUDED
 #define BOOST_DISPATCH_ADAPTED_HIERARCHY_POINTER_HPP_INCLUDED
 
+#include <boost/dispatch/adapted/hierarchy/iterator.hpp>
 #include <boost/dispatch/hierarchy/unspecified.hpp>
+#include <boost/dispatch/meta/remove_pointers.hpp>
+#include <boost/dispatch/hierarchy_of.hpp>
 
 namespace boost { namespace dispatch
 {
@@ -25,14 +28,24 @@ namespace boost { namespace dispatch
     Types classified as pointer_ have properties similar to pointer, i.e provides operators
     for dereferencing and pointer arithmetic.
 
-    @tparam T Base hierarchy
+    @tparam T     Base hierarchy
+    @tparam Level Number of indirections required to access the pointed value
   **/
-  template<class T> struct pointer_ : pointer_< typename T::parent >
+  template<typename T, std::size_t Level = 1>
+  struct pointer_ : pointer_< typename T::parent, Level >
   {
-    using parent = pointer_<typename T::parent>;
+    using parent = pointer_<typename T::parent, Level>;
   };
 
-  template<typename T> struct pointer_<unspecified_<T>> : unspecified_<T>
+  template<typename T>
+  struct  pointer_<unspecified_<T>, 1>
+        : random_access_iterator_<hierarchy_of_t<typename remove_pointers<T>::type,T>>
+  {
+    using parent = random_access_iterator_<hierarchy_of_t<typename remove_pointers<T>::type,T>>;
+  };
+
+  template<typename T, std::size_t Level>
+  struct pointer_<unspecified_<T>, Level> : unspecified_<T>
   {
     using parent = unspecified_<T>;
   };

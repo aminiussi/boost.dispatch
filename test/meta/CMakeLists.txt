@@ -23,7 +23,9 @@ set ( SOURCES
       make_integer.cpp
       model_of.cpp
       parent_of.cpp
+      pointer_rank.cpp
       primitive_of.cpp
+      remove_pointers.cpp
       scalar_of.cpp
       sign_of.cpp
       transfer_qualifiers.cpp

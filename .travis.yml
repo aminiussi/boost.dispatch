@@ -88,7 +88,7 @@ matrix:
 
 # Install boost
 before_install:
-  - bash ./script/travis/install_boost.sh
+  - bash ./script/travis/install.sh
   - export BOOST_ROOT="$HOME/boost-trunk"
 
 # Prepare build

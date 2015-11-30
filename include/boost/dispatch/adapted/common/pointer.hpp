@@ -13,6 +13,7 @@
 #define BOOST_DISPATCH_ADAPTED_COMMON_POINTER_HPP_INCLUDED
 
 #include <boost/dispatch/adapted/hierarchy/pointer.hpp>
+#include <boost/dispatch/meta/pointer_rank.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/hierarchy_of.hpp>
@@ -30,16 +31,19 @@ namespace boost { namespace dispatch
     };
 
     template<typename T>
-    struct value_of<T, typename std::enable_if<detail::is_pointer<T>::value>::type>
-    {
-      using type = typename boost::pointee<T>::type;
-    };
+    struct  value_of<T, typename std::enable_if<detail::is_pointer<T>::value>::type>
+          : boost::pointee<T>
+    {};
 
     template<typename T, typename Origin>
-    struct hierarchy_of<T,Origin,typename std::enable_if<detail::is_pointer<T>::value>::type>
+    struct hierarchy_of < T, Origin
+                        , typename std::enable_if<detail::is_pointer<T>::value>::type
+                        >
     {
-      using pointee_t = typename dispatch::value_of<T>::type;
-      using type      = pointer_ < boost::dispatch::hierarchy_of_t<pointee_t,Origin> >;
+      using pointee_t = typename dispatch::remove_pointers<T>::type;
+      using type      = pointer_< boost::dispatch::hierarchy_of_t<pointee_t,Origin>
+                                , pointer_rank<T>::value
+                                >;
     };
   }
 } }
