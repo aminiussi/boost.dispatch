@@ -18,6 +18,7 @@
 #include <boost/dispatch/function/functor.hpp>
 #include <boost/dispatch/hierarchy/base.hpp>
 #include <boost/dispatch/detail/auto_decltype.hpp>
+#include <boost/config.hpp>
 
 /*!
   @ingroup group-function
@@ -32,7 +33,7 @@
 **/
 #define BOOST_DISPATCH_MAKE_CALLABLE(NS,TAG,PARENT)                                                 \
 template<typename... Args>                                                                          \
-static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch_to(Args&&... args)                            \
+static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch_to(Args&&... args) BOOST_NOEXCEPT             \
 BOOST_AUTO_DECLTYPE_BODY( BOOST_DISPATCH_DISPATCHING_FUNCTION(TAG)                                  \
                           (NS::adl_helper(), std::forward<Args>(args)...)                           \
                         )                                                                           \
@@ -70,7 +71,7 @@ template<typename Site, typename... Ts>                                         
 BOOST_FORCEINLINE generic_dispatcher<NAMESPACE::TAG>                                                \
 BOOST_DISPATCH_IMPLEMENTS ( TAG , ::boost::dispatch::unspecified_<Site> const&                      \
                                 , ::boost::dispatch::unknown_<Ts> const&...                         \
-                          )                                                                         \
+                          ) BOOST_NOEXCEPT                                                          \
 {                                                                                                   \
   return {};                                                                                        \
 }                                                                                                   \
@@ -102,7 +103,7 @@ static const boost::dispatch::functor<TAG> NAME = {}                            
 **/
 #define BOOST_DISPATCH_FUNCTION_DEFINITION(TAG,NAME)                                                \
 template<typename... Args> BOOST_FORCEINLINE                                                        \
-auto NAME(Args&&... args)                                                                           \
+auto NAME(Args&&... args) BOOST_NOEXCEPT                                                            \
         -> decltype ( TAG::dispatch_to( boost::dispatch::default_site<TAG>()                        \
                                       , boost::dispatch::hierarchy_of_t<Args>()...                  \
                                       )( std::forward<Args>(args)...)                               \

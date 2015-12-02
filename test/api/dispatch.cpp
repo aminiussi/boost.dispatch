@@ -64,3 +64,12 @@ STF_CASE( "dispatch works correctly when functor are passed as parameters")
   STF_EQUAL(some_call(tutu::titi::foo.rebind<wazoo>()), 'Z');
   STF_EQUAL(some_call(functor_type::rebind<wazoo>()),'Z');;
 }
+
+#if !defined(BOOST_NO_CXX11_NOEXCEPT)
+STF_CASE( "dispatch preserve noexcept")
+{
+  STF_EXPECT    ( BOOST_NOEXCEPT_EXPR(tutu::titi::foo('4')) );
+  STF_EXPECT_NOT( BOOST_NOEXCEPT_EXPR(tutu::titi::foo(4))   );
+  STF_EXPECT_NOT( BOOST_NOEXCEPT_EXPR(tutu::titi::foo(4.))  );
+}
+#endif
