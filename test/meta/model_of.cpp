@@ -8,7 +8,7 @@
 //==================================================================================================
 #include <boost/dispatch/meta/model_of.hpp>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 

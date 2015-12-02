@@ -11,7 +11,7 @@
 #include <type_traits>
 #include <cstdint>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 

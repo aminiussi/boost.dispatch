@@ -13,7 +13,7 @@
 #include <boost/dispatch/hierarchy/base.hpp>
 #include <boost/dispatch/models.hpp>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 

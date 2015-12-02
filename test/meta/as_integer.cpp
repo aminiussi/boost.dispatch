@@ -9,7 +9,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/make_integer.hpp>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 

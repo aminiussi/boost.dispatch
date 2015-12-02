@@ -6,7 +6,7 @@
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 */
 //==================================================================================================
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 // This mimics one way to generate a special architecture hierarchy
 #include <boost/dispatch/hierarchy/cpu.hpp>

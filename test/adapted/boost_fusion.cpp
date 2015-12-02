@@ -11,7 +11,7 @@
 #include <boost/dispatch/hierarchy_of.hpp>
 #include <boost/fusion/include/vector.hpp>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 namespace bar
 {

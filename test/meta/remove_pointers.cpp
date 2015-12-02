@@ -7,7 +7,7 @@
 */
 //==================================================================================================
 #include <boost/dispatch/meta/remove_pointers.hpp>
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 

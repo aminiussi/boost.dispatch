@@ -10,7 +10,7 @@
 #include <cstdint>
 #include <cstddef>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 struct foo {};
 

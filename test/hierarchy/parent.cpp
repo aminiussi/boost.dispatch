@@ -13,7 +13,7 @@
 #include <cstddef>
 #include <array>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 

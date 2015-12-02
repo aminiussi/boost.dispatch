@@ -7,7 +7,7 @@
 */
 //==================================================================================================
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 

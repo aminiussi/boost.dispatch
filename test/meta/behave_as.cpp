@@ -9,7 +9,7 @@
 #include <boost/dispatch/meta/behave_as.hpp>
 #include <boost/dispatch/detail/brigand.hpp>
 #include <type_traits>
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 
