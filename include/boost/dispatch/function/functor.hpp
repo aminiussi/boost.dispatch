@@ -11,7 +11,12 @@
 
 #include <boost/dispatch/hierarchy/default_site.hpp>
 #include <boost/dispatch/hierarchy_of.hpp>
+#include <boost/config.hpp>
 #include <utility>
+
+#define BOOST_DISPATCH_IMPL_TAG_CALL(TAG,SITE,TS,AS)                                                \
+TAG::dispatch_to(SITE(),boost::dispatch::hierarchy_of_t<TS>()...)( std::forward<TS>(AS)...)         \
+/**/
 
 namespace boost { namespace dispatch
 {
@@ -30,14 +35,10 @@ namespace boost { namespace dispatch
     **/
     template<typename Other, typename... Args> BOOST_FORCEINLINE
     auto on(Args&&... args) const
-        -> decltype ( Tag::dispatch_to( Other()
-                                      , boost::dispatch::hierarchy_of_t<Args>()...
-                                      )( std::forward<Args>(args)...)
-                    )
+        BOOST_NOEXCEPT_IF(BOOST_NOEXCEPT_EXPR(BOOST_DISPATCH_IMPL_TAG_CALL(Tag,Other,Args,args)))
+        -> decltype (BOOST_DISPATCH_IMPL_TAG_CALL(Tag,Other,Args,args))
     {
-      return Tag::dispatch_to ( Other()
-                              , boost::dispatch::hierarchy_of_t<Args>()...
-                              )( std::forward<Args>(args)...);
+      return BOOST_DISPATCH_IMPL_TAG_CALL(Tag,Other,Args,args);
     }
 
     /*!
@@ -51,21 +52,17 @@ namespace boost { namespace dispatch
       @tparam Other New architecture target to generate a functor for
     **/
     template<typename Other>
-    static BOOST_FORCEINLINE functor<Tag,Other> rebind() { return {}; }
+    static BOOST_FORCEINLINE functor<Tag,Other> rebind() BOOST_NOEXCEPT { return {}; }
 
     /*!
 
     **/
     template<typename... Args> BOOST_FORCEINLINE
     auto operator()(Args&&... args) const
-                      -> decltype ( Tag::dispatch_to( Site()
-                                                    , boost::dispatch::hierarchy_of_t<Args>()...
-                                                    )( std::forward<Args>(args)...)
-                                  )
+        BOOST_NOEXCEPT_IF(BOOST_NOEXCEPT_EXPR(BOOST_DISPATCH_IMPL_TAG_CALL(Tag,Site,Args,args)))
+        -> decltype (BOOST_DISPATCH_IMPL_TAG_CALL(Tag,Site,Args,args))
     {
-      return Tag::dispatch_to ( Site()
-                              , boost::dispatch::hierarchy_of_t<Args>()...
-                              )( std::forward<Args>(args)...);
+      return BOOST_DISPATCH_IMPL_TAG_CALL(Tag,Site,Args,args);
     }
   };
 } }

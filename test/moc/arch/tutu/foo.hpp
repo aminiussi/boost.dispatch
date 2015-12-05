@@ -10,6 +10,7 @@
 #define ARCH_TUTU_FOO_INCLUDED
 
 #include <boost/dispatch/function/overload.hpp>
+#include <boost/config.hpp>
 
 namespace tutu { namespace titi { namespace ext
 {
@@ -19,7 +20,7 @@ namespace tutu { namespace titi { namespace ext
                           , boost::dispatch::scalar_<boost::dispatch::int8_<T>>
                           )
   {
-    char operator()( T const& ) const { return '#'; }
+    char operator()( T const& ) const BOOST_NOEXCEPT{ return '#'; }
   };
 
   BOOST_DISPATCH_OVERLOAD ( foo_
