@@ -1,14 +1,17 @@
-##===================================================================================================
+##==================================================================================================
 ##                 Copyright 2015   NumScale SAS
 ##
 ##                   Distributed under the Boost Software License, Version 1.0.
 ##                        See accompanying file LICENSE.txt or copy at
 ##                            http://www.boost.org/LICENSE_1_0.txt
-##===================================================================================================
+##==================================================================================================
 
-##===================================================================================================
+include(ns)
+NS_guard(NS_CMAKE_PARSE_REVISION)
+
+##==================================================================================================
 ## Parse revision number in variables
-##===================================================================================================
+##==================================================================================================
 function(parse_revision version_string prefix)
   set(version_regex_release "^([0-9]+)\\.([0-9]+)\\.([0-9]+)$")
   set(version_regex_prerelease "^([0-9]+)\\.([0-9]+)\\.([0-9]+)-([0-9A-Za-z.-]+)$")
@@ -18,7 +21,7 @@ function(parse_revision version_string prefix)
   elseif("${version_string}" MATCHES ${version_regex_prerelease})
     set(version_regex ${version_regex_prerelease})
   else()
-    message(ERROR "[boost.dispatch] Unknown version format")
+    NS_error("Unknown version format")
     return()
   endif()
 
@@ -40,47 +43,53 @@ function(parse_revision version_string prefix)
 
 endfunction()
 
-##===================================================================================================
+##==================================================================================================
 ## Setup revision ID
-##===================================================================================================
+##==================================================================================================
 if(GIT_EXECUTABLE AND NOT EXISTS GIT_EXECUTABLE)
   unset(GIT_EXECUTABLE CACHE)
 endif()
 
 find_package(Git QUIET)
 if(GIT_EXECUTABLE)
+  execute_process(COMMAND ${GIT_EXECUTABLE} fetch --tags
+                  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+                 )
   execute_process(COMMAND ${GIT_EXECUTABLE} describe --tags
                   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-                  OUTPUT_VARIABLE BOOST_DISPATCH_VERSION_STRING
+                  OUTPUT_VARIABLE PROJECT_VERSION_STRING
                   OUTPUT_STRIP_TRAILING_WHITESPACE
                  )
 endif()
+if (NOT PROJECT_VERSION_STRING)
+  set(PROJECT_VERSION_STRING "(alpha)")
+endif()
 
-if(NOT DEFINED BOOST_DISPATCH_VERSION_STRING)
+if(NOT DEFINED PROJECT_VERSION_STRING)
   if((NOT GIT_EXECUTABLE OR NOT EXISTS GIT_EXECUTABLE) AND IS_DIRECTORY ${PROJECT_SOURCE_DIR}/.git)
 
-    message ( FATAL_ERROR "[boost.dispatch] Git not found, verify your GIT_EXECUTABLE variable "
-                          "or specify BOOST_DISPATCH_VERSION_STRING manually"
+    NS_error("Git not found, verify your GIT_EXECUTABLE variable "
+             "or specify PROJECT_VERSION_STRING manually"
             )
 
   elseif(NOT EXISTS ${PROJECT_SOURCE_DIR}/tagname)
 
-    message ( FATAL_ERROR "BOOST_DISPATCH_VERSION_STRING must be specified "
-                          "manually if no tagname file nor Git"
+    NS_error("PROJECT_VERSION_STRING must be specified "
+             "manually if no tagname file nor Git"
             )
 
   endif()
 
-  file(READ tagname BOOST_DISPATCH_VERSION_STRING)
-  string(REGEX REPLACE "[ \r\n\t]+$" "" BOOST_DISPATCH_VERSION_STRING "${BOOST_DISPATCH_VERSION_STRING}")
+  file(READ tagname PROJECT_VERSION_STRING)
+  string(REGEX REPLACE "[ \r\n\t]+$" "" PROJECT_VERSION_STRING "${PROJECT_VERSION_STRING}")
 
 endif()
 
-parse_revision("${BOOST_DISPATCH_VERSION_STRING}" BOOST_DISPATCH_VERSION)
+parse_revision("${PROJECT_VERSION_STRING}" PROJECT_VERSION)
 
-set(boost_dispatch_release "(release)")
-if(BOOST_DISPATCH_VERSION_IS_PRERELEASE)
-  set(boost_dispatch_release "(pre-release)")
+set(PROJECT_RELEASE "(release)")
+if(PROJECT_VERSION_IS_PRERELEASE)
+  set(PROJECT_RELEASE "(pre-release)")
 endif()
 
-message(STATUS "[boost.dispatch] Configuring Boost.Dispatch version ${BOOST_DISPATCH_VERSION_STRING} ${boost_dispatch_release}")
+NS_say("Configuring project version ${PROJECT_VERSION_STRING} ${PROJECT_RELEASE}")
