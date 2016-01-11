@@ -1,35 +1,35 @@
 PROJECT_NAME            = "Boost.Dispatch"
 PROJECT_BRIEF           = "Tag-dispatching Made Easy"
 PROJECT_LOGO            =
-PROJECT_NUMBER          = "@BOOST_DISPATCH_VERSION_STRING@ @boost_dispatch_release@"
+PROJECT_NUMBER          = "@PROJECT_VERSION_STRING@ @PROJECT_RELEASE@"
 
-STRIP_FROM_PATH         = @Boost.Dispatch_SOURCE_DIR@/include
+STRIP_FROM_PATH         = @PROJECT_SOURCE_DIR@/include
 BUILTIN_STL_SUPPORT     = YES
-STRIP_FROM_INC_PATH     = @Boost.Dispatch_SOURCE_DIR@/include
+STRIP_FROM_INC_PATH     = @PROJECT_SOURCE_DIR@/include
 ENABLED_SECTIONS        =
 
 # Concepts and links to boost documentation
-ALIASES =
-ALIASES += anchor{1}="<a name=\"\1\"></a>[[\1](#back\1)]:"
-ALIASES += refanchor{1}="<a name=\"back\1\"></a>[<sup>\1</sup>](#\1)"
-ALIASES += metafunction="<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/metafunction.html\">Metafunction</a>"
-ALIASES += true_="@c std::integral_constant<bool,true>"
-ALIASES += false_="@c std::integral_constant<bool,false>"
-ALIASES += mplint="<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/integral-constant.html\">Integral Constant</a>"
-ALIASES += mpllambda="<a href=\"http://www.boost.org/doc/libs/releae/libs/mpl/doc/refmanual/lambda-expression.html\">Lambda Expression</a>"
+ALIASES                 =
+ALIASES                += anchor{1}="<a name=\"\1\"></a>[[\1](#back\1)]:"
+ALIASES                += refanchor{1}="<a name=\"back\1\"></a>[<sup>\1</sup>](#\1)"
+ALIASES                += metafunction="<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/metafunction.html\">Metafunction</a>"
+ALIASES                += true_="@c std::integral_constant<bool,true>"
+ALIASES                += false_="@c std::integral_constant<bool,false>"
+ALIASES                += mplint="<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/integral-constant.html\">Integral Constant</a>"
+ALIASES                += mpllambda="<a href=\"http://www.boost.org/doc/libs/releae/libs/mpl/doc/refmanual/lambda-expression.html\">Lambda Expression</a>"
 
 # Resources
 OUTPUT_DIRECTORY        =
-INPUT                    = @Boost.Dispatch_SOURCE_DIR@/include/
-INPUT                   += @Boost.Dispatch_SOURCE_DIR@/doc
+INPUT                   = @PROJECT_SOURCE_DIR@/include/
+INPUT                  += @PROJECT_SOURCE_DIR@/doc
 FILE_PATTERNS           = *.md *.hpp
 RECURSIVE               = YES
 
-EXCLUDE                 = @Boost.Dispatch_SOURCE_DIR@/include/boost/dispatch/detail/brigand.hpp
+EXCLUDE                 = @PROJECT_SOURCE_DIR@/include/boost/dispatch/detail/brigand.hpp
 
-EXAMPLE_PATH            = @Boost.Dispatch_SOURCE_DIR@/example
-#EXAMPLE_PATH           += @Boost.Dispatch_SOURCE_DIR@/test/unit
-EXAMPLE_PATH           += @Boost.Dispatch_SOURCE_DIR@/doc/
+EXAMPLE_PATH            = @PROJECT_SOURCE_DIR@/example
+#EXAMPLE_PATH          += @PROJECT_SOURCE_DIR@/test/unit
+EXAMPLE_PATH           += @PROJECT_SOURCE_DIR@/doc/
 EXAMPLE_RECURSIVE       = YES
 
 IMAGE_PATH              =
@@ -61,7 +61,7 @@ GENERATE_DEPRECATEDLIST = YES
 SHOW_USED_FILES         = YES
 SHOW_FILES              = YES
 SHOW_NAMESPACES         = YES
-LAYOUT_FILE             = @Boost.Dispatch_SOURCE_DIR@/doc/layout.xml
+LAYOUT_FILE             = @PROJECT_SOURCE_DIR@/doc/layout.xml
 
 CLASS_DIAGRAMS          = NO
 HAVE_DOT                = NO
@@ -91,7 +91,7 @@ ENABLE_PREPROCESSING    = YES
 MACRO_EXPANSION         = YES
 EXPAND_ONLY_PREDEF      = YES
 SEARCH_INCLUDES         = YES
-INCLUDE_PATH            = @Boost.Dispatch_SOURCE_DIR@/include
+INCLUDE_PATH            = @PROJECT_SOURCE_DIR@/include
 INCLUDE_FILE_PATTERNS   =
 PREDEFINED              = DOXYGEN_ONLY
 SKIP_FUNCTION_MACROS    = NO
