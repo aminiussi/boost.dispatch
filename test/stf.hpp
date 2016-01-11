@@ -4,8 +4,8 @@
 
   Main header for the unit test system
 
-<<<<<<< HEAD:test/nstest.hpp
-  @copyright 2015 NumScale SAS
+  @copyright 2015 Joel Falcou
+
 
   Distributed under the Boost Software License, Version 1.0.
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
@@ -383,7 +383,6 @@ namespace stf
 }
 
 
-#if !defined(STF_USE_CUSTOM_DRIVER)
 
 #if !defined(STF_CUSTOM_DRIVER_FUNCTION)
 #define STF_CUSTOM_DRIVER_FUNCTION main
@@ -393,13 +392,14 @@ namespace stf
 #define STF_CUSTOM_DRIVER_FUNCTION
 #endif
 
+#if !defined(STF_USE_CUSTOM_DRIVER)
 int STF_CUSTOM_DRIVER_FUNCTION(int argc, const char** argv)
 {
   ::stf::unit::env $env(argc,argv,std::cout);
   return ::stf::run( $env, ::stf::unit::suite(), 0, 0 );
 }
-
 #endif
+
 
 
 
@@ -603,7 +603,7 @@ namespace stf { namespace detail
 #define STF_DUMP(R)                                                                                 \
 $.stream()  << "failing because:\n" << R.lhs << R.op << R.rhs << "\n" << "is incorrect.\n";         \
 
-
+  
 namespace stf
 {
   template<typename LHS, typename RHS>
@@ -684,7 +684,7 @@ namespace stf { namespace detail
               , stf::to_string( lhs ), stf::split_line(lhs,rhs,SB), stf::to_string(rhs)             \
               };                                                                                    \
     }                                                                                               \
-
+    
     STF_BINARY_DECOMPOSE( ==, "==", eq  )
     STF_BINARY_DECOMPOSE( !=, "!=", neq )
     STF_BINARY_DECOMPOSE( < , "<" , lt  )
