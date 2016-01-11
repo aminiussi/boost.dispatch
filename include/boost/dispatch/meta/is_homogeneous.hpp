@@ -40,7 +40,7 @@ namespace boost { namespace dispatch
       template<typename T, bool Status> struct impl
       {
         // Empty sequence are not homogeneous
-        using type = brigand::false_;
+        using type = std::false_type;
       };
 
       template<typename T>
@@ -60,13 +60,13 @@ namespace boost { namespace dispatch
     // Special case for std::tuple<>
     template<> struct is_homogeneous_<std::tuple<>>
     {
-      using type = brigand::false_;
+      using type = std::false_type;
     };
 
     // Special case for std::tuple<T>
     template<typename T> struct is_homogeneous_<std::tuple<T>>
     {
-      using type = brigand::true_;
+      using type = std::true_type;
     };
 
     // Special case for std::tuple
