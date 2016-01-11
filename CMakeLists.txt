@@ -88,7 +88,7 @@ set(EXTERNAL_PROJECTS_SOURCES
 ## -------------------------------------------------------------------------------------------------
 
 add_custom_target(update.ns.scripts
-  DEPENDS ${NSSCRIPTS_INSTALL_TARGET}
+  DEPENDS ${NS_SCRIPTS_INSTALL_TARGET}
 )
 add_custom_command(
   TARGET  update.ns.scripts
@@ -108,8 +108,8 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} --build . --target standalone
   WORKING_DIRECTORY ${STF_BUILD_DIR}
 )
-add_custom_command(OUTPUT ${STF_STANDALONE}
-  DEPENDS update.stf
+add_custom_command(
+  TARGET  update.stf
   COMMENT "Updating STF"
   COMMAND ${CMAKE_COMMAND} -E copy
     ${STF_SOURCE_DIR}/standalone/stf.hpp
@@ -126,8 +126,8 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} --build . --target standalone
   WORKING_DIRECTORY ${BRIGAND_BUILD_DIR}
 )
-add_custom_command(OUTPUT ${BRIGAND_STANDALONE}
-  DEPENDS update.brigand
+add_custom_command(
+  TARGET  update.brigand
   COMMENT "Updating brigand"
   COMMAND ${CMAKE_COMMAND} -E copy
     ${BRIGAND_SOURCE_DIR}/standalone/brigand.hpp
@@ -152,7 +152,7 @@ add_custom_command(
     ||
     \( ${GIT_EXECUTABLE} reset
     && ${GIT_EXECUTABLE} add ${EXTERNAL_PROJECTS_SOURCES}
-    && ${GIT_EXECUTABLE} commit -m "automatic: Update external projects"
+    && ${GIT_EXECUTABLE} commit -m "auto: Update external projects" --no-verify
     \)
 )
 
@@ -162,7 +162,10 @@ add_custom_target(update.check)
 add_custom_command(
   TARGET  update.check
   COMMENT "Checking updates: Creating diff"
-  COMMAND ${GIT_EXECUTABLE} --no-pager diff ${EXTERNAL_PROJECTS_SOURCES} > ${DEPS_DIR}/update.diff
+  COMMAND
+       ${GIT_EXECUTABLE} reset
+    && ${GIT_EXECUTABLE} -C ${PROJECT_SOURCE_DIR} --no-pager diff ${EXTERNAL_PROJECTS_SOURCES}
+    >  ${DEPS_DIR}/update.diff
 )
 add_custom_command(
   TARGET  update.check
