@@ -192,6 +192,10 @@ if (NOT DEFINED IS_TRAVIS_CI)
   include(doc)
 endif()
 
+## Install target
+## -------------------------------------------------------------------------------------------------
+install( DIRECTORY ${PROJECT_SOURCE_DIR}/include DESTINATION . )
+
 ## Add include directories
 ## -------------------------------------------------------------------------------------------------
 include_directories(
