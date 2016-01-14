@@ -2,14 +2,14 @@
     "key": "dispatch",
     "name": "Dispatch",
     "authors": [
-        "Joel Falcou"
+        "NumScale"
     ],
     "maintainers": [
-        "Joel Falcou <joel.falcou -at- lri.fr>"
+        "NumScale <open.boost.dispatch -at- numscale.com>"
     ],
     "description": "Abstraction layer for tag dispatching techniques",
     "category": [
-        "Generic Programming",
+        "Generic Programming"
     ]
 }
 
