@@ -6,7 +6,7 @@
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##==================================================================================================
 
-include(ns)
+include(${NS_CMAKE_ROOT}/ns.cmake)
 NS_guard(NS_CMAKE_DOC)
 NS_find_package(Git QUIET)
 NS_find_package(Doxygen QUIET)
