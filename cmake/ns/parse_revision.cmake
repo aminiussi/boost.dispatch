@@ -6,8 +6,8 @@
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##==================================================================================================
 
-include(ns)
-NS_guard(NS_CMAKE_PARSE_REVISION)
+include(${NS_CMAKE_ROOT}/ns.cmake)
+NS_guard(NS_CMAKE_COMPILERS)
 
 ##==================================================================================================
 ## Parse revision number in variables

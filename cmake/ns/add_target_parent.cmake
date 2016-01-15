@@ -6,6 +6,9 @@
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##==================================================================================================
 
+include(${NS_CMAKE_ROOT}/ns.cmake)
+NS_guard(NS_CMAKE_ADD_TARGET_PARENT)
+
 ##==================================================================================================
 ## if they don't already exist, create a target and all of its logical parents
 ## e.g. foo.bar.baz.thing -> foo.baz.thing -> foo.thing -> thing

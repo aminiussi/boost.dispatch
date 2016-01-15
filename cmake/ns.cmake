@@ -6,84 +6,25 @@
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##==================================================================================================
 
-include(ExternalProject)
-
-## -------------------------------------------------------------------------------------------------
-## -------------------------------------------------------------------------------------------------
-
-## Global get
-## -------------------------------------------------------------------------------------------------
-macro (NS_get_global name out)
-  get_property(${out} GLOBAL PROPERTY ${name})
-endmacro()
-
-## Global set
-## -------------------------------------------------------------------------------------------------
-macro (NS_set_global name value)
-  set_property(GLOBAL PROPERTY ${name} ${value})
-endmacro()
-
 ## Guard helper
 ## -------------------------------------------------------------------------------------------------
 macro (NS_guard name)
-  NS_get_global(${name} IS_INCLUDED)
+  get_property(IS_INCLUDED GLOBAL PROPERTY ${name})
   if (${IS_INCLUDED})
     return()
   else()
-    NS_set_global(${name} TRUE)
+    set_property(GLOBAL PROPERTY ${name} TRUE)
   endif()
 endmacro()
 
-## -------------------------------------------------------------------------------------------------
-## -------------------------------------------------------------------------------------------------
-
 NS_guard(NS_CMAKE_INCLUDED)
-
-set(NS_QUIET)
-#set(NS_QUIET OUTPUT_QUIET)
-
-## -------------------------------------------------------------------------------------------------
 ## -------------------------------------------------------------------------------------------------
 
-## Display all parameters
-## -------------------------------------------------------------------------------------------------
-function (NS_message kind)
-  string(REPLACE ";" " " WHAT "${ARGN}")
-  message(${kind} "[${NS_PROJECT_NAME}]: ${WHAT}")
-endfunction()
+include(ExternalProject)
 
-## Display all parameters
-## -------------------------------------------------------------------------------------------------
-function (NS_say)
-  NS_message(STATUS ${ARGN})
-endfunction()
-
-## Display all parameters
-## -------------------------------------------------------------------------------------------------
-function (NS_warn)
-  NS_message(WARNING ${ARGN})
-endfunction()
-
-## Same as `NS_say` but will exit after outputting the message
-## -------------------------------------------------------------------------------------------------
-function (NS_error)
-  NS_message(FATAL_ERROR ${ARGN})
-endfunction()
-
-## Macro to easily show `A = ${A}` where `A` is a variable
-## -------------------------------------------------------------------------------------------------
-macro (NS_show var)
-  message(STATUS "[${NS_PROJECT_NAME}]: ${var} = ${${var}}")
-endmacro()
-
-## Enable DEBUG informations
-## -------------------------------------------------------------------------------------------------
-#set(NS_DEBUG false)
-
-## -------------------------------------------------------------------------------------------------
+## Associative table
 ## -------------------------------------------------------------------------------------------------
 
-## NS_map: Helpers to manipulate associative table
 ## -------------------------------------------------------------------------------------------------
 function (NS_map_has map key yes_or_no)
   list(FIND map ${key} INDEX)
@@ -120,81 +61,181 @@ function (NS_map_remove map key out)
   set(${out} "${map}" PARENT_SCOPE)
 endfunction()
 
-## -------------------------------------------------------------------------------------------------
+## Log helpers
 ## -------------------------------------------------------------------------------------------------
 
-## Clone a Git repository during CMake generation. Which mean that you can clone
-## a repo and include it while CMake is generating everything
-## -------------------------------------------------------------------------------------------------
-if(GIT_EXECUTABLE AND NOT EXISTS GIT_EXECUTABLE)
-  unset(GIT_EXECUTABLE CACHE)
-endif()
-find_package(Git QUIET)
+## Display all parameters
+function (NS_message kind)
+  string(REPLACE ";" " " WHAT "${ARGN}")
+  message(${kind} "[${PROJECT_NAME}]: ${WHAT}")
+endfunction()
 
-macro (NS_set name value)
-    set(${name} ${value})
-    set(${name} ${value} PARENT_SCOPE)
-endmacro()
+## Display all parameters
+function (NS_say)
+  NS_message(STATUS ${ARGN})
+endfunction()
 
-function (NS_git_clone)
-  if(NOT GIT_EXECUTABLE)
-    NS_error("Unable to find `git` executable! Cannot use `NS_git_clone`!")
-  endif()
-  # --
-  NS_map_must_have("${ARGN}" GIT_REPOSITORY)
-  NS_map_at("${ARGN}" GIT_REPOSITORY OUT)
-  set(GIT_REPOSITORY ${OUT})
-  # --
-  NS_map_must_have("${ARGN}" DESTINATION)
-  NS_map_at("${ARGN}" DESTINATION OUT)
-  set(DESTINATION ${OUT})
-  # --
-  NS_map_has("${ARGN}" OVERWRITE YES)
-  if (${YES})
-    NS_say("## Removing ${DESTINATION}")
-    # --
-    execute_process(
-      COMMAND ${CMAKE_COMMAND} -E remove_directory ${DESTINATION}
-      ${NS_QUIET}
-    )
-  endif()
-  # --
-  if (NOT EXISTS ${DESTINATION})
-    NS_say("## Cloning ${GIT_REPOSITORY}")
-    # --
-    set(GIT_CMD ${GIT_EXECUTABLE} clone ${GIT_OPTS} ${GIT_REPOSITORY} ${DESTINATION})
-    if (DEFINED NS_DEBUG)
-      NS_say(${GIT_CMD})
-    endif()
-    execute_process(
-      COMMAND ${GIT_CMD}
-      ${NS_QUIET}
-    )
-  endif()
-  # --
-  NS_map_has("${ARGN}" GIT_TAG YES)
-  if (${YES})
-    NS_map_at("${ARGN}" GIT_TAG OUT)
-    set(GIT_TAG ${OUT})
-  else()
-    # Assume we are always on master by default
-    set(GIT_TAG master)
-  endif()
-  execute_process(
-    COMMAND ${GIT_EXECUTABLE} -C ${DESTINATION} checkout ${GIT_TAG}
-    ${NS_QUIET}
-  )
-  # --
-  NS_map_has("${ARGN}" UPDATE YES)
-  if (${YES})
-    execute_process(
-      COMMAND ${GIT_EXECUTABLE} -C ${DESTINATION} pull origin ${GIT_TAG}
-      ${NS_QUIET}
-    )
+## Display all parameters
+function (NS_warn)
+  NS_message(WARNING ${ARGN})
+endfunction()
+
+## Same as `NS_say` but will exit after outputting the message
+function (NS_error)
+  NS_message(FATAL_ERROR ${ARGN})
+endfunction()
+
+## Same as `NS_say` but only displayed if NS_ENABLE_DEBUG is defined
+function (NS_debug)
+  if (DEFINED NS_ENABLE_DEBUG)
+    NS_message(STATUS "debug: ${ARGN}")
   endif()
 endfunction()
 
-macro (_NS_add_project_vars name)
+## Macro to easily show `A = ${A}` where `A` is a variable
+macro (NS_show var)
+  message(STATUS "[${PROJECT_NAME}]: ${var} = ${${var}}")
+endmacro()
+
+## Macro to easily show `A = ${A}` where `A` is a variable (only if NS_ENABLE_DEBUG is defined)
+macro (NS_debug_show var)
+  if (DEFINED NS_ENABLE_DEBUG)
+    message(STATUS "[${PROJECT_NAME}]: ${var} = ${${var}}")
+  endif()
+endmacro()
+
+## General helpers
+## -------------------------------------------------------------------------------------------------
+
+## Set both in current scope and parent scope
+macro (NS_set name value)
+  set(${name} ${value})
+  set(${name} ${value} PARENT_SCOPE)
+endmacro()
+
+## Ignore expression to prevent some cmake warnings
+macro(NS_ignore)
+  # Nothing to do here!
+endmacro()
+
+## Add path to include module path of cmake
+function (NS_cmake_add_path path)
+  list(APPEND CMAKE_MODULE_PATH ${path})
+  set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} PARENT_SCOPE)
+endfunction()
+
+## Prevent from calling cmake at project root directory
+function (NS_prevent_in_source_build)
+  if (NOT DEFINED PROJECT_SOURCE_DIR)
+    NS_error("Calling `NS_prevent_in_source_build` requires cmake project!")
+  endif()
+  if (${PROJECT_SOURCE_DIR} STREQUAL ${PROJECT_BINARY_DIR})
+    NS_error("Building in-source, not recommended! Build in a separate directory.")
+  endif()
+endfunction()
+
+## Find CMake package more strictly (if `REQUIRED` is passed as parameter and that no package has
+## been found, then an error will be reported)
+macro (NS_find_package name)
+  find_package(${name} ${ARGN})
+  NS_map_has("${ARGN}" REQUIRED YES)
+  if (${YES} AND NOT ${name}_FOUND)
+    NS_error("'${name}' package is required but has not been found!")
+  endif()
+endmacro()
+
+## Include a cmake file that is in ns.cmake
+macro (NS_include path)
+  set(INC_PATH ${NS_CMAKE_ROOT}/${path})
+  if (EXISTS ${INC_PATH})
+    include(${INC_PATH})
+  elseif(EXISTS ${INC_PATH}.cmake)
+    include(${INC_PATH}.cmake)
+  else()
+    include(${INC_PATH})
+  endif()
+endmacro()
+
+## Global get
+macro (NS_global_get name out)
+  get_property(${out} GLOBAL PROPERTY ${name})
+endmacro()
+
+## Global set
+macro (NS_global_set name value)
+  set_property(GLOBAL PROPERTY ${name} ${value})
+endmacro()
+
+## -------------------------------------------------------------------------------------------------
+
+## Set the destination for all external projects
+function (NS_project_global_destination dir)
+  NS_set(NS_CMAKE_EXTERNAL_PROJECTS_DESTINATION ${dir})
+endfunction()
+
+## Include project configuration
+function (NS_project_include project)
+  NS_include(projects/${project})
+endfunction()
+
+macro (_NS_project_target_setup name)
+  set(GIT ${GIT_EXECUTABLE} -C ${PROJECT_SOURCE_DIR})
+  set(_NULL ${CMAKE_CURRENT_BINARY_DIR}/null)
+  set(_DIFF ${CMAKE_CURRENT_BINARY_DIR}/git.update.${name}.diff)
+  file(WRITE ${_NULL} "")
+endmacro()
+
+## 
+function (NS_project_add_check_target name)
+  _NS_project_target_setup(${name})
+  add_custom_target(update.${name}.check)
+  add_dependencies(update.check update.${name}.check)
+  add_custom_command(
+    TARGET  update.${name}.check
+    COMMENT "Checking updates for: ${name}"
+    COMMAND
+         ${GIT} reset
+      &&
+      \( ${GIT} --no-pager diff ${ARGN}
+      || ${CMAKE_COMMAND} -E echo ""
+      \) >  ${_DIFF}
+  )
+  add_custom_command(
+    TARGET  update.check
+    COMMAND
+         ${CMAKE_COMMAND} -E compare_files ${_NULL} ${_DIFF}
+      && ${CMAKE_COMMAND} -E echo "-- ${name} is up to date!"
+      || ${CMAKE_COMMAND} -E echo "-- ${name} needs update!"
+  )
+endfunction()
+
+## 
+function (NS_project_add_git_update_target name)
+  if (NOT TARGET update.${name}.check)
+    NS_project_add_check_target(${name} ${ARGN})
+  endif()
+  # --
+  _NS_project_target_setup(${name})
+  add_custom_target(git.update.${name})
+  add_dependencies(git.update git.update.${name})
+  add_custom_command(
+    TARGET git.update.${name}
+    COMMAND
+         ${CMAKE_COMMAND} -E echo "" # FIXME: DO NOT REMOVE THIS!
+      &&
+         ${GIT} ls-files ${ARGN} --error-unmatch
+      &&
+      \(
+         ${CMAKE_COMMAND} -E compare_files ${_NULL} ${_DIFF}
+      || ${GIT} add ${ARGN}
+      \)
+      || ${GIT} add ${ARGN}
+  )
+endfunction()
+
+## Add an external project. This function accepts same arguments as `ExternalProject_Add`.
+## - `name`: The project name
+function (NS_project_add name)
   NS_map_must_have("${ARGN}" DESTINATION)
   NS_map_at("${ARGN}" DESTINATION OUT)
   NS_map_remove("${ARGN}" DESTINATION ARGN)
@@ -213,51 +254,11 @@ macro (_NS_add_project_vars name)
   # --
   NS_say("## Adding external project: ${_PROJECT_NAME}")
   # --
-  NS_say("## Exporting those variables to the PARENT_SCOPE:")
-  NS_show(${name}_NAME)
-  NS_show(${name}_DIR)
-  NS_show(${name}_SOURCE_DIR)
-  NS_show(${name}_BUILD_DIR)
-endmacro()
-
-## Add an external cmake project.
-## @name: The project name
-## @dir:  Where the project's build will be located
-## -------------------------------------------------------------------------------------------------
-function (NS_add_cmake_project name)
-  _NS_add_project_vars(${name} ${ARGN})
-  # --
-  NS_git_clone(${ARGN} DESTINATION ${_PROJECT_SOURCE_DIR})
-  # --
-  NS_map_has("${ARGN}" EXCLUDE_FROM_ALL YES)
-  if (${YES})
-    add_custom_target(${name})
-  else()
-    add_custom_target(${name} ALL)
-  endif()
-  execute_process(
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${_PROJECT_BUILD_DIR}
-    ${NS_QUIET}
-  )
-  execute_process(
-    COMMAND ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${_PROJECT_DIR} ${_PROJECT_SOURCE_DIR}
-    WORKING_DIRECTORY ${_PROJECT_BUILD_DIR}
-    ${NS_QUIET}
-  )
-  execute_process(
-    COMMAND ${CMAKE_COMMAND} --build . --target install
-    WORKING_DIRECTORY ${_PROJECT_BUILD_DIR}
-    ${NS_QUIET}
-    )
-  return()
-endfunction()
-
-## Add an external project. This function accepts same arguments as `ExternalProject_Add`.
-## @name: The project name
-## @dir:  Where the project's build will be located
-## -------------------------------------------------------------------------------------------------
-function (NS_add_project name)
-  _NS_add_project_vars(${name} ${ARGN})
+  NS_debug("## Exporting those variables to the PARENT_SCOPE:")
+  NS_debug_show(${name}_NAME)
+  NS_debug_show(${name}_DIR)
+  NS_debug_show(${name}_SOURCE_DIR)
+  NS_debug_show(${name}_BUILD_DIR)
   # --
   NS_set(${name}_TARGET           ${name} PARENT_SCOPE)
   NS_set(${name}_TEST_TARGET      ${name}-test PARENT_SCOPE)
@@ -266,11 +267,11 @@ function (NS_add_project name)
   NS_set(${name}_DOWNLOAD_TARGET  ${name}-download PARENT_SCOPE)
   NS_set(${name}_CONFIGURE_TARGET ${name}-configure PARENT_SCOPE)
   # --
-  NS_say("## Exporting those targets to the PARENT_SCOPE:")
-  NS_show(${name}_TARGET)
-  NS_show(${name}_TEST_TARGET)
-  NS_show(${name}_BUILD_TARGET)
-  NS_show(${name}_INSTALL_TARGET)
+  NS_debug("## Exporting those targets to the PARENT_SCOPE:")
+  NS_debug_show(${name}_TARGET)
+  NS_debug_show(${name}_TEST_TARGET)
+  NS_debug_show(${name}_BUILD_TARGET)
+  NS_debug_show(${name}_INSTALL_TARGET)
   # --
   ExternalProject_Add(
     # The project name
@@ -298,49 +299,10 @@ function (NS_add_project name)
   endif()
 endfunction()
 
-## -------------------------------------------------------------------------------------------------
-## -------------------------------------------------------------------------------------------------
-
-## Add path to include module path of cmake
-## -------------------------------------------------------------------------------------------------
-function (NS_add_cmake_path path)
-  list(APPEND CMAKE_MODULE_PATH ${path})
-  set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} PARENT_SCOPE)
-endfunction()
-
-## Add path to include module path of cmake
-## -------------------------------------------------------------------------------------------------
-function (NS_prevent_in_source_build)
-  if (NOT DEFINED PROJECT_SOURCE_DIR)
-    NS_error("Calling `NS_prevent_in_source_build` requires cmake project!")
-  endif()
-  if (${PROJECT_SOURCE_DIR} STREQUAL ${PROJECT_BINARY_DIR})
-    NS_error("Building in-source, not recommended! Build in a separate directory.")
-  endif()
-endfunction()
-
-## Add path to include module path of cmake
-## -------------------------------------------------------------------------------------------------
-macro (NS_find_package name)
-  find_package(${name} ${ARGN})
-  NS_map_has("${ARGN}" REQUIRED YES)
-  if (${YES} AND NOT ${name}_FOUND)
-    NS_error("'${name}' package is required but has not been found!")
-  endif()
-endmacro()
-
-## Ignore expression to prevent some cmake warnings
-## -------------------------------------------------------------------------------------------------
-macro(NS_ignore)
-  ## Nothing to do here!
-endmacro()
-
-## -------------------------------------------------------------------------------------------------
-## -------------------------------------------------------------------------------------------------
-
 ## Defaults:
-if (DEFINED PROJECT_NAME)
-  set(NS_PROJECT_NAME ${PROJECT_NAME})
-else()
-  set(NS_PROJECT_NAME ns.cmake)
-endif()
+## -------------------------------------------------------------------------------------------------
+set(NS_CMAKE_ROOT ${CMAKE_CURRENT_LIST_DIR})
+
+add_custom_target(update.check)
+add_custom_target(update     DEPENDS update.check)
+add_custom_target(git.update)

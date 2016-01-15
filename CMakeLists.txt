@@ -10,18 +10,16 @@ cmake_minimum_required(VERSION 2.8.7)
 ## Setup project
 ## -------------------------------------------------------------------------------------------------
 project(Boost.Dispatch CXX)
-set(DEPS_DIR        ${CMAKE_BINARY_DIR}/_deps)
 set(PROJECT_DOC_DIR ${PROJECT_SOURCE_DIR}/doc)
 
-## ns.cmake
+## Requirements for ns.cmake:
 ## -------------------------------------------------------------------------------------------------
-set(NS_CMAKE     ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ns.cmake)
-set(NS_CMAKE_URL https://raw.githubusercontent.com/NumScale/ns.scripts/master/cmake/ns.cmake)
-
-if (NOT EXISTS ${NS_CMAKE})
-  file(DOWNLOAD  ${NS_CMAKE_URL} ${NS_CMAKE})
+include(cmake/ns.cmake.install.cmake)
+if (NOT NS_CMAKE_INSTALLED)
+  return()
 endif()
-include(${NS_CMAKE})
+include(cmake/ns.cmake)
+## -------------------------------------------------------------------------------------------------
 
 ## Potential warnings fixup
 ## -------------------------------------------------------------------------------------------------
@@ -40,156 +38,20 @@ endif()
 ##
 NS_prevent_in_source_build()
 
-##
-NS_add_cmake_path(${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-
 ## External projects
 ## -------------------------------------------------------------------------------------------------
-NS_add_project(NS_SCRIPTS
-  GIT_REPOSITORY https://github.com/NumScale/ns.scripts.git
-  GIT_TAG        master
-  DESTINATION    ${DEPS_DIR}
+set(STF_STANDALONE_DESTINATION     ${PROJECT_SOURCE_DIR}/test)
+set(BRIGAND_STANDALONE_DESTINATION ${PROJECT_SOURCE_DIR}/include/boost/dispatch/detail)
 
-  STEP_TARGETS   install
-  EXCLUDE_FROM_ALL
-)
-
-NS_add_project(STF
-  GIT_REPOSITORY https://github.com/jfalcou/stf.git
-  GIT_TAG        master
-  DESTINATION    ${DEPS_DIR}
-
-  STEP_TARGETS   configure
-  EXCLUDE_FROM_ALL
-)
-
-NS_add_project(BRIGAND
-  GIT_REPOSITORY https://github.com/edouarda/brigand.git
-  GIT_TAG        master
-  DESTINATION    ${DEPS_DIR}
-
-  STEP_TARGETS   configure
-  EXCLUDE_FROM_ALL
-)
-
-## Custom external project's targets
-## -------------------------------------------------------------------------------------------------
-
-set(STF_STANDALONE     ${PROJECT_SOURCE_DIR}/test/stf.hpp)
-set(BRIGAND_STANDALONE ${PROJECT_SOURCE_DIR}/include/boost/dispatch/detail/brigand.hpp)
-set(NS_SCRIPTS_CMAKE   ${PROJECT_SOURCE_DIR}/cmake)
-
-set(EXTERNAL_PROJECTS_SOURCES
-  ${STF_STANDALONE}
-  ${BRIGAND_STANDALONE}
-  ${NS_SCRIPTS_CMAKE}
-)
-
-## -------------------------------------------------------------------------------------------------
-
-add_custom_target(update.ns.scripts
-  DEPENDS ${NS_SCRIPTS_INSTALL_TARGET}
-)
-add_custom_command(
-  TARGET  update.ns.scripts
-  COMMENT "Updating ns.scripts"
-  COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${DEPS_DIR}/cmake
-    ${PROJECT_SOURCE_DIR}/cmake
-)
-
-## -------------------------------------------------------------------------------------------------
-
-add_custom_target(update.stf
-  DEPENDS ${STF_CONFIGURE_TARGET}
-)
-add_custom_command(
-  TARGET  update.stf
-  COMMAND ${CMAKE_COMMAND} --build . --target standalone
-  WORKING_DIRECTORY ${STF_BUILD_DIR}
-)
-add_custom_command(
-  TARGET  update.stf
-  COMMENT "Updating STF"
-  COMMAND ${CMAKE_COMMAND} -E copy
-    ${STF_SOURCE_DIR}/standalone/stf.hpp
-    ${STF_STANDALONE}
-)
-
-## -------------------------------------------------------------------------------------------------
-
-add_custom_target(update.brigand
-  DEPENDS ${BRIGAND_CONFIGURE_TARGET}
-)
-add_custom_command(
-  TARGET  update.brigand
-  COMMAND ${CMAKE_COMMAND} --build . --target standalone
-  WORKING_DIRECTORY ${BRIGAND_BUILD_DIR}
-)
-add_custom_command(
-  TARGET  update.brigand
-  COMMENT "Updating brigand"
-  COMMAND ${CMAKE_COMMAND} -E copy
-    ${BRIGAND_SOURCE_DIR}/standalone/brigand.hpp
-    ${BRIGAND_STANDALONE}
-)
-
-## -------------------------------------------------------------------------------------------------
-
-## Master target to update everything
-add_custom_target(update
-  DEPENDS
-    update.check
-    ## ---------
-    update.brigand
-    update.ns.scripts
-    update.stf
-)
-add_custom_command(
-  TARGET update
-  COMMAND
-    ${CMAKE_COMMAND} -E compare_files ${DEPS_DIR}/null ${DEPS_DIR}/update.diff
-    ||
-    \( ${GIT_EXECUTABLE} reset
-    && ${GIT_EXECUTABLE} add ${EXTERNAL_PROJECTS_SOURCES}
-    && ${GIT_EXECUTABLE} commit -m "auto: Update external projects" --no-verify
-    \)
-)
-
-file(WRITE ${DEPS_DIR}/null "")
-## Master target to check update for all projects
-add_custom_target(update.check)
-add_custom_command(
-  TARGET  update.check
-  COMMENT "Checking updates: Creating diff"
-  COMMAND
-       ${GIT_EXECUTABLE} reset
-    && ${GIT_EXECUTABLE} -C ${PROJECT_SOURCE_DIR} --no-pager diff ${EXTERNAL_PROJECTS_SOURCES}
-    >  ${DEPS_DIR}/update.diff
-)
-add_custom_command(
-  TARGET  update.check
-  COMMENT "Checking updates: Check if anything have changed"
-  COMMAND
-    ${CMAKE_COMMAND} -E compare_files ${DEPS_DIR}/null ${DEPS_DIR}/update.diff
-    && ${CMAKE_COMMAND} -E echo "-- External projects: ARE UP TO DATE!"
-    || ${CMAKE_COMMAND} -E echo "-- External projects: NEED UPDATES!"
-)
-
-## -------------------------------------------------------------------------------------------------
-
-## Now first init the cmake if external projects are needed at cmake time!
-## -------------------------------------------------------------------------------------------------
-if (DEFINED CMAKE_INIT)
-  add_custom_target(init DEPENDS update)
-  return()
-endif()
+#NS_project_global_destination(${PROJECT_SOURCE_DIR}/_deps)
+NS_project_include(brigand.standalone)
+NS_project_include(stf.standalone)
 
 ## Compute version string and mode + Documentation
 ## -------------------------------------------------------------------------------------------------
 if (NOT DEFINED IS_TRAVIS_CI)
-  include(parse_revision)
-  include(doc)
+  NS_include(ns/parse_revision)
+  NS_include(ns/doc/doxygen)
 endif()
 
 ## Install target
@@ -213,6 +75,6 @@ add_dependencies(tests unit)
 add_subdirectory(test)
 
 if (NOT DEFINED IS_TRAVIS_CI)
-  include(coverage)
+  NS_include(ns/coverage)
   enable_coverage(boost.dispatch)
 endif()

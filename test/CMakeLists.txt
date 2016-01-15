@@ -6,8 +6,8 @@
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##===================================================================================================
 
-include(make_unit)
-include(make_coverage)
+NS_include(ns/make_unit)
+NS_include(ns/make_coverage)
 add_subdirectory(adapted)
 add_subdirectory(api)
 add_subdirectory(hierarchy)
