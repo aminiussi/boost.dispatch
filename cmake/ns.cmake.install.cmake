@@ -21,7 +21,7 @@ if (NOT NS_CMAKE_GIT_TAG)
 endif()
 
 ExternalProject_Add(NS_CMAKE
-  GIT_REPOSITORY git@github.com:NumScale/ns.cmake.git
+  GIT_REPOSITORY https://github.com/NumScale/ns.cmake.git
   GIT_TAG        ${NS_CMAKE_GIT_TAG}
   PREFIX         ${NS_CMAKE_EXTERNAL_PROJECTS_DESTINATION}
 

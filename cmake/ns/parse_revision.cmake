@@ -7,7 +7,7 @@
 ##==================================================================================================
 
 include(${NS_CMAKE_ROOT}/ns.cmake)
-NS_guard(NS_CMAKE_COMPILERS)
+NS_guard(NS_CMAKE_PARSE_REVISION)
 
 ##==================================================================================================
 ## Parse revision number in variables
