@@ -29,6 +29,8 @@ NS_project_add(BRIGAND_STANDALONE
 
   STEP_TARGETS   configure
   EXCLUDE_FROM_ALL
+
+  ${BRIGAND_OPTIONS}
 )
 
 add_custom_target(update.brigand.standalone

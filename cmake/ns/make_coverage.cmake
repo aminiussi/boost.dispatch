@@ -6,8 +6,10 @@
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##==================================================================================================
 
-include(${NS_CMAKE_ROOT}/ns/compilers.cmake)
-include(${NS_CMAKE_ROOT}/ns/add_target_parent.cmake)
+include(${NS_CMAKE_ROOT}/ns.cmake)
+NS_guard(NS_CMAKE_MAKE_COVERAGE)
+NS_include(compilers)
+NS_include(add_target_parent)
 
 ##==================================================================================================
 ## Process a list of source files to generate corresponding coverage target

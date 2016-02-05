@@ -168,6 +168,11 @@ endmacro()
 
 ## -------------------------------------------------------------------------------------------------
 
+## Set the workspace directory for all external projects
+function (NS_project_global_workspace dir)
+  NS_set(NS_CMAKE_EXTERNAL_PROJECTS_WORKSPACE ${dir})
+endfunction()
+
 ## Set the destination for all external projects
 function (NS_project_global_destination dir)
   NS_set(NS_CMAKE_EXTERNAL_PROJECTS_DESTINATION ${dir})
@@ -180,13 +185,24 @@ endfunction()
 
 macro (_NS_project_target_setup name)
   set(GIT ${GIT_EXECUTABLE} -C ${PROJECT_SOURCE_DIR})
-  set(_NULL ${CMAKE_CURRENT_BINARY_DIR}/null)
+  set(_NULL ${CMAKE_CURRENT_BINARY_DIR}/nullbytes)
   set(_DIFF ${CMAKE_CURRENT_BINARY_DIR}/git.update.${name}.diff)
   file(WRITE ${_NULL} "")
 endmacro()
 
+macro (_NS_project_is_in_source)
+  foreach(SRC ${ARGN})
+    get_filename_component(ABSOLUTE_SRC ${SRC} ABSOLUTE)
+    string(REGEX MATCH "^\\\${PROJECT_SOURCE_DIR}" YES \${ABSOLUTE_SRC})
+    if ("${YES}" STREQUAL "")
+      return()
+    endif()
+  endforeach(SRC)
+endmacro()
+
 ## 
 function (NS_project_add_check_target name)
+  _NS_project_is_in_source(${ARGN})
   _NS_project_target_setup(${name})
   add_custom_target(update.${name}.check)
   add_dependencies(update.check update.${name}.check)
@@ -211,10 +227,12 @@ endfunction()
 
 ## 
 function (NS_project_add_git_update_target name)
+  # --
   if (NOT TARGET update.${name}.check)
     NS_project_add_check_target(${name} ${ARGN})
   endif()
   # --
+  _NS_project_is_in_source(${ARGN})
   _NS_project_target_setup(${name})
   add_custom_target(git.update.${name})
   add_dependencies(git.update git.update.${name})
@@ -241,9 +259,15 @@ function (NS_project_add name)
   NS_map_remove("${ARGN}" DESTINATION ARGN)
   set(DESTINATION ${OUT})
   # --
+  NS_map_has("${ARGN}" CMAKE_ARGS YES)
+  if (${YES})
+    NS_map_at("${ARGN}" CMAKE_ARGS _CMAKE_ARGS)
+    NS_map_remove("${ARGN}" CMAKE_ARGS ARGN)
+  endif()
+  # --
   set(_PROJECT_NAME          ${name})
   set(_PROJECT_DIR           ${DESTINATION})
-  set(_PROJECT_WORKSPACE_DIR ${CMAKE_BINARY_DIR}/_${name})
+  set(_PROJECT_WORKSPACE_DIR ${NS_CMAKE_EXTERNAL_PROJECTS_WORKSPACE}/_${name})
   set(_PROJECT_SOURCE_DIR    ${_PROJECT_WORKSPACE_DIR}/${name})
   set(_PROJECT_BUILD_DIR     ${_PROJECT_WORKSPACE_DIR}/_build)
   # --
@@ -287,7 +311,7 @@ function (NS_project_add name)
 
     # Install (we DO need to add the CMAKE_INSTALL_PREFIX...)
     INSTALL_DIR ${_PROJECT_DIR}
-    CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${_PROJECT_DIR}"
+    CMAKE_ARGS ${_CMAKE_ARGS} "-DCMAKE_INSTALL_PREFIX=${_PROJECT_DIR}"
 
     # The optional arguments
     ${ARGN}
@@ -306,3 +330,5 @@ set(NS_CMAKE_ROOT ${CMAKE_CURRENT_LIST_DIR})
 add_custom_target(update.check)
 add_custom_target(update     DEPENDS update.check)
 add_custom_target(git.update)
+NS_project_global_workspace(${PROJECT_BINARY_DIR}/_deps)
+NS_project_global_destination(${PROJECT_BINARY_DIR}/_install)

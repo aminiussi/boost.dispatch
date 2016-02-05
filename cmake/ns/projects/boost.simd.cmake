@@ -7,43 +7,43 @@
 ##===================================================================================================
 
 include(${NS_CMAKE_ROOT}/ns.cmake)
-NS_guard(NS_CMAKE_STF)
+NS_guard(NS_CMAKE_BOOST_SIMD)
 
 ## -------------------------------------------------------------------------------------------------
 
-if (NOT DEFINED STF_GIT_TAG)
-  set(STF_GIT_TAG master)
+if (NOT DEFINED BOOST_SIMD_GIT_TAG)
+  set(BOOST_SIMD_GIT_TAG master)
 endif()
 
-if (NOT DEFINED STF_DESTINATION)
-  set(STF_DESTINATION ${NS_CMAKE_EXTERNAL_PROJECTS_DESTINATION})
+if (NOT DEFINED BOOST_SIMD_DESTINATION)
+  NS_set(BOOST_SIMD_DESTINATION ${NS_CMAKE_EXTERNAL_PROJECTS_DESTINATION})
 endif()
 
-## -------------------------------------------------------------------------------------------------
+NS_project_add(BOOST_SIMD
+  GIT_REPOSITORY https://github.com/NumScale/boost.simd.git
+  GIT_TAG        ${BOOST_SIMD_GIT_TAG}
+  DESTINATION    ${BOOST_SIMD_DESTINATION}
 
-NS_project_add(STF
-  GIT_REPOSITORY https://github.com/jfalcou/stf.git
-  GIT_TAG        ${STF_GIT_TAG}
-  DESTINATION    ${STF_DESTINATION}
-
-  STEP_TARGETS   "install"
+  STEP_TARGETS   install
   EXCLUDE_FROM_ALL
+
+  ${BOOST_SIMD_OPTIONS}
 )
 
-add_custom_target(update.stf
-  DEPENDS ${STF_INSTALL_TARGET}
-  COMMENT "Updating stf"
+add_custom_target(update.boost.simd
+  DEPENDS ${BOOST_SIMD_INSTALL_TARGET}
+  COMMENT "Updating boost.simd"
 )
 
-add_dependencies(update update.stf)
+add_dependencies(update update.boost.simd)
 
-NS_project_add_git_update_target(stf
-  ${STF_DESTINATION}/include/stf
+NS_project_add_git_update_target(boost.simd
+  ${BOOST_SIMD_DESTINATION}/boost.simd
 )
 
 ## -------------------------------------------------------------------------------------------------
 
 set(NS_CMAKE_EXTERNAL_PROJECTS
   ${NS_CMAKE_EXTERNAL_PROJECTS}
-  STF
+  BOOST_SIMD
 )

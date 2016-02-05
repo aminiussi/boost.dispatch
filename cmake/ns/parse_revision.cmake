@@ -16,9 +16,9 @@ function(parse_revision version_string prefix)
   set(version_regex_release "^([0-9]+)\\.([0-9]+)\\.([0-9]+)$")
   set(version_regex_prerelease "^([0-9]+)\\.([0-9]+)\\.([0-9]+)-([0-9A-Za-z.-]+)$")
 
-  if("${version_string}" MATCHES ${version_regex_release})
+  if ("${version_string}" MATCHES ${version_regex_release})
     set(version_regex ${version_regex_release})
-  elseif("${version_string}" MATCHES ${version_regex_prerelease})
+  elseif ("${version_string}" MATCHES ${version_regex_prerelease})
     set(version_regex ${version_regex_prerelease})
   else()
     NS_error("Unknown version format")
@@ -28,9 +28,10 @@ function(parse_revision version_string prefix)
   string(REGEX REPLACE ${version_regex} "\\1" ${prefix}_MAJOR "${version_string}")
   string(REGEX REPLACE ${version_regex} "\\2" ${prefix}_MINOR "${version_string}")
   string(REGEX REPLACE ${version_regex} "\\3" ${prefix}_PATCH "${version_string}")
+
   set(${version_name}_IS_PRERELEASE 0)
 
-  if("${version_string}" MATCHES ${version_regex_prerelease})
+  if ("${version_string}" MATCHES ${version_regex_prerelease})
     string(REGEX REPLACE ${version_regex} "\\4" ${prefix}_PRERELEASE "${version_string}")
     set(${prefix}_IS_PRERELEASE 1)
   endif()
@@ -46,12 +47,12 @@ endfunction()
 ##==================================================================================================
 ## Setup revision ID
 ##==================================================================================================
-if(GIT_EXECUTABLE AND NOT EXISTS GIT_EXECUTABLE)
+if (GIT_EXECUTABLE AND NOT EXISTS GIT_EXECUTABLE)
   unset(GIT_EXECUTABLE CACHE)
 endif()
 
-find_package(Git QUIET)
-if(GIT_EXECUTABLE)
+NS_find_package(Git QUIET)
+if (GIT_EXECUTABLE)
   execute_process(COMMAND ${GIT_EXECUTABLE} fetch --tags
                   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
                  )
@@ -59,36 +60,19 @@ if(GIT_EXECUTABLE)
                   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
                   OUTPUT_VARIABLE PROJECT_VERSION_STRING
                   OUTPUT_STRIP_TRAILING_WHITESPACE
+
+                  ERROR_VARIABLE GIT_TAG_IS_AVAILABLE
                  )
 endif()
-if (NOT PROJECT_VERSION_STRING)
-  set(PROJECT_VERSION_STRING "(alpha)")
-endif()
 
-if(NOT DEFINED PROJECT_VERSION_STRING)
-  if((NOT GIT_EXECUTABLE OR NOT EXISTS GIT_EXECUTABLE) AND IS_DIRECTORY ${PROJECT_SOURCE_DIR}/.git)
-
-    NS_error("Git not found, verify your GIT_EXECUTABLE variable "
-             "or specify PROJECT_VERSION_STRING manually"
-            )
-
-  elseif(NOT EXISTS ${PROJECT_SOURCE_DIR}/tagname)
-
-    NS_error("PROJECT_VERSION_STRING must be specified "
-             "manually if no tagname file nor Git"
-            )
-
-  endif()
-
-  file(READ tagname PROJECT_VERSION_STRING)
-  string(REGEX REPLACE "[ \r\n\t]+$" "" PROJECT_VERSION_STRING "${PROJECT_VERSION_STRING}")
-
+if (NOT PROJECT_VERSION_STRING OR NOT "${GIT_TAG_IS_AVAILABLE}" STREQUAL "")
+  set(PROJECT_VERSION_STRING "0.0.0-alpha")
 endif()
 
 parse_revision("${PROJECT_VERSION_STRING}" PROJECT_VERSION)
 
 set(PROJECT_RELEASE "(release)")
-if(PROJECT_VERSION_IS_PRERELEASE)
+if (PROJECT_VERSION_IS_PRERELEASE)
   set(PROJECT_RELEASE "(pre-release)")
 endif()
 
