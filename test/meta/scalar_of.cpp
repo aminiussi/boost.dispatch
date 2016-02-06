@@ -8,7 +8,7 @@
 //==================================================================================================
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <cstdint>
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 

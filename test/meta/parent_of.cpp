@@ -8,7 +8,7 @@
 //==================================================================================================
 #include <boost/dispatch/meta/parent_of.hpp>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 STF_CASE( "parent_of of basic types is identity")
 {

@@ -13,7 +13,7 @@
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <type_traits>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 

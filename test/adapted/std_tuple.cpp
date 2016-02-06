@@ -10,7 +10,7 @@
 #include <boost/dispatch/hierarchy_of.hpp>
 #include <tuple>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 STF_CASE( "hierarchy_of over std::tuple<T...>")
 {

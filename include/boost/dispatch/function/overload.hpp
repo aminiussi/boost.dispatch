@@ -16,6 +16,7 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/tuple/rem.hpp>
+#include <boost/config.hpp>
 
 /*!
   @ingroup group-function
@@ -35,14 +36,15 @@ BOOST_DISPATCH_DISPATCHING_FUNCTION(TAG)( adl_helper const&, __VA_ARGS__)       
 /*!
   @ingroup group-function
 **/
-#define BOOST_DISPATCH_FALLBACK(...) dispatching( adl_helper const&, __VA_ARGS__)
+#define BOOST_DISPATCH_FALLBACK(...) dispatching( adl_helper const&, __VA_ARGS__) BOOST_NOEXCEPT
 
 /*!
   @ingroup group-function
 **/
 #define BOOST_DISPATCH_OVERLOAD(TAG, TEMPLATES, ... )                                               \
 template<BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)>                                                        \
-BOOST_PP_CAT(impl_,TAG)<__VA_ARGS__> BOOST_DISPATCH_IMPLEMENTS(TAG,__VA_ARGS__) { return {}; }      \
+BOOST_PP_CAT(impl_,TAG)<__VA_ARGS__>                                                                \
+BOOST_DISPATCH_IMPLEMENTS(TAG,__VA_ARGS__) BOOST_NOEXCEPT { return {}; }                            \
 template<BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)> struct BOOST_PP_CAT(impl_,TAG)<__VA_ARGS__>            \
 /**/
 
@@ -52,7 +54,8 @@ template<BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)> struct BOOST_PP_CAT(impl_,TAG)<__VA
 #define BOOST_DISPATCH_OVERLOAD_FALLBACK( TEMPLATES, ... )                                          \
 template<typename... Specifications> struct impl_fallback;                                          \
 template<BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)>                                                        \
-impl_fallback<__VA_ARGS__> dispatching( adl_helper const&, __VA_ARGS__) { return {}; }              \
+impl_fallback<__VA_ARGS__>                                                                          \
+dispatching( adl_helper const&, __VA_ARGS__) BOOST_NOEXCEPT { return {}; }                          \
 template<BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)> struct impl_fallback<__VA_ARGS__>                      \
 /**/
 

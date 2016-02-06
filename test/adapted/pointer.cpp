@@ -14,7 +14,7 @@
 #include <boost/dispatch/property_of.hpp>
 #include <boost/dispatch/hierarchy_of.hpp>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 

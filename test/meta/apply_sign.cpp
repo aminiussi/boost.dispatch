@@ -11,7 +11,7 @@
 #include <boost/dispatch/meta/as_signed.hpp>
 #include <cstdint>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 

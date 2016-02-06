@@ -8,7 +8,7 @@
 //==================================================================================================
 #include <boost/dispatch/meta/factory_of.hpp>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 STF_CASE( "factory_of of basic types is meta-identity")
 {

@@ -14,7 +14,7 @@
 #include <cstddef>
 #include <array>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 STF_CASE ( "Parenthood of pointer and iterator hierarchies" )
 {

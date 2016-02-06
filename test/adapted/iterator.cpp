@@ -15,7 +15,7 @@
 #include <vector>
 #include <list>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 

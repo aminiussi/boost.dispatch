@@ -9,14 +9,14 @@
 #include <boost/dispatch/meta/behave_as.hpp>
 #include <boost/dispatch/detail/brigand.hpp>
 #include <type_traits>
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 
 STF_CASE( "behave_as of basic types is same as direct meta-function call")
 {
-  STF_TYPE_IS( (behave_as_t<float ,std::is_floating_point<brigand::_1>>), brigand::true_  );
-  STF_TYPE_IS( (behave_as_t<double,std::is_floating_point<brigand::_1>>), brigand::true_  );
-  STF_TYPE_IS( (behave_as_t<char  ,std::is_floating_point<brigand::_1>>), brigand::false_ );
-  STF_TYPE_IS( (behave_as_t<void* ,std::is_floating_point<brigand::_1>>), brigand::false_ );
+  STF_TYPE_IS( (behave_as_t<float ,std::is_floating_point<brigand::_1>>), std::true_type  );
+  STF_TYPE_IS( (behave_as_t<double,std::is_floating_point<brigand::_1>>), std::true_type  );
+  STF_TYPE_IS( (behave_as_t<char  ,std::is_floating_point<brigand::_1>>), std::false_type );
+  STF_TYPE_IS( (behave_as_t<void* ,std::is_floating_point<brigand::_1>>), std::false_type );
 }

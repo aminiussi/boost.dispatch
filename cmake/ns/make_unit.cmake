@@ -5,8 +5,11 @@
 ##                        See accompanying file LICENSE.txt or copy at
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##==================================================================================================
-include(compilers)
-include(add_target_parent)
+
+include(${NS_CMAKE_ROOT}/ns.cmake)
+NS_guard(NS_CMAKE_MAKE_UNIT)
+NS_include(compilers)
+NS_include(add_target_parent)
 
 ##===================================================================================================
 ## Process a list of source files to generate corresponding test target

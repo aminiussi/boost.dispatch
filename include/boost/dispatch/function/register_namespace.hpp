@@ -44,14 +44,18 @@ namespace boost { namespace dispatch
     template<typename... Call> struct no_such_overload;
 
     template<typename... Ts>
-    BOOST_FORCEINLINE no_such_overload<Tag(Site,Ts...)> operator()(Ts&& ...) const { return {}; }
+    BOOST_FORCEINLINE no_such_overload<Tag(Site,Ts...)>
+    operator()(Ts&& ...) const BOOST_NOEXCEPT { return {}; }
   };
 
   namespace meta
   {
     // The 'no luck Sherlock' case returns an incomplete type to emit an informative message
-    template<typename F, typename A>
-    inline error_<F,A> dispatching(adl_helper const&,function_<F> const&,unspecified_<A> const&,...)
+    template<typename F, typename A, typename... Ts>
+    BOOST_FORCEINLINE error_<F,A>
+    dispatching ( adl_helper const&, function_<F> const&, unspecified_<A> const&
+                , ::boost::dispatch::unknown_<Ts> const&...
+                )  BOOST_NOEXCEPT
     {
       return {};
     }
@@ -77,6 +81,11 @@ namespace boost { namespace dispatch
       template<typename... Args>
       BOOST_FORCEINLINE typename result<generic_dispatcher(Args&&...)>::type
       operator()(Args&&... args) const
+      BOOST_NOEXCEPT_IF ( BOOST_NOEXCEPT_EXPR(
+                          dispatching ( Discriminant{}, Tag{}, default_site<Tag>{}
+                                      , ::boost::dispatch::hierarchy_of_t<Args&&>()...
+                                      )( std::forward<Args>(args)... )
+                        ) )
       {
         return dispatching( Discriminant{}, Tag{}, default_site<Tag>{}
                           , ::boost::dispatch::hierarchy_of_t<Args&&>()...
@@ -86,6 +95,11 @@ namespace boost { namespace dispatch
       #else
       template<typename... Args>
       BOOST_FORCEINLINE auto operator()(Args&&... args) const
+      BOOST_NOEXCEPT_IF ( BOOST_NOEXCEPT_EXPR(
+                          dispatching ( Discriminant{}, Tag{}, default_site<Tag>{}
+                                      , ::boost::dispatch::hierarchy_of_t<Args&&>()...
+                                      )( std::forward<Args>(args)... )
+                        ) )
       BOOST_AUTO_DECLTYPE_BODY_SFINAE
       (
         dispatching ( Discriminant{}, Tag{}, default_site<Tag>{}
@@ -112,11 +126,12 @@ namespace boost { namespace dispatch
 #define BOOST_DISPATCH_REGISTER_NAMESPACE(FALLBACK)                                                 \
 struct adl_helper {};                                                                               \
                                                                                                     \
-template<typename Tag, typename Site>                                                               \
-inline FALLBACK::generic_dispatcher<Tag>                                                            \
+template<typename Tag, typename Site, typename... Ts>                                               \
+BOOST_FORCEINLINE FALLBACK::generic_dispatcher<Tag>                                                 \
 dispatching ( adl_helper const&, ::boost::dispatch::function_<Tag> const&                           \
-            , ::boost::dispatch::unspecified_<Site> const&, ...                                     \
-            )                                                                                       \
+            , ::boost::dispatch::unspecified_<Site> const&                                          \
+            , ::boost::dispatch::unknown_<Ts> const&...                                             \
+            ) BOOST_NOEXCEPT                                                                        \
 {                                                                                                   \
   return {};                                                                                        \
 }                                                                                                   \

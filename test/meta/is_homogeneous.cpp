@@ -9,7 +9,7 @@
 #include <boost/dispatch/meta/is_homogeneous.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
 #include <boost/fusion/include/vector.hpp>
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 #include <tuple>
 
 namespace bar

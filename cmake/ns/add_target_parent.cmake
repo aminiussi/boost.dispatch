@@ -1,10 +1,13 @@
 ##==================================================================================================
-##                 Copyright 2015   NumScale SAS
+##                             Copyright 2015   NumScale SAS
 ##
 ##                   Distributed under the Boost Software License, Version 1.0.
 ##                        See accompanying file LICENSE.txt or copy at
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##==================================================================================================
+
+include(${NS_CMAKE_ROOT}/ns.cmake)
+NS_guard(NS_CMAKE_ADD_TARGET_PARENT)
 
 ##==================================================================================================
 ## if they don't already exist, create a target and all of its logical parents
@@ -19,7 +22,7 @@ function(add_target_parent target)
     set_property(TARGET ${target} PROPERTY FOLDER ${suffix})
   endif()
 
-  if(NOT parent_target STREQUAL ${target})
+  if(NOT ${parent_target} STREQUAL ${target})
     add_target_parent(${parent_target})
     add_dependencies(${parent_target} ${target})
   endif()

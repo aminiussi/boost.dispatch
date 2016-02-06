@@ -15,7 +15,7 @@
 #include <boost/dispatch/hierarchy_of.hpp>
 #include <array>
 
-#include <stf.hpp>
+#include <dispatch_test.hpp>
 
 using namespace boost::dispatch;
 
