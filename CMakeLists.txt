@@ -11,7 +11,6 @@ cmake_minimum_required(VERSION 2.8.7)
 ## -------------------------------------------------------------------------------------------------
 project(Boost.Dispatch CXX)
 set(PROJECT_DOC_DIR ${PROJECT_SOURCE_DIR}/doc)
-cmake_minimum_required(VERSION 2.8.7)
 
 ## Requirements for ns.cmake:
 ## -------------------------------------------------------------------------------------------------
@@ -62,10 +61,7 @@ if (DEFINED USE_SELF_BOOST)
   set(BOOST_DISPATCH_OPTIONS
     CMAKE_ARGS "-DBOOST_ROOT=${BOOST_HEADER_ONLY_DESTINATION}/include"
   )
-  NS_project_include(boost.dispatch)
-  add_dependencies(BOOST_DISPATCH BOOST_HEADER_ONLY)
-  add_dependencies(BOOST_DISPATCH-install BOOST_HEADER_ONLY)
-  add_dependencies(update.boost.dispatch update.boost-header-only)
+
   set(Boost_INCLUDE_DIRS
     ${BOOST_DISPATCH_DESTINATION}/include
     ${BOOST_HEADER_ONLY_DESTINATION}/include
