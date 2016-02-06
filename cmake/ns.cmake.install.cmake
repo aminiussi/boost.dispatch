@@ -12,23 +12,46 @@ if (NOT NS_CMAKE_INSTALL_DIR)
   set(NS_CMAKE_INSTALL_DIR ${PROJECT_SOURCE_DIR})
 endif()
 
+if (NOT NS_CMAKE_EXTERNAL_PROJECTS_WORKSPACE)
+  set(NS_CMAKE_EXTERNAL_PROJECTS_WORKSPACE ${PROJECT_BINARY_DIR}/_deps)
+endif()
+
 if (NOT NS_CMAKE_EXTERNAL_PROJECTS_DESTINATION)
-  set(NS_CMAKE_EXTERNAL_PROJECTS_DESTINATION ${PROJECT_SOURCE_DIR}/_deps)
+  set(NS_CMAKE_EXTERNAL_PROJECTS_DESTINATION ${PROJECT_BINARY_DIR}/_install)
 endif()
 
 if (NOT NS_CMAKE_GIT_TAG)
   set(NS_CMAKE_GIT_TAG master)
 endif()
 
-ExternalProject_Add(NS_CMAKE
+set(_PROJECT_NAME          NS_CMAKE)
+set(_PROJECT_DIR           ${NS_CMAKE_INSTALL_DIR})
+set(_PROJECT_WORKSPACE_DIR ${NS_CMAKE_EXTERNAL_PROJECTS_WORKSPACE}/_${_PROJECT_NAME})
+set(_PROJECT_SOURCE_DIR    ${_PROJECT_WORKSPACE_DIR}/${_PROJECT_NAME})
+set(_PROJECT_BUILD_DIR     ${_PROJECT_WORKSPACE_DIR}/_build)
+
+ExternalProject_Add(
+  # The project name
+  ${_PROJECT_NAME}
+
+  # Git infos
   GIT_REPOSITORY https://github.com/NumScale/ns.cmake.git
   GIT_TAG        ${NS_CMAKE_GIT_TAG}
-  PREFIX         ${NS_CMAKE_EXTERNAL_PROJECTS_DESTINATION}
 
+  # Where all the temporary stuffs will be located
+  PREFIX       ${_PROJECT_WORKSPACE_DIR}
+  SOURCE_DIR   ${_PROJECT_SOURCE_DIR}
+  BINARY_DIR   ${_PROJECT_BUILD_DIR}
+  DOWNLOAD_DIR ${_PROJECT_BUILD_DIR}/_dl
+  TMP_DIR      ${_PROJECT_BUILD_DIR}/_tmp
+  STAMP_DIR    ${_PROJECT_BUILD_DIR}/_stamp
+
+  # Install (we DO need to add the CMAKE_INSTALL_PREFIX...)
+  INSTALL_DIR ${_PROJECT_DIR}
+  CMAKE_ARGS  "-DCMAKE_INSTALL_PREFIX=${_PROJECT_DIR}"
+
+  # Steps to generate
   STEP_TARGETS   install
-
-  INSTALL_DIR    ${NS_CMAKE_INSTALL_DIR}
-  CMAKE_ARGS     "-DCMAKE_INSTALL_PREFIX=${NS_CMAKE_INSTALL_DIR}"
 )
 set(NS_CMAKE_INSTALL_TARGET NS_CMAKE-install)
 set(NS_CMAKE_SOURCES ${NS_CMAKE_INSTALL_DIR}/cmake)
@@ -45,7 +68,7 @@ add_custom_target(ns.cmake.installed
   DEPENDS ns.cmake.update
 )
 
-if (EXISTS ${NS_CMAKE_INSTALL_DIR}/cmake/ns.cmake)
+if (EXISTS ${NS_CMAKE_INSTALL_DIR}/cmake/ns/ns.cmake)
   message(STATUS "## -----------------------------------------------------------------------------")
   message("")
   message("   ns.cmake is now installed!")

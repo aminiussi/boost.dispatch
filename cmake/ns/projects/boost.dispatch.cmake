@@ -7,41 +7,43 @@
 ##===================================================================================================
 
 include(${NS_CMAKE_ROOT}/ns.cmake)
-NS_guard(NS_CMAKE_BRIGAND)
+NS_guard(NS_CMAKE_BOOST_DISPATCH)
 
 ## -------------------------------------------------------------------------------------------------
 
-if (NOT DEFINED BRIGAND_GIT_TAG)
-  set(BRIGAND_GIT_TAG master)
+if (NOT DEFINED BOOST_DISPATCH_GIT_TAG)
+  set(BOOST_DISPATCH_GIT_TAG master)
 endif()
 
-if (NOT DEFINED BRIGAND_DESTINATION)
-  set(BRIGAND_DESTINATION ${NS_CMAKE_EXTERNAL_PROJECTS_DESTINATION})
+if (NOT DEFINED BOOST_DISPATCH_DESTINATION)
+  NS_set(BOOST_DISPATCH_DESTINATION ${NS_CMAKE_EXTERNAL_PROJECTS_DESTINATION})
 endif()
 
-NS_project_add(BRIGAND
-  GIT_REPOSITORY https://github.com/edouarda/brigand.git
-  GIT_TAG        ${BRIGAND_GIT_TAG}
-  DESTINATION    ${BRIGAND_DESTINATION}
+NS_project_add(BOOST_DISPATCH
+    GIT_REPOSITORY https://github.com/NumScale/boost.dispatch.git
+  GIT_TAG        ${BOOST_DISPATCH_GIT_TAG}
+  DESTINATION    ${BOOST_DISPATCH_DESTINATION}
 
   STEP_TARGETS   install
   EXCLUDE_FROM_ALL
+
+  ${BOOST_DISPATCH_OPTIONS}
 )
 
-add_custom_target(update.brigand
-  DEPENDS ${BRIGAND_INSTALL_TARGET}
-  COMMENT "Updating brigand"
+add_custom_target(update.boost.dispatch
+  DEPENDS ${BOOST_DISPATCH_INSTALL_TARGET}
+  COMMENT "Updating boost.dispatch"
 )
 
-add_dependencies(update update.brigand)
+add_dependencies(update update.boost.dispatch)
 
-NS_project_add_git_update_target(brigand
-  ${BRIGAND_DESTINATION}/brigand
+NS_project_add_git_update_target(boost.dispatch
+  ${BOOST_DISPATCH_DESTINATION}/boost.dispatch
 )
 
 ## -------------------------------------------------------------------------------------------------
 
 set(NS_CMAKE_EXTERNAL_PROJECTS
   ${NS_CMAKE_EXTERNAL_PROJECTS}
-  BRIGAND
+  BOOST_DISPATCH
 )
