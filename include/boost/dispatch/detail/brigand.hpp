@@ -840,22 +840,32 @@ namespace brigand
 {
 namespace lazy
 {
-    template<typename Sequence, typename Predicate = detail::non_null>
+    template <typename Sequence, typename Predicate = detail::non_null>
     using find = typename detail::find_if_impl<Predicate, Sequence>;
 }
-template<typename Sequence, typename Predicate = detail::non_null>
+template <typename Sequence, typename Predicate = detail::non_null>
 using find = typename ::brigand::lazy::find<Sequence, Predicate>::type;
 namespace lazy
 {
-    template<typename Sequence, typename Predicate = detail::non_null>
-    using reverse_find = ::brigand::lazy::reverse< ::brigand::find< brigand::reverse<Sequence>, Predicate> >;
+    template <typename Sequence, typename Predicate = detail::non_null>
+    using reverse_find =
+        ::brigand::lazy::reverse<::brigand::find<brigand::reverse<Sequence>, Predicate>>;
 }
 template <typename Sequence, typename Predicate = detail::non_null>
 using reverse_find = typename ::brigand::lazy::reverse_find<Sequence, Predicate>::type;
-template<typename Sequence, typename Predicate = detail::non_null>
-using not_found = typename std::is_same<find<Sequence, Predicate>, empty_sequence>::type;
-template<typename Sequence, typename Predicate = detail::non_null>
-using found = bool_<!std::is_same<find<Sequence, Predicate>, empty_sequence>::value>;
+namespace detail
+{
+    template <typename Sequence, typename Predicate>
+    using find_size = size<brigand::find<Sequence, Predicate>>;
+    template <typename Sequence, typename Predicate>
+    using empty_find = bool_<find_size<Sequence, Predicate>::value == 0>;
+    template <typename Sequence, typename Predicate>
+    using non_empty_find = bool_<find_size<Sequence, Predicate>::value != 0>;
+}
+template <typename Sequence, typename Predicate = detail::non_null>
+using not_found = typename detail::empty_find<Sequence, Predicate>;
+template <typename Sequence, typename Predicate = detail::non_null>
+using found = typename detail::non_empty_find<Sequence, Predicate>;
 }
 namespace brigand
 {
