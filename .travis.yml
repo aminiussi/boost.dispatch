@@ -98,4 +98,4 @@ before_script:
 script:
   - make update.boost-header-only | grep -v "^-- Install" # Silent installation
   - make -k unit
-  - ctest -D Experimental
+  - ctest
