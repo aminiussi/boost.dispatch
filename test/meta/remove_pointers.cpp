@@ -11,18 +11,41 @@
 
 using namespace boost::dispatch;
 
-STF_CASE( "remove_pointers always return raw type")
+STF_CASE( "remove_pointers on non-pointer is identity")
 {
   STF_TYPE_IS( remove_pointers<float>::type        , float        );
   STF_TYPE_IS( remove_pointers<float&>::type       , float&       );
   STF_TYPE_IS( remove_pointers<float&&>::type      , float&&      );
   STF_TYPE_IS( remove_pointers<float const>::type  , float const  );
   STF_TYPE_IS( remove_pointers<float const&>::type , float const& );
+}
 
-  STF_TYPE_IS( remove_pointers<float*       >::type , float       );
-  STF_TYPE_IS( remove_pointers<float const* >::type , float const );
+STF_CASE( "remove_pointers handles const/volatile")
+{
+  STF_TYPE_IS( remove_pointers<float        *       >::type , float       );
+  STF_TYPE_IS( remove_pointers<float const  *       >::type , float const );
+  STF_TYPE_IS( remove_pointers<float        * const >::type , float );
+  STF_TYPE_IS( remove_pointers<float  const * const >::type , float const);
+
+  STF_TYPE_IS( remove_pointers<volatile float*          >::type , volatile float  );
+  STF_TYPE_IS( remove_pointers<volatile float*  const   >::type , volatile float  );
+  STF_TYPE_IS( remove_pointers<         float*  volatile>::type , float           );
+  STF_TYPE_IS( remove_pointers<volatile float*  volatile>::type , volatile float  );
+  STF_TYPE_IS( remove_pointers<const    float*  volatile>::type , const    float  );
+  STF_TYPE_IS( remove_pointers<volatile const float* volatile const>::type , const volatile float  );
+
   STF_TYPE_IS( remove_pointers<float**      >::type , float       );
   STF_TYPE_IS( remove_pointers<float const**>::type , float const );
+  STF_TYPE_IS( remove_pointers<float const* const>::type , float const );
 
+  STF_TYPE_IS( remove_pointers<float*       >::type     , float           );
+  STF_TYPE_IS( remove_pointers<volatile float* >::type  , float volatile  );
+  STF_TYPE_IS( remove_pointers<float**      >::type     , float           );
+  STF_TYPE_IS( remove_pointers<float volatile**>::type  , float volatile  );
+}
+
+STF_CASE( "scary cases for remove_pointers")
+{
   STF_TYPE_IS( remove_pointers<float****************>::type , float );
+  STF_TYPE_IS( remove_pointers<float const*const*volatile const*const***volatile**>::type , float const);
 }

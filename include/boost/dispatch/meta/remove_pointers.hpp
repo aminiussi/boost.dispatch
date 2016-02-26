@@ -16,12 +16,35 @@
 
 namespace boost { namespace dispatch
 {
-  template<typename T> struct remove_pointers                               { using type = T; };
-  template<typename T> struct remove_pointers<T*>     : remove_pointers<T>  {};
-  template<typename T> struct remove_pointers<T**>    : remove_pointers<T>  {};
-  template<typename T> struct remove_pointers<T***>   : remove_pointers<T>  {};
-  template<typename T> struct remove_pointers<T****>  : remove_pointers<T>  {};
-  template<typename T> struct remove_pointers<T*****> : remove_pointers<T>  {};
+  template<typename T> struct remove_pointers
+  {
+    using type = T;
+  };
+
+  // Fast-lanes for common scenario
+  template<typename T> struct remove_pointers<T*>       : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T**>      : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T***>     : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T****>    : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T*****>   : remove_pointers<T> {};
+
+  template<typename T> struct remove_pointers<T*     volatile > : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T**    volatile > : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T***   volatile > : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T****  volatile > : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T***** volatile > : remove_pointers<T> {};
+
+  template<typename T> struct remove_pointers<T*     const> : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T**    const> : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T***   const> : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T****  const> : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T***** const> : remove_pointers<T> {};
+
+  template<typename T> struct remove_pointers<T*      const volatile>  : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T**     const volatile>  : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T***    const volatile>  : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T****   const volatile>  : remove_pointers<T> {};
+  template<typename T> struct remove_pointers<T*****  const volatile>  : remove_pointers<T> {};
 } }
 
 #endif
