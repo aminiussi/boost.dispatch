@@ -54,16 +54,7 @@ if (DEFINED USE_SELF_BOOST)
   set(BOOST_HEADER_ONLY_GIT_TAG develop)
   NS_project_include(boost-header-only)
 
-  # NOTE: (workaround)
-  # We DO need to use `CMAKE_ARGS` here otherwise, travis is not able to find boost even when
-  # exporting BOOST_ROOT using shell export...
-  set(BOOST_DISPATCH_GIT_TAG    develop)
-  set(BOOST_DISPATCH_OPTIONS
-    CMAKE_ARGS "-DBOOST_ROOT=${BOOST_HEADER_ONLY_DESTINATION}/include"
-  )
-
   set(Boost_INCLUDE_DIRS
-    ${BOOST_DISPATCH_DESTINATION}/include
     ${BOOST_HEADER_ONLY_DESTINATION}/include
   )
 endif()
