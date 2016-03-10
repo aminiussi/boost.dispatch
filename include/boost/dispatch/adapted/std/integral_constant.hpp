@@ -14,6 +14,7 @@
 
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/hierarchy_of.hpp>
 #include <boost/dispatch/adapted/hierarchy/integral_constant.hpp>
 #include <type_traits>
 
