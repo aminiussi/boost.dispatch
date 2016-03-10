@@ -14,8 +14,9 @@
 #ifndef BOOST_DISPATCH_ADAPTED_HIERARCHY_INTEGRAL_CONSTANT_HPP_INCLUDED
 #define BOOST_DISPATCH_ADAPTED_HIERARCHY_INTEGRAL_CONSTANT_HPP_INCLUDED
 
+#include <boost/dispatch/hierarchy/scalar.hpp>
 #include <boost/dispatch/hierarchy/unspecified.hpp>
-#include <boost/dispatch/hierarchy_of.hpp>
+#include <boost/dispatch/property_of.hpp>
 
 namespace boost { namespace dispatch
 {
@@ -41,9 +42,9 @@ namespace boost { namespace dispatch
 
 #if !defined(DOXYGEN_ONLY)
   template<typename T>
-  struct  constant_< unspecified_<T> > : hierarchy_of< typename T::value_type >
+  struct  constant_< unspecified_<T> > : scalar_<property_of_t<typename T::value_type,T> >
   {
-    using parent = hierarchy_of_t< typename T::value_type, T >;
+    using parent = scalar_< property_of_t<typename T::value_type,T> >;
   };
 #endif
 } }
