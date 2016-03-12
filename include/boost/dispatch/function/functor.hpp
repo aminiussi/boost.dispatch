@@ -65,6 +65,15 @@ namespace boost { namespace dispatch
       return BOOST_DISPATCH_IMPL_TAG_CALL(Tag,Site,Args,args);
     }
   };
+
+  namespace ext
+  {
+    template<typename F, typename S, typename Origin>
+    struct hierarchy_of<boost::dispatch::functor<F,S>,Origin>
+    {
+      using type = F;
+    };
+  }
 } }
 
 #endif

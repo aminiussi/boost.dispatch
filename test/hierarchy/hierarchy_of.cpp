@@ -10,8 +10,18 @@
 #include <boost/dispatch/hierarchy.hpp>
 #include <cstdint>
 #include <cstddef>
-
 #include <dispatch_test.hpp>
+
+// This mimics one way to generate a special architecture hierarchy
+#include <boost/dispatch/hierarchy/cpu.hpp>
+
+struct wazoo : boost::dispatch::cpu_
+{
+  using parent = boost::dispatch::cpu_;
+};
+
+// This mimics one way to dispatch to different function object
+#include "moc/tutu/foo.hpp"
 
 using namespace boost::dispatch;
 struct foo {};
@@ -60,4 +70,10 @@ STF_CASE_TPL( "hierarchy_of for integral types"
   STF_TYPE_IS ( hierarchy_of_t<T>
               , (scalar_<integral_<T,CHAR_BIT*sizeof(T),sign_of_t<T>>>)
               );
+}
+
+STF_CASE( "hierarchy_of for functor" )
+{
+  STF_TYPE_IS( hierarchy_of_t<functor<tutu::titi::tag::foo_>>         , tutu::titi::tag::foo_ );
+  STF_TYPE_IS( hierarchy_of_t<functor<tutu::titi::tag::foo_>>::parent , elementwise_<tutu::titi::tag::foo_> );
 }
