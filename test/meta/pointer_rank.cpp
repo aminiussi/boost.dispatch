@@ -22,14 +22,25 @@ STF_CASE( "pointer_rank on non-pointer is 0")
   STF_EQUAL( pointer_rank<float*&>::value       , 0u );
   STF_EQUAL( pointer_rank<float*&&>::value      , 0u );
   STF_EQUAL( pointer_rank<float* const&>::value , 0u );
-  STF_EQUAL( pointer_rank<float* const>::value  , 0u );
 }
 
 STF_CASE( "pointer_rank on T{*}^n is n")
 {
-  STF_EQUAL( pointer_rank<float*>::value       , 1u );
-  STF_EQUAL( pointer_rank<float const*>::value , 1u );
+  STF_EQUAL( pointer_rank<      float*        >::value , 1u );
+  STF_EQUAL( pointer_rank<      float* const  >::value , 1u );
+  STF_EQUAL( pointer_rank<const float*        >::value , 1u );
+  STF_EQUAL( pointer_rank<const float* const  >::value , 1u );
 
-  STF_EQUAL( pointer_rank<float**         >::value , 2u );
-  STF_EQUAL( pointer_rank<float   const** >::value , 2u );
+  STF_EQUAL( pointer_rank<      float      *          *           >::value , 2u );
+  STF_EQUAL( pointer_rank<      float      *          * const     >::value , 2u );
+  STF_EQUAL( pointer_rank<      float      *          * volatile  >::value , 2u );
+  STF_EQUAL( pointer_rank<      float      * const    *           >::value , 2u );
+  STF_EQUAL( pointer_rank<      float      * volatile *           >::value , 2u );
+  STF_EQUAL( pointer_rank<      float      * const    * const     >::value , 2u );
+  STF_EQUAL( pointer_rank<const float      *          *           >::value , 2u );
+  STF_EQUAL( pointer_rank<volatile float   *          *           >::value , 2u );
+  STF_EQUAL( pointer_rank<const float      *          * const     >::value , 2u );
+  STF_EQUAL( pointer_rank<const float      *  const   *           >::value , 2u );
+  STF_EQUAL( pointer_rank<const float      *  const   * const     >::value , 2u );
+  STF_EQUAL( pointer_rank<volatile float   * volatile * volatile  >::value , 2u );
 }

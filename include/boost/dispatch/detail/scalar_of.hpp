@@ -47,36 +47,6 @@ namespace boost { namespace dispatch
     template<typename T>
     struct scalar_of : boost::dispatch::detail::scalar_of<T>
     {};
-
-    template<typename T>
-    struct scalar_of<T&&>
-      : std::conditional< std::is_same< typename boost::dispatch::detail::scalar_of<T>::type
-                                      , T
-                                      >::value
-                        , T&&
-                        , typename boost::dispatch::detail::scalar_of<T&&>::type
-                        >
-    {};
-
-    template<typename T>
-    struct scalar_of<T&>
-      : std::conditional< std::is_same< typename boost::dispatch::detail::scalar_of<T>::type
-                                      , T
-                                      >::value
-                        , T&
-                        , typename boost::dispatch::detail::scalar_of<T&>::type
-                        >
-    {};
-
-    template<typename T>
-    struct scalar_of<T const>
-      : std::conditional< std::is_same< typename boost::dispatch::detail::scalar_of<T>::type
-                                      , T
-                                      >::value
-                        , T const
-                        , typename boost::dispatch::detail::scalar_of<T const>::type
-                        >
-    {};
   }
 } }
 

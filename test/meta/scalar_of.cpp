@@ -14,9 +14,9 @@ using namespace boost::dispatch;
 
 STF_CASE( "scalar_of of basic types is the type itself" )
 {
-  STF_TYPE_IS( scalar_of_t<int>           , int           );
-  STF_TYPE_IS( scalar_of_t<char&>         , char&         );
-  STF_TYPE_IS( scalar_of_t<float&&>       , float&&       );
-  STF_TYPE_IS( scalar_of_t<long const>    , long const    );
-  STF_TYPE_IS( scalar_of_t<double const&> , double const& );
+  STF_TYPE_IS( scalar_of_t<int>           , int     );
+  STF_TYPE_IS( scalar_of_t<char&>         , char    );
+  STF_TYPE_IS( scalar_of_t<float&&>       , float   );
+  STF_TYPE_IS( scalar_of_t<long const>    , long    );
+  STF_TYPE_IS( scalar_of_t<double const&> , double  );
 }

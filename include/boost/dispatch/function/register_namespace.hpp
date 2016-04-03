@@ -66,7 +66,7 @@ namespace boost { namespace dispatch
     template<typename Discriminant,typename Tag> struct generic_dispatcher
     {
       // While ICC supports decltype-SFINAE, it causes infinite compilation times in some cases
-      #if defined(BOOST_NO_SFINAE_EXPR) || defined(__INTEL_COMPILER)
+      #if defined(BOOST_NO_SFINAE_EXPR) 
       template<typename Sig> struct result;
       template<typename This, typename... Args>
       struct result<This(Args...)>

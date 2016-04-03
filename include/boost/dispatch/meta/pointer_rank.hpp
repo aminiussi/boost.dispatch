@@ -23,6 +23,13 @@ namespace boost { namespace dispatch
   template<typename T>
   struct pointer_rank<T*>  : std::integral_constant<std::size_t,1+pointer_rank<T>::value>
   {};
+
+  template<typename T>
+  struct pointer_rank<T* const>  : std::integral_constant<std::size_t,1+pointer_rank<T>::value>
+  {};
+  template<typename T>
+  struct pointer_rank<T* volatile>  : std::integral_constant<std::size_t,1+pointer_rank<T>::value>
+  {};
 } }
 
 #endif
