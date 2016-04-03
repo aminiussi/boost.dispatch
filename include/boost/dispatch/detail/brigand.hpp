@@ -47,8 +47,15 @@ namespace brigand
 }
 namespace brigand
 {
+namespace lazy
+{
     template <typename M, typename K>
-    using lookup = decltype(M::at(type_<K>{}));
+    struct lookup
+    : decltype(M::at(type_<K>{}))
+    {};
+}
+    template <typename M, typename K>
+    using lookup = typename lazy::lookup<M,K>::type;
 namespace detail
 {
     template <class... T>
@@ -75,107 +82,22 @@ namespace detail
     struct map_impl<>
     {
         template <typename U>
-        static no_such_type_ at(U);
+        static type_<no_such_type_> at(U);
         template <class K>
         static map_impl<K> insert(type_<K>);
     };
-    template <class T0>
-    struct map_impl<T0> : map_inserter<T0>
+    template <class... Ts>
+    struct map_impl : map_inserter<Ts...>
     {
-        static typename T0::second_type at(type_<typename T0::first_type>);
-        template <typename U>
-        static no_such_type_ at(U);
-    };
-    template <class T0, class T1>
-    struct map_impl<T0, T1> : map_inserter<T0, T1>
-    {
-        static typename T0::second_type at(type_<typename T0::first_type>);
-        static typename T1::second_type at(type_<typename T1::first_type>);
-        template <typename U>
-        static no_such_type_ at(U);
-    };
-    template <class T0, class T1, class T2>
-    struct map_impl<T0, T1, T2> : map_inserter<T0, T1, T2>
-    {
-        static typename T0::second_type at(type_<typename T0::first_type>);
-        static typename T1::second_type at(type_<typename T1::first_type>);
-        static typename T2::second_type at(type_<typename T2::first_type>);
-        template <typename U>
-        static no_such_type_ at(U);
-    };
-    template <class T0, class T1, class T2, class T3>
-    struct map_impl<T0, T1, T2, T3> : map_inserter<T0, T1, T2, T3>
-    {
-        static typename T0::second_type at(type_<typename T0::first_type>);
-        static typename T1::second_type at(type_<typename T1::first_type>);
-        static typename T2::second_type at(type_<typename T2::first_type>);
-        static typename T3::second_type at(type_<typename T3::first_type>);
-        template <typename U>
-        static no_such_type_ at(U);
-    };
-    template <class T0, class T1, class T2, class T3, class T4>
-    struct map_impl<T0, T1, T2, T3, T4> : map_inserter<T0, T1, T2, T3, T4>
-    {
-        static typename T0::second_type at(type_<typename T0::first_type>);
-        static typename T1::second_type at(type_<typename T1::first_type>);
-        static typename T2::second_type at(type_<typename T2::first_type>);
-        static typename T3::second_type at(type_<typename T3::first_type>);
-        static typename T4::second_type at(type_<typename T4::first_type>);
-        template <typename U>
-        static no_such_type_ at(U);
-    };
-    template <class T0, class T1, class T2, class T3, class T4, class T5>
-    struct map_impl<T0, T1, T2, T3, T4, T5> : map_inserter<T0, T1, T2, T3, T4, T5>
-    {
-        static typename T0::second_type at(type_<typename T0::first_type>);
-        static typename T1::second_type at(type_<typename T1::first_type>);
-        static typename T2::second_type at(type_<typename T2::first_type>);
-        static typename T3::second_type at(type_<typename T3::first_type>);
-        static typename T4::second_type at(type_<typename T4::first_type>);
-        static typename T5::second_type at(type_<typename T5::first_type>);
-        template <typename U>
-        static no_such_type_ at(U);
-    };
-    template <class T0, class T1, class T2, class T3, class T4, class T5, class T6>
-    struct map_impl<T0, T1, T2, T3, T4, T5, T6> : map_inserter<T0, T1, T2, T3, T4, T5, T6>
-    {
-        static typename T0::second_type at(type_<typename T0::first_type>);
-        static typename T1::second_type at(type_<typename T1::first_type>);
-        static typename T2::second_type at(type_<typename T2::first_type>);
-        static typename T3::second_type at(type_<typename T3::first_type>);
-        static typename T4::second_type at(type_<typename T4::first_type>);
-        static typename T5::second_type at(type_<typename T5::first_type>);
-        static typename T6::second_type at(type_<typename T6::first_type>);
-        template <typename U>
-        static no_such_type_ at(U);
-    };
-    template <class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7>
-    struct map_impl<T0, T1, T2, T3, T4, T5, T6, T7> : map_inserter<T0, T1, T2, T3, T4, T5, T6, T7>
-    {
-        static typename T0::second_type at(type_<typename T0::first_type>);
-        static typename T1::second_type at(type_<typename T1::first_type>);
-        static typename T2::second_type at(type_<typename T2::first_type>);
-        static typename T3::second_type at(type_<typename T3::first_type>);
-        static typename T4::second_type at(type_<typename T4::first_type>);
-        static typename T5::second_type at(type_<typename T5::first_type>);
-        static typename T6::second_type at(type_<typename T6::first_type>);
-        static typename T7::second_type at(type_<typename T7::first_type>);
-        template <typename U>
-        static no_such_type_ at(U);
-    };
-    template <class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class... T>
-    struct map_impl<T0, T1, T2, T3, T4, T5, T6, T7, T...> : map_inserter<T0, T1, T2, T3, T4, T5, T6, T7, T...>
-    {
-        static typename T0::second_type at(type_<typename T0::first_type>);
-        static typename T1::second_type at(type_<typename T1::first_type>);
-        static typename T2::second_type at(type_<typename T2::first_type>);
-        static typename T3::second_type at(type_<typename T3::first_type>);
-        static typename T4::second_type at(type_<typename T4::first_type>);
-        static typename T5::second_type at(type_<typename T5::first_type>);
-        static typename T6::second_type at(type_<typename T6::first_type>);
-        static typename T7::second_type at(type_<typename T7::first_type>);
-        template <typename U>
-        static decltype(map_impl<T...>::at(U{})) at(U);
+    private:
+        struct Pack : pair<typename Ts::first_type, Ts>... {};
+        template<class K, class P>
+        static type_<typename P::second_type> at_impl(pair<K,P>*);
+    public:
+        template<class K>
+        static decltype(at_impl<K>(static_cast<Pack*>(nullptr))) at(type_<K>);
+        template<class K>
+        static type_<no_such_type_> at(K);
     };
     template<class... Ts>
     struct make_map : type_<typename Ts::first_type>... {
@@ -225,13 +147,13 @@ namespace brigand
     template<class... Ts>
     struct element_at<list<Ts...>>
     {
-      template<class T> T static at(Ts..., T*, ...);
+      template<class T> type_<T> static at(Ts..., T*, ...);
     };
     template<std::size_t N, typename Seq> struct at_impl;
     template<std::size_t N, template<typename...> class L, class... Ts>
     struct at_impl<N,L<Ts...>>
+    : decltype(element_at<brigand::filled_list<void const *, N>>::at(static_cast<Ts*>(nullptr)...))
     {
-      using type = decltype(element_at<brigand::filled_list<void const *, N>>::at(static_cast<Ts*>(nullptr)...));
     };
   }
   template <class L, std::size_t Index>
