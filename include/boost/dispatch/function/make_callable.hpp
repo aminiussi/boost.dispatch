@@ -18,6 +18,7 @@
 #include <boost/dispatch/function/functor.hpp>
 #include <boost/dispatch/hierarchy/base.hpp>
 #include <boost/dispatch/detail/auto_decltype.hpp>
+#include <boost/preprocessor/punctuation/remove_parens.hpp>
 #include <boost/config.hpp>
 
 /*!
@@ -52,7 +53,10 @@ using parent = PARENT                                                           
   @param PARENT Tag's parent hierarchy
 **/
 #define BOOST_DISPATCH_MAKE_TAG(NS,TAG, PARENT)                                                     \
-struct TAG : PARENT { BOOST_DISPATCH_MAKE_CALLABLE(NS,TAG,PARENT); }                                \
+struct TAG : BOOST_PP_REMOVE_PARENS(PARENT)                                                         \
+{                                                                                                   \
+  BOOST_DISPATCH_MAKE_CALLABLE(NS,TAG,BOOST_PP_REMOVE_PARENS(PARENT));                              \
+}                                                                                                   \
 /**/
 
 /*!
