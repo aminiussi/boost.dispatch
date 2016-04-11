@@ -16,7 +16,9 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/tuple/rem.hpp>
+#include <boost/preprocessor/punctuation/remove_parens.hpp>
 #include <boost/config.hpp>
+#include <type_traits>
 
 /*!
   @ingroup group-function
@@ -46,6 +48,19 @@ template<BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)>                                    
 BOOST_PP_CAT(impl_,TAG)<__VA_ARGS__>                                                                \
 BOOST_DISPATCH_IMPLEMENTS(TAG,__VA_ARGS__) BOOST_NOEXCEPT { return {}; }                            \
 template<BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)> struct BOOST_PP_CAT(impl_,TAG)<__VA_ARGS__>            \
+/**/
+
+/*!
+  @ingroup group-function
+**/
+#define BOOST_DISPATCH_OVERLOAD_IF(TAG, TEMPLATES, COND, ... )                                      \
+template< BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)                                                        \
+        , typename = typename std::enable_if<BOOST_PP_REMOVE_PARENS(COND)::value>::type             \
+        >                                                                                           \
+BOOST_PP_CAT(impl_,TAG)<BOOST_PP_REMOVE_PARENS(COND),__VA_ARGS__>                                   \
+BOOST_DISPATCH_IMPLEMENTS(TAG,__VA_ARGS__) BOOST_NOEXCEPT { return {}; }                            \
+template<BOOST_PP_TUPLE_REM_CTOR(TEMPLATES)>                                                        \
+struct BOOST_PP_CAT(impl_,TAG)<BOOST_PP_REMOVE_PARENS(COND),__VA_ARGS__>                            \
 /**/
 
 /*!
