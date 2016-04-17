@@ -70,7 +70,7 @@ namespace boost { namespace dispatch
       template<typename Sig> struct result;
       template<typename This, typename... Args>
       struct result<This(Args...)>
-           : boost::result_of
+           : std::result_of
                     < decltype( dispatching ( Discriminant{}, Tag{}, default_site<Tag>{}
                                             , ::boost::dispatch::hierarchy_of_t<Args&&>()...
                                             )
