@@ -69,4 +69,4 @@ after_test:
 # to run your custom scripts instead of automatic tests
 test_script:
  - cd c:\sources\boost.dispatch\build
- - cmd: ctest -C Release -D Experimental
+ - cmd: ctest -C Release
