@@ -6,8 +6,6 @@
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##===================================================================================================
 
-add_definitions(-DBOOST_ENABLE_ASSERT_HANDLER)
-
 set ( SOURCES
       hierarchy_of.cpp
       models.cpp
@@ -15,5 +13,5 @@ set ( SOURCES
       property_of.cpp
     )
 
-make_unit( "boost.dispatch.hierarchy" ${SOURCES})
-make_coverage("boost.dispatch.hierarchy" ${SOURCES})
+make_unit( "hierarchy" ${SOURCES})
+make_coverage("hierarchy" ${SOURCES})

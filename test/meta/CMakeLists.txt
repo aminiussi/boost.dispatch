@@ -6,8 +6,6 @@
 ##                            http://www.boost.org/LICENSE_1_0.txt
 ##===================================================================================================
 
-add_definitions(-DBOOST_ENABLE_ASSERT_HANDLER)
-
 set ( SOURCES
       apply_sign.cpp
       as_floating.cpp
@@ -33,5 +31,5 @@ set ( SOURCES
       value_of.cpp
     )
 
-make_unit( "boost.dispatch.meta" ${SOURCES})
-make_coverage("boost.dispatch.meta" ${SOURCES})
+make_unit( "meta" ${SOURCES})
+make_coverage("meta" ${SOURCES})
