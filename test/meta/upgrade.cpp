@@ -37,6 +37,8 @@ STF_CASE_TPL( "Upgradable integral types turn into their next-of-kind"
   STF_EXPECT( sizeof(result_type)          == 2*sizeof(T));
   STF_EXPECT( sizeof(signed_result_type)   == 2*sizeof(T));
   STF_EXPECT( sizeof(unsigned_result_type) == 2*sizeof(T));
+
+  STF_EXPECT( is_upgradable<T>::value );
 }
 
 STF_CASE_TPL( "Top integral types stay put", (std::int64_t)(std::uint64_t) )
@@ -57,6 +59,8 @@ STF_CASE_TPL( "Top integral types stay put", (std::int64_t)(std::uint64_t) )
   STF_EXPECT( sizeof(result_type)          == sizeof(T));
   STF_EXPECT( sizeof(signed_result_type)   == sizeof(T));
   STF_EXPECT( sizeof(unsigned_result_type) == sizeof(T));
+
+  STF_EXPECT_NOT( is_upgradable<T>::value );
 }
 
 STF_CASE("Upgrading float leads to double")
@@ -68,6 +72,8 @@ STF_CASE("Upgrading float leads to double")
   STF_TYPE_IS( upgrade_t<float const&>    , double );
   STF_TYPE_IS( (upgrade_t<float,signed>)  , double );
   STF_TYPE_IS( (upgrade_t<float,unsigned>), double );
+
+  STF_EXPECT( is_upgradable<float>::value );
 }
 
 STF_CASE("Upgrading double leads to double")
@@ -79,4 +85,6 @@ STF_CASE("Upgrading double leads to double")
   STF_TYPE_IS( upgrade_t<double const&>    , double );
   STF_TYPE_IS( (upgrade_t<double,signed>)  , double );
   STF_TYPE_IS( (upgrade_t<double,unsigned>), double );
+
+  STF_EXPECT_NOT( is_upgradable<double>::value );
 }

@@ -51,6 +51,10 @@ namespace boost { namespace dispatch
 
   template<typename T,typename Sign = sign_of_t<T>>
   using upgrade_t = typename upgrade<T,Sign>::type;
+
+  template<typename T>
+  struct is_upgradable : brigand::bool_<!std::is_same<T, typename upgrade<T>::type>::value>
+  {};
 } }
 
 #endif

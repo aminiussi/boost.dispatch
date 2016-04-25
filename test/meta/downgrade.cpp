@@ -36,6 +36,8 @@ STF_CASE_TPL( "Downgradable integral types turn into their prev-of-kind"
   STF_EXPECT( sizeof(result_type)          == sizeof(T)/2);
   STF_EXPECT( sizeof(signed_result_type)   == sizeof(T)/2);
   STF_EXPECT( sizeof(unsigned_result_type) == sizeof(T)/2);
+
+  STF_EXPECT( is_downgradable<T>::value );
 }
 
 STF_CASE_TPL( "Bottom integral types stay put"
@@ -58,6 +60,8 @@ STF_CASE_TPL( "Bottom integral types stay put"
   STF_EXPECT( sizeof(result_type)          == sizeof(T));
   STF_EXPECT( sizeof(signed_result_type)   == sizeof(T));
   STF_EXPECT( sizeof(unsigned_result_type) == sizeof(T));
+
+  STF_EXPECT_NOT( is_downgradable<T>::value );
 }
 
 STF_CASE("Downgrading bool leads to bool")
@@ -69,6 +73,8 @@ STF_CASE("Downgrading bool leads to bool")
   STF_TYPE_IS( downgrade_t<bool const&>    , bool );
   STF_TYPE_IS( (downgrade_t<bool,signed>)  , bool );
   STF_TYPE_IS( (downgrade_t<bool,unsigned>), bool );
+
+  STF_EXPECT_NOT( is_downgradable<bool>::value );
 }
 
 STF_CASE("Downgrading float leads to float")
@@ -80,6 +86,8 @@ STF_CASE("Downgrading float leads to float")
   STF_TYPE_IS( downgrade_t<float const&>    , float );
   STF_TYPE_IS( (downgrade_t<float,signed>)  , float );
   STF_TYPE_IS( (downgrade_t<float,unsigned>), float );
+
+  STF_EXPECT_NOT( is_downgradable<float>::value );
 }
 
 STF_CASE("Upgrading double leads to float")
@@ -91,4 +99,6 @@ STF_CASE("Upgrading double leads to float")
   STF_TYPE_IS( downgrade_t<double const&>    , float );
   STF_TYPE_IS( (downgrade_t<double,signed>)  , float );
   STF_TYPE_IS( (downgrade_t<double,unsigned>), float );
+
+  STF_EXPECT( is_downgradable<double>::value );
 }

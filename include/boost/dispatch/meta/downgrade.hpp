@@ -52,6 +52,10 @@ namespace boost { namespace dispatch
 
   template<typename T,typename Sign = sign_of_t<T>>
   using downgrade_t = typename downgrade<T,Sign>::type;
+
+  template<typename T>
+  struct is_downgradable : brigand::bool_<!std::is_same<T, typename downgrade<T>::type>::value>
+  {};
 } }
 
 #endif
