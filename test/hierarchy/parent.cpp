@@ -20,12 +20,12 @@ using namespace boost::dispatch;
 STF_CASE( "Parenthood of base hierarchies" )
 {
   STF_TYPE_IS( type_<void>::parent    , unknown_<void>  );
-  STF_TYPE_IS( function_<void>::parent, unknown_<void>  );
   STF_TYPE_IS( cpu_::parent           , formal_         );
 }
 
 STF_CASE( "Parenthood of function object hierarchies" )
 {
+  STF_TYPE_IS( function_<void>::parent, unspecified_<void>  );
   STF_TYPE_IS( elementwise_<void>::parent            , function_<void> );
   STF_TYPE_IS( (reduction_<void,void,void>::parent)  , function_<void> );
   STF_TYPE_IS( (cumulative_<void,void,void>::parent) , function_<void> );

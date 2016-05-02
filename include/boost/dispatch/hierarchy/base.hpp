@@ -38,17 +38,6 @@ namespace boost { namespace dispatch
   {
     using parent        =  unknown_<T>;
   };
-
-  /*!
-    @ingroup group-tag
-    @brief Root function hierarchy tag
-
-    The function_ hierarchy classify function related informations.
-  **/
-  template<typename T> struct function_ : unknown_<T>
-  {
-    using parent        =  unknown_<T>;
-  };
 } }
 
 #endif

@@ -14,10 +14,21 @@
 #ifndef BOOST_DISPATCH_HIERARCHY_FUNCTIONS_HPP_INCLUDED
 #define BOOST_DISPATCH_HIERARCHY_FUNCTIONS_HPP_INCLUDED
 
-#include <boost/dispatch/hierarchy/fundamental.hpp>
+#include <boost/dispatch/hierarchy/unspecified.hpp>
 
 namespace boost { namespace dispatch
 {
+  /*!
+    @ingroup group-tag
+    @brief Root function hierarchy tag
+
+    The function_ hierarchy classify function related informations.
+  **/
+  template<typename T> struct function_ : unspecified_<T>
+  {
+    using parent        =  unspecified_<T>;
+  };
+
   /*!
     @ingroup group-tag
     @brief Abstract function hierarchy tag
