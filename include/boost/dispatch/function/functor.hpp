@@ -14,8 +14,12 @@
 #include <boost/config.hpp>
 #include <utility>
 
+#define BOOST_DISPATCH_IMPL_TAG_CALL_TYPE(TAG,SITE,TS,AS)                                                \
+TAG::dispatch_to(std::declval<SITE>(),std::declval<typename boost::dispatch::hierarchy_of<TS>::type>()...)( std::forward<TS>(AS)...)         \
+/**/
+
 #define BOOST_DISPATCH_IMPL_TAG_CALL(TAG,SITE,TS,AS)                                                \
-TAG::dispatch_to(SITE(),boost::dispatch::hierarchy_of_t<TS>()...)( std::forward<TS>(AS)...)         \
+TAG::dispatch_to(SITE(),typename boost::dispatch::hierarchy_of<TS>::type()...)( std::forward<TS>(AS)...)         \
 /**/
 
 namespace boost { namespace dispatch
@@ -60,7 +64,7 @@ namespace boost { namespace dispatch
     template<typename... Args> BOOST_FORCEINLINE
     auto operator()(Args&&... args) const
         BOOST_NOEXCEPT_IF(BOOST_NOEXCEPT_EXPR(BOOST_DISPATCH_IMPL_TAG_CALL(Tag,Site,Args,args)))
-        -> decltype (BOOST_DISPATCH_IMPL_TAG_CALL(Tag,Site,Args,args))
+        -> decltype (BOOST_DISPATCH_IMPL_TAG_CALL_TYPE(Tag,Site,Args,args))
     {
       return BOOST_DISPATCH_IMPL_TAG_CALL(Tag,Site,Args,args);
     }
