@@ -42,7 +42,7 @@ namespace boost { namespace dispatch
   template<typename Tag, typename Site> struct error_
   {
     /// Error inducing information carrier
-    template<typename... Call> struct no_such_overload;
+    template<typename... Call> struct no_such_overload {};
 
     template<typename... Ts>
     BOOST_FORCEINLINE no_such_overload<Tag(Site,Ts...)>
@@ -51,7 +51,7 @@ namespace boost { namespace dispatch
 
   namespace meta
   {
-    // The 'no luck Sherlock' case returns an incomplete type to emit an informative message
+    // The 'no luck Sherlock' case returns a type that emits an informative message
     template<typename F, typename A, typename... Ts>
     BOOST_FORCEINLINE error_<F,A>
     dispatching ( adl_helper const&, function_<F> const&, unspecified_<A> const&
