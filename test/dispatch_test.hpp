@@ -7,8 +7,12 @@
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 */
 //==================================================================================================
-#ifndef DISPATCH_TEST_HPP_INCLUDED
-#define DISPATCH_TEST_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_TEST_HPP_INCLUDED
+#define BOOST_DISPATCH_TEST_HPP_INCLUDED
+
+#if defined(BOOST_DISPATCH_USE_INCOMPLETE_STD)
+#define STF_USE_INCOMPLETE_STD
+#endif
 
 #define STF_CUSTOM_DRIVER_FUNCTION dispatch_test
 #include <stf.hpp>

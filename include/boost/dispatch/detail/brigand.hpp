@@ -697,7 +697,7 @@ namespace lazy
 {
     template <typename Sequence, typename Predicate = detail::non_null>
     using reverse_find =
-        ::brigand::lazy::reverse<::brigand::find<brigand::reverse<Sequence>, Predicate>>;
+        ::brigand::lazy::reverse< ::brigand::find<brigand::reverse<Sequence>, Predicate>>;
 }
 template <typename Sequence, typename Predicate = detail::non_null>
 using reverse_find = typename ::brigand::lazy::reverse_find<Sequence, Predicate>::type;
@@ -788,7 +788,7 @@ namespace brigand { namespace detail
   struct fold_impl<Functor, State, Sequence<T0, T1, T2, T3>>
   {
       using type = brigand::apply<Functor,
-          brigand::apply<Functor, 
+          brigand::apply<Functor,
               brigand::apply<Functor,
                   brigand::apply<Functor, State, T0>, T1
               >, T2
