@@ -10,6 +10,8 @@
 #ifndef BOOST_DISPATCH_TEST_HPP_INCLUDED
 #define BOOST_DISPATCH_TEST_HPP_INCLUDED
 
+#include <boost/dispatch/config.hpp>
+
 #if defined(BOOST_DISPATCH_USE_INCOMPLETE_STD)
 #define STF_USE_INCOMPLETE_STD
 #endif

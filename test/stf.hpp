@@ -12,6 +12,7 @@
 #include <cstdlib>
 #include <string>
 #include <boost/config.hpp>
+
 namespace stf
 {
   namespace detail
@@ -289,6 +290,7 @@ namespace stf
 } }
 #include <algorithm>
 #include <random>
+
 namespace stf
 {
   template<typename Environment, typename Suite, typename... Setup>
@@ -341,14 +343,30 @@ namespace stf
 }
 #include <cstddef>
 #include <type_traits>
+
+#if defined(STF_USE_INCOMPLETE_STD)
+#include <boost/utility/declval.hpp>
 namespace stf { namespace detail
 {
+  using boost::declval;
+} }
+#else
+#include <utility>
+namespace stf { namespace detail
+{
+  using std::declval;
+} }
+#endif
+
+namespace stf { namespace detail
+{
+
   template<typename T> struct is_container
   {
     template<typename U>
-    static auto test( int ) -> decltype ( std::declval<U>().begin()
-                                        , std::declval<U>().end()
-                                        , std::declval<U>().size()
+    static auto test( int ) -> decltype ( declval<U>().begin()
+                                        , declval<U>().end()
+                                        , declval<U>().size()
                                         , std::true_type()
                                         );
     template<typename>
@@ -398,7 +416,7 @@ namespace stf { namespace detail
   template<typename T> struct is_streamable
   {
     template<typename U>
-    static auto test( int ) -> decltype ( std::cout << std::declval<U>()
+    static auto test( int ) -> decltype ( std::cout << detail::declval<U>()
                                         , std::true_type()
                                         );
     template<typename>
@@ -423,6 +441,7 @@ namespace stf { namespace detail
 #include <cstddef>
 #include <string>
 #include <iomanip>
+
 namespace stf
 {
   inline std::string to_string( stf::detail::nullptr_t )  { return "nullptr";             }
@@ -430,6 +449,7 @@ namespace stf
   inline std::string to_string( std::string const& v )    { return v;                     }
   inline std::string to_string( char const* v )           { return std::string(v);        }
   inline std::string to_string( char v )                  { return std::string(1, v);     }
+
   template <typename T>
   inline detail::if_streamable<T,std::string> to_string( T const& value)
   {

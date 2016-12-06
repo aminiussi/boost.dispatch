@@ -20,6 +20,7 @@
 #include <boost/dispatch/hierarchy/base.hpp>
 #include <boost/dispatch/hierarchy_of.hpp>
 #include <boost/dispatch/detail/auto_decltype.hpp>
+#include <boost/dispatch/detail/declval.hpp>
 #include <boost/utility/result_of.hpp>
 #include <boost/config.hpp>
 #include <utility>
@@ -67,17 +68,22 @@ namespace boost { namespace dispatch
     template<typename Discriminant,typename Tag> struct generic_dispatcher
     {
       // While ICC supports decltype-SFINAE, it causes infinite compilation times in some cases
+      // ICC also have to deal with underlying g++ libraries on linux, which can be quite old
+      // on CentOS (often used on HPC clusters). g++ implementation of result_of rely on the 
+      // presence of nested 'result<T> type' (at least on 4.4.x) and boost's functionnal is no 
+      // better. As a result we need to avoid using it.
       #if defined(BOOST_NO_SFINAE_EXPR)
       template<typename Sig> struct result;
       template<typename This, typename... Args>
       struct result<This(Args...)>
-           : std::result_of
-                    < decltype( dispatching ( Discriminant{}, Tag{}, default_site<Tag>{}
-                                            , ::boost::dispatch::hierarchy_of_t<Args&&>()...
-                                            )
-                              )(Args...)
-                    >
-      {};
+      {
+        static
+        auto invoke(Args&&... args)
+          -> decltype( dispatching ( Discriminant{}, Tag{}, default_site<Tag>{},
+                                     typename ::boost::dispatch::hierarchy_of<Args&&>::type ()...
+                                     )(std::forward<Args>(args)...));
+        using type = decltype(invoke(detail::declval<Args>()...));
+      };
 
       template<typename... Args>
       BOOST_FORCEINLINE typename result<generic_dispatcher(Args&&...)>::type
